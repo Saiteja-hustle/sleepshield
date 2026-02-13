@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SleepShield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <div class="header">
+      <span class="logo">&#x1F6E1;&#xFE0F;</span>
+      <h1>SleepShield</h1>
+    </div>
+
+    <!-- Not set up yet -->
+    <div id="setup-prompt" class="hidden">
+      <p class="setup-msg">Set up your sleep schedule to get started.</p>
+      <button class="btn btn-primary" id="btn-setup">Set Up SleepShield</button>
+    </div>
+
+    <!-- Main dashboard -->
+    <div id="dashboard" class="hidden">
+      <div class="status-badge" id="status-badge">
+        <span class="status-icon" id="status-icon"></span>
+        <span class="status-text" id="status-text"></span>
+      </div>
+
+      <div class="info-row" id="schedule-info"></div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-value" id="streak-count">0</span>
+          <span class="stat-label">Night Streak</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="blocked-count">0</span>
+          <span class="stat-label">Blocked Tonight</span>
+        </div>
+      </div>
+
+      <a class="settings-link" id="settings-link">Settings</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

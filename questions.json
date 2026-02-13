@@ -1,0 +1,112 @@
+{
+  "fake_productivity": [
+    {
+      "id": "fp1",
+      "text": "You're trying to open [site] at [time]. Quick honesty check: is this genuinely urgent, or are you wearing a productivity costume to avoid going to bed?"
+    },
+    {
+      "id": "fp2",
+      "text": "That [site] task will take you 20 minutes tonight with a tired brain. Or 7 minutes tomorrow with a fresh one. Which sounds smarter?"
+    },
+    {
+      "id": "fp3",
+      "text": "You know what's more productive than editing a doc at [time]? Sleeping. Literally. Your brain solves problems in REM sleep. Free productivity. Just close the laptop."
+    },
+    {
+      "id": "fp4",
+      "text": "Late-night 'productivity' has a name: it's called procrastinating on sleep while feeling responsible. We see you."
+    },
+    {
+      "id": "fp5",
+      "text": "If your boss texted you right now and said 'stop working, go to sleep' — would you listen? Consider this that text."
+    },
+    {
+      "id": "fp6",
+      "text": "Nothing on [site] is going to collapse overnight. But your energy tomorrow will if you don't sleep. Priorities?"
+    },
+    {
+      "id": "fp7",
+      "text": "Fun fact: decisions made after 11 PM are statistically worse than decisions made at 9 AM. Maybe save that [site] session for when your brain is actually online?"
+    }
+  ],
+  "playful_roast": [
+    {
+      "id": "pr1",
+      "text": "It's [time]. Your alarm is set for [wake_time]. This is the part of the movie where the audience screams DON'T DO IT."
+    },
+    {
+      "id": "pr2",
+      "text": "You're trying to open [site] at [time]. Your pillow is RIGHT THERE. It's warm. It misses you. Don't do this to it."
+    },
+    {
+      "id": "pr3",
+      "text": "Future-you is watching from tomorrow morning. Future-you has bags under their eyes. Future-you blames this exact moment."
+    },
+    {
+      "id": "pr4",
+      "text": "You installed a sleep extension. You literally asked for this intervention. And now you're trying to dodge it. The irony is *chef's kiss*."
+    },
+    {
+      "id": "pr5",
+      "text": "You've been caught trying to open [site] at [time]. How do you plead?"
+    }
+  ],
+  "cost_calculator": [
+    {
+      "id": "cc1",
+      "text": "You have [hours_left] hours until your alarm. Every minute here trades REM sleep for screen time. REM is where creativity lives. Still worth it?"
+    },
+    {
+      "id": "cc2",
+      "text": "30 min of late-night screen time = roughly 20% less focus tomorrow. That's not made up. That's what sleep research says. Your call."
+    },
+    {
+      "id": "cc3",
+      "text": "If you sleep now: [hours_left] hours of sleep. If you stay for 'just 30 minutes': that minus 30 min of sleep + regret. The math is simple."
+    },
+    {
+      "id": "cc4",
+      "text": "Every hour of lost sleep costs you approximately 2 hours of productive work tomorrow. You're about to make an expensive trade."
+    }
+  ],
+  "identity_nudge": [
+    {
+      "id": "in1",
+      "text": "The version of you who wakes up at [wake_time] and owns the morning? They're asleep right now. Join them."
+    },
+    {
+      "id": "in2",
+      "text": "Every night you protect your sleep is a vote for the person you actually want to be. What's tonight's vote?"
+    },
+    {
+      "id": "in3",
+      "text": "You're [streak] nights into your streak. That's not luck. That's a pattern becoming a lifestyle. Keep it going?"
+    },
+    {
+      "id": "in4",
+      "text": "Small decisions compound. This one 'close tab' click tonight is worth more than you think."
+    }
+  ],
+  "absurd_funny": [
+    {
+      "id": "af1",
+      "text": "In the entire history of humanity, nobody has ever woken up and said 'I'm so glad I stayed up until 2 AM on [site].' Be the exception? Or be smart?"
+    },
+    {
+      "id": "af2",
+      "text": "If your future self could send you one text right now, it would just say: 'bro.'"
+    },
+    {
+      "id": "af3",
+      "text": "This is attempt #[attempt_count] tonight. At what point do we admit this is a pattern and not a coincidence?"
+    },
+    {
+      "id": "af4",
+      "text": "Pick one: (A) 8 hours of sleep and an awesome tomorrow, or (B) whatever's on [site] that you'll forget in 12 seconds. Choose wisely."
+    },
+    {
+      "id": "af5",
+      "text": "Your laptop doesn't need you right now. It's a machine. It has no feelings. Go to bed. It'll be fine."
+    }
+  ]
+}

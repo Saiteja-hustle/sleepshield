@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SleepShield — Site Blocked</title>
+  <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+  <div class="container" id="main-screen">
+    <div class="shield-icon">&#x1F6E1;&#xFE0F;</div>
+    <h1 class="site-name" id="site-name"></h1>
+    <p class="time-notice" id="time-notice"></p>
+    <div class="question-card" id="question-card">
+      <p id="question-text"></p>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-bar">
+        <div class="countdown-fill" id="countdown-fill"></div>
+      </div>
+      <span id="countdown-text"></span>
+    </div>
+    <div class="actions hidden" id="actions">
+      <button class="btn btn-sleep" id="btn-sleep">You're right. Goodnight. &#x1F634;</button>
+      <button class="btn btn-override" id="btn-override">Let me through anyway</button>
+    </div>
+  </div>
+
+  <!-- Override duration picker (shown after clicking "Let me through") -->
+  <div class="container hidden" id="override-screen">
+    <h2>How long do you need?</h2>
+    <p class="override-subtitle">Shorter is smarter. You know this.</p>
+    <div class="override-options">
+      <button class="btn btn-duration btn-duration-short" data-minutes="2">Just 2 minutes</button>
+      <button class="btn btn-duration btn-duration-medium" data-minutes="15">15 minutes</button>
+      <button class="btn btn-duration btn-duration-medium" data-minutes="30">30 minutes</button>
+      <button class="btn btn-duration btn-duration-long" data-minutes="60">1 hour</button>
+      <button class="btn btn-duration btn-duration-nuclear" data-minutes="-1">
+        Until wake-up
+        <span class="duration-warning">This resets your streak</span>
+      </button>
+    </div>
+    <button class="btn btn-back" id="btn-back">Actually, never mind. Goodnight.</button>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>
