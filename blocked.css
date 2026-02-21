@@ -1,14 +1,14 @@
 :root {
-  --bg: #0d0d1a;
-  --surface: #1a1a2e;
-  --text: #e0e0e0;
-  --text-muted: #888;
+  --bg: #1a1a2e;
+  --bg-deep: #16213e;
+  --surface: #1f2942;
+  --text: #f0e6d3;
+  --text-muted: #a89f91;
+  --text-dim: #6b6358;
   --primary: #6C63FF;
   --green: #4CAF50;
   --green-dark: #388E3C;
-  --gray: #555;
-  --gray-dark: #333;
-  --red-muted: #a04040;
+  --border: #2a3550;
 }
 
 * {
@@ -28,95 +28,93 @@ body {
   padding: 2rem;
 }
 
+/* ── Layout ── */
+
 .container {
-  max-width: 600px;
+  max-width: 560px;
   width: 100%;
   text-align: center;
-  animation: fadeIn 0.5s ease;
 }
 
 .container.hidden {
   display: none;
 }
 
+/* ── Shield Icon ── */
+
 .shield-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  opacity: 0.9;
 }
 
+/* ── Header Info ── */
+
 .site-name {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--primary);
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .time-notice {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-bottom: 2rem;
 }
+
+/* ── Question Card ── */
 
 .question-card {
   background: var(--surface);
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  margin-bottom: 1.5rem;
   border-left: 4px solid var(--primary);
+  opacity: 0;
+  animation: questionFadeIn 3s ease forwards;
 }
 
 .question-card p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.2rem;
+  line-height: 1.7;
   color: var(--text);
+  font-weight: 400;
 }
 
-/* Countdown */
-.countdown {
-  margin-bottom: 2rem;
-}
+/* ── Countdown Text ── */
 
-.countdown-bar {
-  width: 100%;
-  height: 4px;
-  background: var(--gray-dark);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.countdown-fill {
-  height: 100%;
-  background: var(--primary);
-  border-radius: 2px;
-  width: 100%;
-  transition: width 1s linear;
-}
-
-#countdown-text {
+.countdown-text {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  min-height: 1.2em;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 3s forwards;
 }
 
-/* Buttons */
+/* ── Action Buttons ── */
+
 .actions {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   align-items: center;
-  animation: fadeIn 0.4s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.actions.hidden {
-  display: none;
+.actions.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .btn {
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-family: inherit;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.15s;
 }
 
 .btn:hover {
@@ -124,84 +122,87 @@ body {
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
+/* Sleep (primary positive action) */
 .btn-sleep {
   background: var(--green);
   color: #fff;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   padding: 1rem 2.5rem;
   width: 100%;
   max-width: 400px;
   font-weight: 600;
+  border-radius: 12px;
 }
 
+/* Override (secondary, subtle) */
 .btn-override {
   background: transparent;
-  color: var(--text-muted);
+  color: var(--text-dim);
   font-size: 0.8rem;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--gray-dark);
+  border: 1px solid var(--border);
+  opacity: 0;
+  animation: overrideFadeIn 3s ease 7s forwards;
 }
 
-/* Override duration screen */
-.override-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin: 1.5rem 0;
-  align-items: center;
+/* ── Screen 2: Override Reason Picker ── */
+
+.checkin-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
 }
 
-.override-subtitle {
+.checkin-subtitle {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.btn-duration {
-  width: 100%;
-  max-width: 350px;
-  padding: 0.9rem 1.5rem;
-  font-size: 1rem;
-  color: #fff;
-  position: relative;
-}
-
-.btn-duration-short {
-  background: var(--green);
-  font-size: 1.1rem;
-  padding: 1rem 1.5rem;
-}
-
-.btn-duration-medium {
-  background: var(--gray);
   font-size: 0.95rem;
+  margin-bottom: 2rem;
 }
 
-.btn-duration-long {
-  background: var(--gray-dark);
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  max-width: 280px;
-}
-
-.btn-duration-nuclear {
-  background: transparent;
-  border: 1px solid var(--red-muted);
-  color: var(--red-muted);
-  font-size: 0.8rem;
-  max-width: 250px;
+.reason-options {
   display: flex;
   flex-direction: column;
+  gap: 0.65rem;
   align-items: center;
-  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.4s ease;
 }
 
-.duration-warning {
-  font-size: 0.7rem;
-  opacity: 0.7;
+.btn-reason {
+  width: 100%;
+  max-width: 380px;
+  padding: 0.9rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.btn-reason:hover {
+  background: var(--bg-deep);
+  border-color: var(--primary);
+}
+
+.btn-reason:active {
+  transform: scale(0.97);
+}
+
+.reason-emoji {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.reason-label {
+  text-align: left;
 }
 
 .btn-back {
@@ -209,10 +210,43 @@ body {
   color: var(--green);
   font-size: 0.9rem;
   padding: 0.75rem 1.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* ── Animations ── */
+
+@keyframes questionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overrideFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes screenSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-enter {
+  animation: screenSlideIn 0.4s ease forwards;
 }

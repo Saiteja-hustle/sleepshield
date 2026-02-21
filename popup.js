@@ -53,7 +53,7 @@
   }
 
   // Stats
-  document.getElementById("streak-count").textContent = `\u{1F525} ${streak}`;
+  document.getElementById("streak-count").textContent = `\u{1F6E1}\uFE0F ${streak}`;
   document.getElementById("blocked-count").textContent = blockedTonight;
 
   // Settings link
