@@ -1,112 +1,582 @@
-{
-  "fake_productivity": [
-    {
-      "id": "fp1",
-      "text": "You're trying to open [site] at [time]. Quick honesty check: is this genuinely urgent, or are you wearing a productivity costume to avoid going to bed?"
-    },
-    {
-      "id": "fp2",
-      "text": "That [site] task will take you 20 minutes tonight with a tired brain. Or 7 minutes tomorrow with a fresh one. Which sounds smarter?"
-    },
-    {
-      "id": "fp3",
-      "text": "You know what's more productive than editing a doc at [time]? Sleeping. Literally. Your brain solves problems in REM sleep. Free productivity. Just close the laptop."
-    },
-    {
-      "id": "fp4",
-      "text": "Late-night 'productivity' has a name: it's called procrastinating on sleep while feeling responsible. We see you."
-    },
-    {
-      "id": "fp5",
-      "text": "If your boss texted you right now and said 'stop working, go to sleep' — would you listen? Consider this that text."
-    },
-    {
-      "id": "fp6",
-      "text": "Nothing on [site] is going to collapse overnight. But your energy tomorrow will if you don't sleep. Priorities?"
-    },
-    {
-      "id": "fp7",
-      "text": "Fun fact: decisions made after 11 PM are statistically worse than decisions made at 9 AM. Maybe save that [site] session for when your brain is actually online?"
-    }
-  ],
-  "playful_roast": [
-    {
-      "id": "pr1",
-      "text": "It's [time]. Your alarm is set for [wake_time]. This is the part of the movie where the audience screams DON'T DO IT."
-    },
-    {
-      "id": "pr2",
-      "text": "You're trying to open [site] at [time]. Your pillow is RIGHT THERE. It's warm. It misses you. Don't do this to it."
-    },
-    {
-      "id": "pr3",
-      "text": "Future-you is watching from tomorrow morning. Future-you has bags under their eyes. Future-you blames this exact moment."
-    },
-    {
-      "id": "pr4",
-      "text": "You installed a sleep extension. You literally asked for this intervention. And now you're trying to dodge it. The irony is *chef's kiss*."
-    },
-    {
-      "id": "pr5",
-      "text": "You've been caught trying to open [site] at [time]. How do you plead?"
-    }
-  ],
-  "cost_calculator": [
-    {
-      "id": "cc1",
-      "text": "You have [hours_left] hours until your alarm. Every minute here trades REM sleep for screen time. REM is where creativity lives. Still worth it?"
-    },
-    {
-      "id": "cc2",
-      "text": "30 min of late-night screen time = roughly 20% less focus tomorrow. That's not made up. That's what sleep research says. Your call."
-    },
-    {
-      "id": "cc3",
-      "text": "If you sleep now: [hours_left] hours of sleep. If you stay for 'just 30 minutes': that minus 30 min of sleep + regret. The math is simple."
-    },
-    {
-      "id": "cc4",
-      "text": "Every hour of lost sleep costs you approximately 2 hours of productive work tomorrow. You're about to make an expensive trade."
-    }
-  ],
-  "identity_nudge": [
-    {
-      "id": "in1",
-      "text": "The version of you who wakes up at [wake_time] and owns the morning? They're asleep right now. Join them."
-    },
-    {
-      "id": "in2",
-      "text": "Every night you protect your sleep is a vote for the person you actually want to be. What's tonight's vote?"
-    },
-    {
-      "id": "in3",
-      "text": "You're [streak] nights into your streak. That's not luck. That's a pattern becoming a lifestyle. Keep it going?"
-    },
-    {
-      "id": "in4",
-      "text": "Small decisions compound. This one 'close tab' click tonight is worth more than you think."
-    }
-  ],
-  "absurd_funny": [
-    {
-      "id": "af1",
-      "text": "In the entire history of humanity, nobody has ever woken up and said 'I'm so glad I stayed up until 2 AM on [site].' Be the exception? Or be smart?"
-    },
-    {
-      "id": "af2",
-      "text": "If your future self could send you one text right now, it would just say: 'bro.'"
-    },
-    {
-      "id": "af3",
-      "text": "This is attempt #[attempt_count] tonight. At what point do we admit this is a pattern and not a coincidence?"
-    },
-    {
-      "id": "af4",
-      "text": "Pick one: (A) 8 hours of sleep and an awesome tomorrow, or (B) whatever's on [site] that you'll forget in 12 seconds. Choose wisely."
-    },
-    {
-      "id": "af5",
-      "text": "Your laptop doesn't need you right now. It's a machine. It has no feelings. Go to bed. It'll be fine."
-    }
-  ]
-}
+[
+  {
+    "id": "fs_early_01",
+    "category": "future_self",
+    "zone": "early",
+    "text": "Tomorrow-you is going to need coffee regardless. But like... 1 cup or 4? Your call.",
+    "has_variables": false
+  },
+  {
+    "id": "fs_early_02",
+    "category": "future_self",
+    "zone": "early",
+    "text": "Real question: will you even remember what you scrolled tonight? Tomorrow-you won't.",
+    "has_variables": false
+  },
+  {
+    "id": "fs_early_03",
+    "category": "future_self",
+    "zone": "early",
+    "text": "Tomorrow morning is a choose-your-own-adventure. This is the chapter where you pick 'well-rested hero' or 'zombie mode.'",
+    "has_variables": false
+  },
+  {
+    "id": "fs_early_04",
+    "category": "future_self",
+    "zone": "early",
+    "text": "Your alarm goes off at {wake}. Future-you is already side-eyeing present-you.",
+    "has_variables": true
+  },
+  {
+    "id": "fs_early_05",
+    "category": "future_self",
+    "zone": "early",
+    "text": "Tomorrow-you is basically a different person. Be nice to them. Give them sleep.",
+    "has_variables": false
+  },
+  {
+    "id": "fs_early_06",
+    "category": "future_self",
+    "zone": "early",
+    "text": "If tomorrow-you could send a text back in time right now, it would just say 'go to bed lol.'",
+    "has_variables": false
+  },
+  {
+    "id": "fs_mid_01",
+    "category": "future_self",
+    "zone": "mid",
+    "text": "It's {time}. You have {hours_left} until your alarm. Tomorrow's you is counting on tonight's you.",
+    "has_variables": true
+  },
+  {
+    "id": "fs_mid_02",
+    "category": "future_self",
+    "zone": "mid",
+    "text": "Quick thought experiment: it's {wake} tomorrow. You just woke up. How do you want to feel?",
+    "has_variables": true
+  },
+  {
+    "id": "fs_mid_03",
+    "category": "future_self",
+    "zone": "mid",
+    "text": "The thing about tomorrow is... it's actually coming. And it doesn't care that you stayed up.",
+    "has_variables": false
+  },
+  {
+    "id": "fs_mid_04",
+    "category": "future_self",
+    "zone": "mid",
+    "text": "Morning-you and night-you are in a negotiation right now. Morning-you needs you to walk away from this screen.",
+    "has_variables": false
+  },
+  {
+    "id": "fs_late_01",
+    "category": "future_self",
+    "zone": "late",
+    "text": "It's {time}. Your alarm is in {hours_left}. This isn't a nudge anymore \u2014 this is math.",
+    "has_variables": true
+  },
+  {
+    "id": "fs_late_02",
+    "category": "future_self",
+    "zone": "late",
+    "text": "You're now in the zone where tomorrow isn't just affected \u2014 it's compromised. Is {site} worth that?",
+    "has_variables": true
+  },
+  {
+    "id": "fs_late_03",
+    "category": "future_self",
+    "zone": "late",
+    "text": "{hours_left} until your alarm. No amount of caffeine fixes this. Only closing this screen does.",
+    "has_variables": true
+  },
+  {
+    "id": "fs_late_04",
+    "category": "future_self",
+    "zone": "late",
+    "text": "The version of you that set {wake} as a wake-up time? They were thinking clearly. Trust them.",
+    "has_variables": true
+  },
+
+  {
+    "id": "ic_early_01",
+    "category": "intention_check",
+    "zone": "early",
+    "text": "Be honest for 3 seconds: did you consciously decide to open {site}, or did your fingers just... do it?",
+    "has_variables": true
+  },
+  {
+    "id": "ic_early_02",
+    "category": "intention_check",
+    "zone": "early",
+    "text": "Here's a fun test: name ONE specific thing you need from {site} right now. Got it? No? Cool, go to bed.",
+    "has_variables": true
+  },
+  {
+    "id": "ic_early_03",
+    "category": "intention_check",
+    "zone": "early",
+    "text": "Quick vibe check: are you here because you want to be, or because your brain is on autopilot?",
+    "has_variables": false
+  },
+  {
+    "id": "ic_early_04",
+    "category": "intention_check",
+    "zone": "early",
+    "text": "If someone asked 'what are you looking for on {site}?' and you can't answer... that's your answer.",
+    "has_variables": true
+  },
+  {
+    "id": "ic_mid_01",
+    "category": "intention_check",
+    "zone": "mid",
+    "text": "Real check-in: is this a 'I need this' moment or an 'I'm avoiding sleep' moment?",
+    "has_variables": false
+  },
+  {
+    "id": "ic_mid_02",
+    "category": "intention_check",
+    "zone": "mid",
+    "text": "What if you didn't open {site} right now? What's the actual worst thing that happens? ...Nothing, right?",
+    "has_variables": true
+  },
+  {
+    "id": "ic_mid_03",
+    "category": "intention_check",
+    "zone": "mid",
+    "text": "If you could only spend 90 seconds on {site}, what would you do? If you don't know, you don't need it.",
+    "has_variables": true
+  },
+  {
+    "id": "ic_late_01",
+    "category": "intention_check",
+    "zone": "late",
+    "text": "It's {time}. You've tried to bypass {attempts} time(s) tonight. What's really keeping you up?",
+    "has_variables": true
+  },
+  {
+    "id": "ic_late_02",
+    "category": "intention_check",
+    "zone": "late",
+    "text": "At this hour, browsing {site} isn't entertainment. It's avoidance. What are you avoiding?",
+    "has_variables": true
+  },
+  {
+    "id": "ic_late_03",
+    "category": "intention_check",
+    "zone": "late",
+    "text": "Name what you need. If you can't, close the laptop. That's not a challenge \u2014 it's permission.",
+    "has_variables": false
+  },
+
+  {
+    "id": "pr_early_01",
+    "category": "pattern_recognition",
+    "zone": "early",
+    "text": "You've protected your sleep {streak} nights in a row. That's literally a flex. Don't blow it for {site}.",
+    "has_variables": true
+  },
+  {
+    "id": "pr_early_02",
+    "category": "pattern_recognition",
+    "zone": "early",
+    "text": "Remember when you installed Sleep Shield? That person was WISE. Don't let tonight-you overrule them.",
+    "has_variables": false
+  },
+  {
+    "id": "pr_early_03",
+    "category": "pattern_recognition",
+    "zone": "early",
+    "text": "Your streak is {streak} nights. Somewhere, a Duolingo owl is jealous.",
+    "has_variables": true
+  },
+  {
+    "id": "pr_mid_01",
+    "category": "pattern_recognition",
+    "zone": "mid",
+    "text": "Same script, different night: open site, scroll, feel guilty, sleep bad, drag tomorrow. Want to rewrite it?",
+    "has_variables": false
+  },
+  {
+    "id": "pr_mid_02",
+    "category": "pattern_recognition",
+    "zone": "mid",
+    "text": "Think about the last time you scrolled late. Do you remember a single thing you saw? Exactly.",
+    "has_variables": false
+  },
+  {
+    "id": "pr_mid_03",
+    "category": "pattern_recognition",
+    "zone": "mid",
+    "text": "The sites will have the exact same content at 7am tomorrow. Literally nothing changes except your sleep.",
+    "has_variables": false
+  },
+  {
+    "id": "pr_late_01",
+    "category": "pattern_recognition",
+    "zone": "late",
+    "text": "You've overridden {attempts} times tonight. Each time, did it feel worth it?",
+    "has_variables": true
+  },
+  {
+    "id": "pr_late_02",
+    "category": "pattern_recognition",
+    "zone": "late",
+    "text": "This is a pattern, not a choice. You're not deciding to stay up \u2014 the habit is deciding for you.",
+    "has_variables": false
+  },
+  {
+    "id": "pr_late_03",
+    "category": "pattern_recognition",
+    "zone": "late",
+    "text": "Every night this plays out the same way. Tonight you can write a different ending.",
+    "has_variables": false
+  },
+
+  {
+    "id": "hu_early_01",
+    "category": "humor",
+    "zone": "early",
+    "text": "The internet has been running for 30+ years. It'll survive without you until morning.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_02",
+    "category": "humor",
+    "zone": "early",
+    "text": "Your pillow is right there looking all cozy and rejected. Go apologize to it.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_03",
+    "category": "humor",
+    "zone": "early",
+    "text": "This is the 'Are you still watching?' of real life. And the answer should be no.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_04",
+    "category": "humor",
+    "zone": "early",
+    "text": "{site} doesn't love you back. Your bed does. Choose wisely.",
+    "has_variables": true
+  },
+  {
+    "id": "hu_early_05",
+    "category": "humor",
+    "zone": "early",
+    "text": "Sir/Ma'am, this is a Sleep Shield. I'm going to need you to step away from the browser.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_06",
+    "category": "humor",
+    "zone": "early",
+    "text": "The algorithm never sleeps. But it also doesn't have a job tomorrow. You do.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_07",
+    "category": "humor",
+    "zone": "early",
+    "text": "If scrolling burned calories, you'd be an athlete. But it doesn't. Go to bed.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_08",
+    "category": "humor",
+    "zone": "early",
+    "text": "Roses are red, your screen is too bright, close the laptop, and just say goodnight.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_early_09",
+    "category": "humor",
+    "zone": "early",
+    "text": "Plot twist: the best content drops in the morning when you're actually awake enough to enjoy it.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_mid_01",
+    "category": "humor",
+    "zone": "mid",
+    "text": "Okay so we're doing this again tonight, huh? Cool cool cool cool cool.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_mid_02",
+    "category": "humor",
+    "zone": "mid",
+    "text": "You and {site} at {time}. Name a less iconic duo. I'll wait.",
+    "has_variables": true
+  },
+  {
+    "id": "hu_mid_03",
+    "category": "humor",
+    "zone": "mid",
+    "text": "Every sleep scientist who ever lived just collectively sighed. You felt that, right?",
+    "has_variables": false
+  },
+  {
+    "id": "hu_mid_04",
+    "category": "humor",
+    "zone": "mid",
+    "text": "Your bed is sending you passive-aggressive energy right now. Just feel that for a second.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_late_01",
+    "category": "humor",
+    "zone": "late",
+    "text": "It's {time} and you're trying to open {site}. I respect the commitment. But also... no.",
+    "has_variables": true
+  },
+  {
+    "id": "hu_late_02",
+    "category": "humor",
+    "zone": "late",
+    "text": "We're past the 'cute late night' phase. We're in the 'why are you like this' phase. Lovingly.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_late_03",
+    "category": "humor",
+    "zone": "late",
+    "text": "Fun fact: your eyes are reading this, but your body checked out 2 hours ago.",
+    "has_variables": false
+  },
+  {
+    "id": "hu_late_04",
+    "category": "humor",
+    "zone": "late",
+    "text": "At this hour, even {site} is judging you.",
+    "has_variables": true
+  },
+
+  {
+    "id": "sc_early_01",
+    "category": "science",
+    "zone": "early",
+    "text": "Your brain literally washes itself during deep sleep. Like a dishwasher. For your brain. Let it run.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_early_02",
+    "category": "science",
+    "zone": "early",
+    "text": "Melatonin has been trying to make you sleepy for the last hour. Stop fighting it \u2014 it's winning.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_early_03",
+    "category": "science",
+    "zone": "early",
+    "text": "REM sleep is when your brain processes emotions. Skip it, and yesterday's stress gets a free carry-over.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_early_04",
+    "category": "science",
+    "zone": "early",
+    "text": "Sleep is when your brain moves memories from 'recent' to 'permanent.' Whatever you learned today gets saved tonight.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_mid_01",
+    "category": "science",
+    "zone": "mid",
+    "text": "One bad night of sleep makes your brain crave junk food 45% more tomorrow. Your diet literally starts here.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_mid_02",
+    "category": "science",
+    "zone": "mid",
+    "text": "Screen light right now is suppressing your melatonin for the next 60-90 minutes.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_mid_03",
+    "category": "science",
+    "zone": "mid",
+    "text": "Consistent bedtimes matter more than total hours slept. This window is your consistency.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_mid_04",
+    "category": "science",
+    "zone": "mid",
+    "text": "Deep sleep is front-loaded in the night. The later you sleep, the less deep sleep you get. That's biology.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_late_01",
+    "category": "science",
+    "zone": "late",
+    "text": "{hours_left} of sleep means you'll likely get 1-2 REM cycles instead of 4-5. That's not rest \u2014 that's a nap with extra steps.",
+    "has_variables": true
+  },
+  {
+    "id": "sc_late_02",
+    "category": "science",
+    "zone": "late",
+    "text": "Sleep researchers call what you're doing 'revenge bedtime procrastination.' It has a name. It's studied. It always ends the same way.",
+    "has_variables": false
+  },
+  {
+    "id": "sc_late_03",
+    "category": "science",
+    "zone": "late",
+    "text": "Below 6 hours of sleep, your immune system drops measurably. You have {hours_left}. Protect what's left.",
+    "has_variables": true
+  },
+
+  {
+    "id": "id_early_01",
+    "category": "identity",
+    "zone": "early",
+    "text": "You're building a new identity: someone who protects their sleep. {streak} nights strong.",
+    "has_variables": true
+  },
+  {
+    "id": "id_early_02",
+    "category": "identity",
+    "zone": "early",
+    "text": "Choosing sleep over scrolling is a quiet flex that nobody sees \u2014 except tomorrow-you.",
+    "has_variables": false
+  },
+  {
+    "id": "id_early_03",
+    "category": "identity",
+    "zone": "early",
+    "text": "You installed Sleep Shield because you're smart enough to know you need backup.",
+    "has_variables": false
+  },
+  {
+    "id": "id_early_04",
+    "category": "identity",
+    "zone": "early",
+    "text": "Protecting your sleep is self-respect with a bedtime.",
+    "has_variables": false
+  },
+  {
+    "id": "id_early_05",
+    "category": "identity",
+    "zone": "early",
+    "text": "You're literally training your brain to choose long-term wins over short-term dopamine. That's elite.",
+    "has_variables": false
+  },
+  {
+    "id": "id_mid_01",
+    "category": "identity",
+    "zone": "mid",
+    "text": "The fact that you're reading this means the system is working. You paused. That pause IS the power.",
+    "has_variables": false
+  },
+  {
+    "id": "id_mid_02",
+    "category": "identity",
+    "zone": "mid",
+    "text": "Sleep Shield doesn't control you. YOU set these boundaries. This is just you keeping a promise to yourself.",
+    "has_variables": false
+  },
+  {
+    "id": "id_mid_03",
+    "category": "identity",
+    "zone": "mid",
+    "text": "Every time you close this screen, you're voting for the version of yourself that shows up fully.",
+    "has_variables": false
+  },
+  {
+    "id": "id_late_01",
+    "category": "identity",
+    "zone": "late",
+    "text": "This moment \u2014 right now \u2014 is where your tomorrow gets decided. Choose you.",
+    "has_variables": false
+  },
+  {
+    "id": "id_late_02",
+    "category": "identity",
+    "zone": "late",
+    "text": "You can override this. You always can. But will you feel good about it at {wake}?",
+    "has_variables": true
+  },
+  {
+    "id": "id_late_03",
+    "category": "identity",
+    "zone": "late",
+    "text": "The only person standing between you and a great tomorrow... is you.",
+    "has_variables": false
+  },
+
+  {
+    "id": "mp_early_01",
+    "category": "morning_pull",
+    "zone": "early",
+    "text": "Picture this: {wake}, alarm goes off, and you actually feel... good. That's {hours_left} of sleep away.",
+    "has_variables": true
+  },
+  {
+    "id": "mp_early_02",
+    "category": "morning_pull",
+    "zone": "early",
+    "text": "What if tomorrow morning, instead of 'ugh,' it's 'oh, nice'? That's available right now.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_early_03",
+    "category": "morning_pull",
+    "zone": "early",
+    "text": "Your morning coffee hits different after real sleep. Like, noticeably different. Go find out.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_early_04",
+    "category": "morning_pull",
+    "zone": "early",
+    "text": "The best version of your morning is being assembled right now. By your pillow. Go supervise.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_mid_01",
+    "category": "morning_pull",
+    "zone": "mid",
+    "text": "What's the first thing you need to do tomorrow? You'll need energy for it. This is where that energy comes from.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_mid_02",
+    "category": "morning_pull",
+    "zone": "mid",
+    "text": "Good mornings aren't luck. They're engineered the night before.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_mid_03",
+    "category": "morning_pull",
+    "zone": "mid",
+    "text": "The gap between a productive day and a wasted one is often just 45 minutes of extra sleep.",
+    "has_variables": false
+  },
+  {
+    "id": "mp_late_01",
+    "category": "morning_pull",
+    "zone": "late",
+    "text": "At {hours_left} of sleep, tomorrow isn't a fresh start \u2014 it's damage control. You can still change that.",
+    "has_variables": true
+  },
+  {
+    "id": "mp_late_02",
+    "category": "morning_pull",
+    "zone": "late",
+    "text": "You have a {wake} alarm. That morning is happening whether you're ready or not. Get ready.",
+    "has_variables": true
+  },
+  {
+    "id": "mp_late_03",
+    "category": "morning_pull",
+    "zone": "late",
+    "text": "The morning doesn't negotiate. It arrives. The only question is whether you show up for it.",
+    "has_variables": false
+  }
+]

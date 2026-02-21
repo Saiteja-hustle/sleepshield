@@ -7,40 +7,54 @@
   <link rel="stylesheet" href="blocked.css">
 </head>
 <body>
+  <!-- Screen 1: Question + Friction Timer -->
   <div class="container" id="main-screen">
     <div class="shield-icon">&#x1F6E1;&#xFE0F;</div>
     <h1 class="site-name" id="site-name"></h1>
     <p class="time-notice" id="time-notice"></p>
+
     <div class="question-card" id="question-card">
       <p id="question-text"></p>
     </div>
-    <div class="countdown" id="countdown">
-      <div class="countdown-bar">
-        <div class="countdown-fill" id="countdown-fill"></div>
-      </div>
-      <span id="countdown-text"></span>
-    </div>
-    <div class="actions hidden" id="actions">
+
+    <div class="countdown-text" id="countdown-text"></div>
+
+    <div class="actions" id="actions">
       <button class="btn btn-sleep" id="btn-sleep">You're right. Goodnight. &#x1F634;</button>
-      <button class="btn btn-override" id="btn-override">Let me through anyway</button>
+      <button class="btn btn-override" id="btn-override">Override anyway &#x2192;</button>
     </div>
   </div>
 
-  <!-- Override duration picker (shown after clicking "Let me through") -->
+  <!-- Screen 2: Override Reason Picker -->
   <div class="container hidden" id="override-screen">
-    <h2>How long do you need?</h2>
-    <p class="override-subtitle">Shorter is smarter. You know this.</p>
-    <div class="override-options">
-      <button class="btn btn-duration btn-duration-short" data-minutes="2">Just 2 minutes</button>
-      <button class="btn btn-duration btn-duration-medium" data-minutes="15">15 minutes</button>
-      <button class="btn btn-duration btn-duration-medium" data-minutes="30">30 minutes</button>
-      <button class="btn btn-duration btn-duration-long" data-minutes="60">1 hour</button>
-      <button class="btn btn-duration btn-duration-nuclear" data-minutes="-1">
-        Until wake-up
-        <span class="duration-warning">This resets your streak</span>
+    <div class="shield-icon">&#x1F6E1;&#xFE0F;</div>
+    <h2 class="checkin-title">Quick check-in</h2>
+    <p class="checkin-subtitle">Alright, you can go through. Just tell us why:</p>
+
+    <div class="reason-options">
+      <button class="btn btn-reason" data-reason="work">
+        <span class="reason-emoji">&#x1F6E0;&#xFE0F;</span>
+        <span class="reason-label">I need this for work</span>
+      </button>
+      <button class="btn btn-reason" data-reason="cant_sleep">
+        <span class="reason-emoji">&#x1F634;</span>
+        <span class="reason-label">Can't sleep anyway</span>
+      </button>
+      <button class="btn btn-reason" data-reason="just_bored">
+        <span class="reason-emoji">&#x1FAE0;</span>
+        <span class="reason-label">Just bored</span>
+      </button>
+      <button class="btn btn-reason" data-reason="force_of_habit">
+        <span class="reason-emoji">&#x1F937;</span>
+        <span class="reason-label">Force of habit</span>
+      </button>
+      <button class="btn btn-reason" data-reason="quick_check">
+        <span class="reason-emoji">&#x1F3AF;</span>
+        <span class="reason-label">I'll be quick — 5 min max</span>
       </button>
     </div>
-    <button class="btn btn-back" id="btn-back">Actually, never mind. Goodnight.</button>
+
+    <button class="btn btn-back" id="btn-back">Actually, never mind. Goodnight. &#x1F634;</button>
   </div>
 
   <script src="blocked.js"></script>

@@ -187,9 +187,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
       return overrideTime >= blockStart;
     });
 
-    const streakBroken = lastNightOverrides.some(
-      (o) => o.duration >= 30 || o.duration === -1 // -1 = until wake-up
-    );
+    // A night is "protected" only if no overrides were used at all
+    const streakBroken = lastNightOverrides.length > 0;
 
     const newStreak = streakBroken ? 0 : streak + 1;
 
