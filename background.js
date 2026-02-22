@@ -197,7 +197,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
       blockedTonight: 0,
       overrides: [], // Clear old overrides
       lastResetDate: todayStr,
-      shownQuestions: [] // Reset question tracking
+      shownQuestions: [], // Reset question tracking
+      shownGamesTonight: [] // Reset game tracking
     });
   }
 });
