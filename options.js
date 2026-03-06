@@ -30,34 +30,33 @@ const DEFAULT_CATEGORIES = {
   ]
 };
 
-// Callouts for specific categories
 const CATEGORY_CALLOUTS = {
   "Work & Productivity": "Yes, we block work tools too. Because at midnight, work is a distraction from sleep."
 };
 
 // State
-let customDomains = [];
-let checkedDomains = {}; // { "facebook.com": true, ... }
+var customDomains = [];
+var checkedDomains = {};
 
 // DOM refs
-const wakeTimeInput = document.getElementById("wake-time");
-const sleepHoursInput = document.getElementById("sleep-hours");
-const sleepHoursValue = document.getElementById("sleep-hours-value");
-const bufferSelect = document.getElementById("buffer");
-const blockTimeDisplay = document.getElementById("block-time");
-const categoriesContainer = document.getElementById("blocklist-categories");
-const customDomainInput = document.getElementById("custom-domain");
-const customDomainList = document.getElementById("custom-domain-list");
-const btnAddDomain = document.getElementById("btn-add-domain");
-const btnSave = document.getElementById("btn-save");
-const saveMsg = document.getElementById("save-msg");
+var wakeTimeInput = document.getElementById("wake-time");
+var sleepHoursInput = document.getElementById("sleep-hours");
+var sleepHoursValue = document.getElementById("sleep-hours-value");
+var bufferSelect = document.getElementById("buffer");
+var blockTimeDisplay = document.getElementById("block-time");
+var categoriesContainer = document.getElementById("blocklist-categories");
+var customDomainInput = document.getElementById("custom-domain");
+var customDomainList = document.getElementById("custom-domain-list");
+var btnAddDomain = document.getElementById("btn-add-domain");
+var btnSave = document.getElementById("btn-save");
+var saveMsg = document.getElementById("save-msg");
+var activationInput = document.getElementById("activation-code");
 
 // Initialize
 init();
 
 async function init() {
-  // Load saved config if it exists
-  const saved = await chrome.storage.local.get([
+  var saved = await chrome.storage.local.get([
     "futureself_wakeTime", "futureself_sleepHours", "futureself_buffer",
     "futureself_blocklist", "futureself_customDomains", "futureself_setupComplete"
   ]);
@@ -70,18 +69,19 @@ async function init() {
   if (saved.futureself_buffer !== undefined) bufferSelect.value = saved.futureself_buffer;
   if (saved.futureself_customDomains) customDomains = saved.futureself_customDomains;
 
-  // Initialize checked state: if saved blocklist exists, use it; otherwise all checked
   if (saved.futureself_blocklist) {
-    for (const [cat, domains] of Object.entries(DEFAULT_CATEGORIES)) {
-      const savedCatDomains = saved.futureself_blocklist[cat] || [];
-      for (const d of domains) {
-        checkedDomains[d] = savedCatDomains.includes(d);
+    for (var cat in DEFAULT_CATEGORIES) {
+      var domains = DEFAULT_CATEGORIES[cat];
+      var savedCatDomains = saved.futureself_blocklist[cat] || [];
+      for (var i = 0; i < domains.length; i++) {
+        checkedDomains[domains[i]] = savedCatDomains.includes(domains[i]);
       }
     }
   } else {
-    for (const domains of Object.values(DEFAULT_CATEGORIES)) {
-      for (const d of domains) {
-        checkedDomains[d] = true;
+    for (var cat in DEFAULT_CATEGORIES) {
+      var domains = DEFAULT_CATEGORIES[cat];
+      for (var i = 0; i < domains.length; i++) {
+        checkedDomains[domains[i]] = true;
       }
     }
   }
@@ -90,35 +90,44 @@ async function init() {
   renderCustomDomains();
   updateCalculation();
 
-  // Listeners
   wakeTimeInput.addEventListener("input", updateCalculation);
-  sleepHoursInput.addEventListener("input", () => {
+  sleepHoursInput.addEventListener("input", function () {
     sleepHoursValue.textContent = sleepHoursInput.value + " hrs";
     updateCalculation();
   });
   bufferSelect.addEventListener("change", updateCalculation);
   btnAddDomain.addEventListener("click", addCustomDomain);
-  customDomainInput.addEventListener("keydown", (e) => {
+  customDomainInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") addCustomDomain();
   });
   btnSave.addEventListener("click", saveConfig);
+
+  // Hidden activation code
+  activationInput.addEventListener("input", function () {
+    if (activationInput.value === "FUTURESELF2026") {
+      chrome.storage.local.set({ futureself_isPaid: true });
+      activationInput.value = "";
+      activationInput.placeholder = "Activated!";
+      activationInput.disabled = true;
+    }
+  });
 }
 
 function updateCalculation() {
-  const wakeTime = wakeTimeInput.value;
-  const sleepHours = parseFloat(sleepHoursInput.value);
-  const buffer = parseInt(bufferSelect.value, 10);
+  var wakeTime = wakeTimeInput.value;
+  var sleepHours = parseFloat(sleepHoursInput.value);
+  var buffer = parseInt(bufferSelect.value, 10);
 
-  const [wakeH, wakeM] = wakeTime.split(":").map(Number);
-  const totalWakeMinutes = wakeH * 60 + wakeM;
+  var parts = wakeTime.split(":").map(Number);
+  var totalWakeMinutes = parts[0] * 60 + parts[1];
 
-  const sleepMinutes = sleepHours * 60;
-  let blockStartMinutes = totalWakeMinutes - sleepMinutes - buffer;
+  var sleepMinutes = sleepHours * 60;
+  var blockStartMinutes = totalWakeMinutes - sleepMinutes - buffer;
 
   if (blockStartMinutes < 0) blockStartMinutes += 1440;
 
-  const blockH = Math.floor(blockStartMinutes / 60);
-  const blockM = Math.round(blockStartMinutes % 60);
+  var blockH = Math.floor(blockStartMinutes / 60);
+  var blockM = Math.round(blockStartMinutes % 60);
 
   blockTimeDisplay.textContent = formatTime12h(blockH, blockM);
 }
@@ -126,60 +135,62 @@ function updateCalculation() {
 function renderCategories() {
   categoriesContainer.innerHTML = "";
 
-  for (const [category, domains] of Object.entries(DEFAULT_CATEGORIES)) {
-    const catDiv = document.createElement("div");
+  for (var category in DEFAULT_CATEGORIES) {
+    var domains = DEFAULT_CATEGORIES[category];
+    var catDiv = document.createElement("div");
     catDiv.className = "fs-category";
 
-    // Header with toggle all
-    const header = document.createElement("div");
+    var header = document.createElement("div");
     header.className = "fs-category-header";
 
-    const title = document.createElement("h3");
+    var title = document.createElement("h3");
     title.textContent = category;
     header.appendChild(title);
 
-    const toggleBtn = document.createElement("button");
+    var toggleBtn = document.createElement("button");
     toggleBtn.className = "fs-category-toggle";
-    const allChecked = domains.every((d) => checkedDomains[d]);
+    var allChecked = domains.every(function (d) { return checkedDomains[d]; });
     toggleBtn.textContent = allChecked ? "Uncheck all" : "Check all";
-    toggleBtn.addEventListener("click", () => {
-      const newState = !domains.every((d) => checkedDomains[d]);
-      domains.forEach((d) => { checkedDomains[d] = newState; });
-      renderCategories();
-    });
+    (function (cat, doms, btn) {
+      btn.addEventListener("click", function () {
+        var newState = !doms.every(function (d) { return checkedDomains[d]; });
+        doms.forEach(function (d) { checkedDomains[d] = newState; });
+        renderCategories();
+      });
+    })(category, domains, toggleBtn);
     header.appendChild(toggleBtn);
     catDiv.appendChild(header);
 
-    // Category callout if applicable
     if (CATEGORY_CALLOUTS[category]) {
-      const callout = document.createElement("div");
+      var callout = document.createElement("div");
       callout.className = "fs-category-callout";
       callout.textContent = CATEGORY_CALLOUTS[category];
       catDiv.appendChild(callout);
     }
 
-    // Domain chips
-    const chipContainer = document.createElement("div");
+    var chipContainer = document.createElement("div");
     chipContainer.className = "fs-domain-list";
 
-    for (const domain of domains) {
-      const chip = document.createElement("label");
-      chip.className = "fs-domain-chip" + (checkedDomains[domain] ? " checked" : "");
+    for (var i = 0; i < domains.length; i++) {
+      (function (domain) {
+        var chip = document.createElement("label");
+        chip.className = "fs-domain-chip" + (checkedDomains[domain] ? " fs-checked" : "");
 
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = checkedDomains[domain];
-      cb.addEventListener("change", () => {
-        checkedDomains[domain] = cb.checked;
-        chip.classList.toggle("checked", cb.checked);
-        const parentToggle = catDiv.querySelector(".fs-category-toggle");
-        parentToggle.textContent = domains.every((d) => checkedDomains[d])
-          ? "Uncheck all" : "Check all";
-      });
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = checkedDomains[domain];
+        cb.addEventListener("change", function () {
+          checkedDomains[domain] = cb.checked;
+          chip.classList.toggle("fs-checked", cb.checked);
+          var parentToggle = catDiv.querySelector(".fs-category-toggle");
+          parentToggle.textContent = domains.every(function (d) { return checkedDomains[d]; })
+            ? "Uncheck all" : "Check all";
+        });
 
-      chip.appendChild(cb);
-      chip.appendChild(document.createTextNode(domain));
-      chipContainer.appendChild(chip);
+        chip.appendChild(cb);
+        chip.appendChild(document.createTextNode(domain));
+        chipContainer.appendChild(chip);
+      })(domains[i]);
     }
 
     catDiv.appendChild(chipContainer);
@@ -188,7 +199,7 @@ function renderCategories() {
 }
 
 function addCustomDomain() {
-  let domain = customDomainInput.value.trim().toLowerCase();
+  var domain = customDomainInput.value.trim().toLowerCase();
   if (!domain) return;
 
   domain = domain.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
@@ -205,46 +216,49 @@ function addCustomDomain() {
 
 function renderCustomDomains() {
   customDomainList.innerHTML = "";
-  for (const domain of customDomains) {
-    const li = document.createElement("li");
-    li.className = "fs-custom-chip";
-    li.textContent = domain;
+  for (var i = 0; i < customDomains.length; i++) {
+    (function (domain) {
+      var li = document.createElement("li");
+      li.className = "fs-custom-chip";
+      li.textContent = domain;
 
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "\u00D7";
-    removeBtn.addEventListener("click", () => {
-      customDomains = customDomains.filter((d) => d !== domain);
-      renderCustomDomains();
-    });
-    li.appendChild(removeBtn);
-    customDomainList.appendChild(li);
+      var removeBtn = document.createElement("button");
+      removeBtn.textContent = "\u00D7";
+      removeBtn.addEventListener("click", function () {
+        customDomains = customDomains.filter(function (d) { return d !== domain; });
+        renderCustomDomains();
+      });
+      li.appendChild(removeBtn);
+      customDomainList.appendChild(li);
+    })(customDomains[i]);
   }
 }
 
 async function saveConfig() {
-  const wakeTime = wakeTimeInput.value;
-  const sleepHours = parseFloat(sleepHoursInput.value);
-  const buffer = parseInt(bufferSelect.value, 10);
+  var wakeTime = wakeTimeInput.value;
+  var sleepHours = parseFloat(sleepHoursInput.value);
+  var buffer = parseInt(bufferSelect.value, 10);
 
-  const [wakeH, wakeM] = wakeTime.split(":").map(Number);
-  const totalWakeMinutes = wakeH * 60 + wakeM;
-  let blockStartMinutes = totalWakeMinutes - sleepHours * 60 - buffer;
+  var parts = wakeTime.split(":").map(Number);
+  var totalWakeMinutes = parts[0] * 60 + parts[1];
+  var blockStartMinutes = totalWakeMinutes - sleepHours * 60 - buffer;
   if (blockStartMinutes < 0) blockStartMinutes += 1440;
 
-  const blockH = Math.floor(blockStartMinutes / 60);
-  const blockM = Math.round(blockStartMinutes % 60);
-  const blockStartTime = `${String(blockH).padStart(2, "0")}:${String(blockM).padStart(2, "0")}`;
+  var blockH = Math.floor(blockStartMinutes / 60);
+  var blockM = Math.round(blockStartMinutes % 60);
+  var blockStartTime = String(blockH).padStart(2, "0") + ":" + String(blockM).padStart(2, "0");
 
-  const blocklist = {};
-  for (const [category, domains] of Object.entries(DEFAULT_CATEGORIES)) {
-    const checked = domains.filter((d) => checkedDomains[d]);
+  var blocklist = {};
+  for (var category in DEFAULT_CATEGORIES) {
+    var domains = DEFAULT_CATEGORIES[category];
+    var checked = domains.filter(function (d) { return checkedDomains[d]; });
     if (checked.length > 0) {
       blocklist[category] = checked;
     }
   }
 
   if (customDomains.length > 0) {
-    blocklist["Custom"] = [...customDomains];
+    blocklist["Custom"] = customDomains.slice();
   }
 
   await chrome.storage.local.set({
@@ -257,19 +271,18 @@ async function saveConfig() {
     futureself_setupComplete: true
   });
 
-  // Check if block time has already passed
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const wakeMinutes = wakeH * 60 + wakeM;
-  const isCurrentlyBlocking = isInBlockWindow(nowMinutes, blockStartMinutes, wakeMinutes);
+  var now = new Date();
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
+  var wakeMinutes = parts[0] * 60 + parts[1];
+  var isCurrentlyBlocking = isInBlockWindow(nowMinutes, blockStartMinutes, wakeMinutes);
 
-  saveMsg.classList.remove("hidden");
+  saveMsg.classList.remove("fs-hidden");
   if (isCurrentlyBlocking) {
-    saveMsg.textContent = "Done. Your future self just got a bodyguard. Blocking is active right now.";
-    saveMsg.className = "fs-save-msg info";
+    saveMsg.textContent = "Settings saved! Blocking is active right now. Sweet dreams.";
+    saveMsg.className = "fs-save-msg fs-info";
   } else {
-    saveMsg.textContent = `Done. Your future self just got a bodyguard. Screens off at ${formatTime12h(blockH, blockM)}.`;
-    saveMsg.className = "fs-save-msg success";
+    saveMsg.textContent = "Settings saved! Screens off at " + formatTime12h(blockH, blockM) + ".";
+    saveMsg.className = "fs-save-msg fs-success";
   }
 }
 
@@ -281,7 +294,7 @@ function isInBlockWindow(now, start, wake) {
 }
 
 function formatTime12h(h, m) {
-  const suffix = h >= 12 ? "PM" : "AM";
-  const h12 = h % 12 || 12;
-  return `${h12}:${String(m).padStart(2, "0")} ${suffix}`;
+  var suffix = h >= 12 ? "PM" : "AM";
+  var h12 = h % 12 || 12;
+  return h12 + ":" + String(m).padStart(2, "0") + " " + suffix;
 }

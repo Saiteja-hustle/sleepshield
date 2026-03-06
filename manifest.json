@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Future Self",
-  "version": "1.0.0",
-  "description": "Your PC doesn't have a bedtime. Now it does. Block everything after bedtime — even your work.",
+  "short_name": "FutureSelf",
+  "version": "2.0.0",
+  "description": "Your PC doesn't have a bedtime. Now it does. Block distracting sites during your sleep window and let your future self thank you.",
   "permissions": [
     "storage",
     "webNavigation",
@@ -26,7 +27,7 @@
   "options_page": "options.html",
   "web_accessible_resources": [
     {
-      "resources": ["blocked.html", "blocked.css", "blocked.js", "questions.json"],
+      "resources": ["blocked.html", "blocked.css", "blocked.js", "questions.json", "upgrade.html"],
       "matches": ["<all_urls>"]
     }
   ],

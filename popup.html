@@ -5,39 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Self</title>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="fs-popup">
     <div class="fs-header">
-      <h1>Future Self</h1>
+      <h1 class="fs-title">Future Self</h1>
+      <p class="fs-tagline">Tomorrow will thank you.</p>
     </div>
 
     <!-- Not set up yet -->
-    <div id="setup-prompt" class="hidden">
-      <p class="fs-setup-msg">Let's set up your future self.</p>
-      <button class="fs-btn fs-btn-primary" id="btn-setup">Protect My Sleep</button>
+    <div id="setup-prompt" class="fs-hidden">
+      <p class="fs-setup-msg">Your PC doesn't have a bedtime. Now it does.</p>
+      <button class="fs-button-primary" id="btn-setup">Set up your future self</button>
+    </div>
+
+    <!-- Trial expired -->
+    <div id="trial-expired" class="fs-hidden">
+      <div class="fs-trial-expired-card">
+        <p class="fs-trial-expired-headline">Your 24-hour trial has ended</p>
+        <p class="fs-trial-expired-body">You protected your sleep for a night. Want to keep going?</p>
+        <div class="fs-trial-stats">
+          <div class="fs-trial-stat">
+            <span class="fs-trial-stat-value" id="trial-nights">0</span>
+            <span class="fs-trial-stat-label">nights protected</span>
+          </div>
+          <div class="fs-trial-stat">
+            <span class="fs-trial-stat-value" id="trial-blocks">0</span>
+            <span class="fs-trial-stat-label">sites blocked</span>
+          </div>
+        </div>
+        <a class="fs-button-primary" id="btn-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Get lifetime access — $19</a>
+      </div>
     </div>
 
     <!-- Main dashboard -->
-    <div id="dashboard" class="hidden">
+    <div id="dashboard" class="fs-hidden">
       <div class="fs-status-badge" id="status-badge">
         <span class="fs-status-dot" id="status-dot"></span>
         <span class="fs-status-text" id="status-text"></span>
       </div>
 
-      <div class="fs-info-row" id="schedule-info"></div>
+      <div class="fs-microcopy" id="microcopy"></div>
+
+      <div class="fs-schedule" id="schedule-info"></div>
 
       <div class="fs-stats">
         <div class="fs-stat">
           <span class="fs-stat-value" id="streak-count">0</span>
-          <span class="fs-stat-label" id="streak-label">nights protected</span>
+          <span class="fs-stat-label" id="streak-label">nights. Tomorrow-you approves.</span>
         </div>
         <div class="fs-stat">
           <span class="fs-stat-value" id="blocked-count">0</span>
           <span class="fs-stat-label">blocked tonight</span>
         </div>
+      </div>
+
+      <!-- Trial banner -->
+      <div class="fs-trial-banner fs-hidden" id="trial-banner">
+        <span class="fs-trial-text" id="trial-text"></span>
+        <a class="fs-trial-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade to lifetime access</a>
       </div>
 
       <a class="fs-settings-link" id="settings-link">Settings</a>

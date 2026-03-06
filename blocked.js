@@ -1,27 +1,27 @@
-// Future Self — Intercept Page Logic
+// Future Self — Blocked Page Logic
 // 60/40 question-vs-game selection, 3 mini-games, breathwork,
 // zone-aware questions, time selector, farewell flow.
 
 (async function () {
-  // Constants
+  // ── Constants ──────────────────────────────
 
   var FAREWELL_MESSAGES = [
-    "Clock's ticking. Make it count.",
-    "You've got {dur}. Use them wisely.",
-    "Alright, go speed-run whatever this is.",
-    "The bed will be waiting.",
-    "Fine. But your future self is watching.",
-    "Permission granted. Return to base soon.",
-    "Your pillow just sighed."
+    { emoji: "\u23f3", text: "Clock's ticking \u23f3 Make it count." },
+    { emoji: "\ud83e\udee1", text: "You've got {dur}. Use them wisely \ud83e\udee1" },
+    { emoji: "\ud83c\udfc3", text: "Alright, go speed-run whatever this is \ud83c\udfc3" },
+    { emoji: "\ud83d\udecf\ufe0f", text: "The bed will be waiting \ud83d\udecf\ufe0f" },
+    { emoji: "\ud83d\udc40", text: "Fine. But we're watching \ud83d\udc40" },
+    { emoji: "\ud83e\udee1", text: "Permission granted, soldier \ud83e\udee1 Return to base soon." },
+    { emoji: "\ud83d\ude2e\u200d\ud83d\udca8", text: "Your pillow just sighed \ud83d\ude2e\u200d\ud83d\udca8" }
   ];
 
   var SLIDER_POSITIONS = [
     { emoji: "\ud83d\ude0e", label: "Full battery mode", desc: "Tomorrow-you wakes up feeling like a superhero. Meetings? Crushed. Workout? Easy. Vibes? Immaculate.", bg: "#0B0E14", ring: "#4ade80", offset: 0 },
-    { emoji: "\ud83d\ude42", label: "Mostly fine", desc: "Slightly less sharp but you'll survive. Coffee will do the heavy lifting.", bg: "#0f1420", ring: "#86efac", offset: 0.5 },
-    { emoji: "\ud83d\ude10", label: "Tomorrow's gonna be mid", desc: "That 2pm meeting? You're zoning out. That workout? Skipped. But hey, you saw some memes.", bg: "#151020", ring: "#fbbf24", offset: 1 },
-    { emoji: "\ud83d\ude35\u200d\ud83d\udcab", label: "Brain fog incoming", desc: "Your decision-making drops to 'should I get a third coffee?' levels. Productivity is a myth.", bg: "#1a0f20", ring: "#f97316", offset: 1.5 },
-    { emoji: "\ud83e\udd74", label: "Zombie mode activated", desc: "You'll reread the same email 4 times. Your face will look like you slept in a washing machine.", bg: "#1f0a14", ring: "#ef4444", offset: 2 },
-    { emoji: "\ud83d\udc80", label: "RIP tomorrow", desc: "Just cancel your plans. Tomorrow isn't a day \u2014 it's a survival mission.", bg: "#1a0505", ring: "#dc2626", offset: 3 }
+    { emoji: "\ud83d\ude42", label: "Mostly fine", desc: "Slightly less sharp but you'll survive. Coffee will do the heavy lifting.", bg: "#0D1018", ring: "#86efac", offset: 0.5 },
+    { emoji: "\ud83d\ude10", label: "Tomorrow's gonna be mid", desc: "That 2pm meeting? You're zoning out. That workout? Skipped. But hey, you saw some memes.", bg: "#12101E", ring: "#fbbf24", offset: 1 },
+    { emoji: "\ud83d\ude35\u200d\ud83d\udcab", label: "Brain fog incoming", desc: "Your decision-making drops to 'should I get a third coffee?' levels. Productivity is a myth.", bg: "#1A0F1E", ring: "#f97316", offset: 1.5 },
+    { emoji: "\ud83e\udd74", label: "Zombie mode activated", desc: "You'll reread the same email 4 times. Your face will look like you slept in a washing machine.", bg: "#1E0B10", ring: "#ef4444", offset: 2 },
+    { emoji: "\ud83d\udc80", label: "RIP tomorrow", desc: "Just cancel your plans. Tomorrow isn't a day \u2014 it's a survival mission.", bg: "#140505", ring: "#dc2626", offset: 3 }
   ];
 
   var TYPING_SENTENCES = {
@@ -44,38 +44,38 @@
   };
 
   var TRIVIA_TF = [
-    { statement: "Your brain is more active during REM sleep than when you're awake.", answer: true, reveal: "Your brain is basically running a full Netflix series in there." },
-    { statement: "You can 'catch up' on sleep over the weekend.", answer: false, reveal: "Sleep debt compounds. Weekend lie-ins help a little but don't erase the damage." },
-    { statement: "Sleeping less than 6 hours affects you like being legally drunk.", answer: true, reveal: "After 17+ hours awake, your impairment equals 0.05% blood alcohol." },
-    { statement: "Your phone's night mode makes screen time before bed safe.", answer: false, reveal: "Night mode reduces blue light ~30-50%, but the stimulation from content still delays sleep." },
-    { statement: "Hitting snooze actually makes you MORE tired.", answer: true, reveal: "Each snooze starts a new sleep cycle your body can't finish. That's why you feel worse." }
+    { statement: "Your brain is more active during REM sleep than when you're awake.", answer: true, reveal: "Your brain is basically running a full Netflix series in there. \ud83c\udfac" },
+    { statement: "You can 'catch up' on sleep over the weekend.", answer: false, reveal: "Sleep debt compounds. Weekend lie-ins help a little but don't erase the damage. \ud83d\udcca" },
+    { statement: "Sleeping less than 6 hours affects you like being legally drunk.", answer: true, reveal: "After 17+ hours awake, your impairment equals 0.05% blood alcohol. \ud83c\udf7a" },
+    { statement: "Your phone's night mode makes screen time before bed safe.", answer: false, reveal: "Night mode reduces blue light ~30-50%, but the stimulation from content still delays sleep. \ud83d\udcf1" },
+    { statement: "Hitting snooze actually makes you MORE tired.", answer: true, reveal: "Each snooze starts a new sleep cycle your body can't finish. That's why you feel worse. \u23f0" }
   ];
 
   var TRIVIA_FACTS = [
-    "Right now your body temperature is dropping to prepare for sleep. Fighting it means fighting biology.",
-    "Melatonin has been flooding your system. Your screen is the only thing holding the dam.",
-    "Your brain is ready to start its nightly cleanup \u2014 flushing out toxins. But only if you sleep.",
-    "Growth hormone peaks in the first 2 hours of sleep. Every minute you delay, that window shrinks."
+    "Right now your body temperature is dropping to prepare for sleep. Fighting it means fighting biology. \ud83c\udf21\ufe0f",
+    "Melatonin has been flooding your system. Your screen is the only thing holding the dam. \ud83c\udf0a",
+    "Your brain is ready to start its nightly cleanup \u2014 flushing out toxins. But only if you sleep. \ud83e\uddf9",
+    "Growth hormone peaks in the first 2 hours of sleep. Every minute you delay, that window shrinks. \ud83d\udcc9"
   ];
 
   var TRIVIA_PICKS = [
-    { question: "Pick your morning tomorrow:", a: "Alarm goes off, I stretch, I feel human", b: "Alarm goes off, snooze x4, I hate everything", reveal: "Choice A requires closing this tab. Just saying." },
-    { question: "What sounds better right now?", a: "Cozy blanket + actual rest", b: "Scroll content I won't remember in 10 min", reveal: "We both know the answer. Goodnight." }
+    { question: "Pick your morning tomorrow:", a: "Alarm goes off, I stretch, I feel human \ud83c\udf05", b: "Alarm goes off, snooze \u00d74, I hate everything \ud83d\ude24", reveal: "Choice A requires closing this tab. Just saying." },
+    { question: "What sounds better right now?", a: "Cozy blanket + actual rest \ud83d\udecf\ufe0f", b: "Scroll content I won't remember in 10 min \ud83d\udcf1", reveal: "We both know the answer. Goodnight. \ud83d\ude34" }
   ];
 
   var TRIVIA_GOODNIGHTS = [
-    "That's your Future Self for tonight. Sweet dreams.",
+    "That's your future self looking out for you tonight. Sweet dreams.",
     "Cards done. Brain done. Screen done. Go be horizontal.",
     "You made it through the cards. Now make it through the night.",
     "That's all we've got. The rest is up to you and your pillow."
   ];
 
-  // Parse URL params
+  // ── Parse URL params ───────────────────────
 
   var params = new URLSearchParams(window.location.search);
   var site = params.get("site") || "a website";
 
-  // Load config from storage
+  // ── Load config from storage ───────────────
 
   var config = await chrome.storage.local.get([
     "futureself_wakeTime", "futureself_blockStartTime", "futureself_streak",
@@ -90,7 +90,7 @@
   var attempts = overrides.length;
   var shownGames = config.futureself_shownGamesTonight || [];
 
-  // Time calculations
+  // ── Time calculations ──────────────────────
 
   var now = new Date();
   var timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -98,15 +98,15 @@
   var hoursLeft = calcHoursLeft(now, wakeTime);
   var hoursLeftNum = calcHoursLeftNum(now, wakeTime);
 
-  // Determine zone
+  // ── Determine zone ─────────────────────────
 
   var zone = determineZone(now, blockStartTime, wakeTime);
 
-  // Track chosen override reason across screens
+  // ── Track chosen override reason across screens ──
 
   var chosenReason = "";
 
-  // Choose and render experience
+  // ── Choose and render experience ───────────
 
   hideAllScreens();
   var experience = chooseExperience();
@@ -121,7 +121,7 @@
     renderTriviaGame();
   }
 
-  // Wire up override flow (shared)
+  // ── Wire up override flow (shared) ─────────
 
   document.querySelectorAll(".fs-btn-reason").forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -145,10 +145,12 @@
     btn.addEventListener("click", startBreathwork);
   });
   document.getElementById("breathwork-back").addEventListener("click", function () {
-    document.getElementById("screen-breathwork").classList.add("hidden");
+    document.getElementById("screen-breathwork").classList.add("fs-hidden");
   });
 
+  // ═══════════════════════════════════════════
   // Experience Selection
+  // ═══════════════════════════════════════════
 
   function chooseExperience() {
     var roll = Math.random();
@@ -171,14 +173,16 @@
     }
   }
 
+  // ═══════════════════════════════════════════
   // Text Question Renderer
+  // ═══════════════════════════════════════════
 
   async function renderQuestion() {
     showScreen("screen-question");
 
     document.getElementById("site-name").textContent = "You\u2019re trying to open " + site;
     document.getElementById("time-notice").textContent =
-      timeStr + " \u00b7 alarm at " + wakeTimeDisplay;
+      timeStr + " \u2022 alarm at " + wakeTimeDisplay;
 
     var question = await pickQuestion(zone, streak, shownQuestions);
     var text = fillVariables(question.text);
@@ -195,7 +199,9 @@
     });
   }
 
+  // ═══════════════════════════════════════════
   // Game 1: Sleep Cost Slider
+  // ═══════════════════════════════════════════
 
   function renderSliderGame() {
     showScreen("screen-slider");
@@ -235,7 +241,9 @@
     if (thumb) thumb.style.setProperty("--thumb-border", data.ring);
   }
 
+  // ═══════════════════════════════════════════
   // Game 2: Commitment Challenge
+  // ═══════════════════════════════════════════
 
   function renderTypingGame() {
     showScreen("screen-typing");
@@ -269,10 +277,10 @@
           if (typed[i] !== sentence[i]) { allCorrect = false; break; }
         }
         if (allCorrect) {
-          document.getElementById("typing-display").classList.add("hidden");
-          hint.classList.add("hidden");
+          document.getElementById("typing-display").classList.add("fs-hidden");
+          hint.classList.add("fs-hidden");
           input.disabled = true;
-          document.getElementById("typing-complete").classList.remove("hidden");
+          document.getElementById("typing-complete").classList.remove("fs-hidden");
           setTimeout(function () { showScreen("screen-reason"); }, 1500);
         }
       }
@@ -289,11 +297,11 @@
   function renderTypingChars(display, target, typed) {
     var html = "";
     for (var i = 0; i < target.length; i++) {
-      var cls = "pending";
+      var cls = "fs-pending";
       if (i < typed.length) {
-        cls = typed[i] === target[i] ? "correct" : "wrong";
+        cls = typed[i] === target[i] ? "fs-correct" : "fs-wrong";
       } else if (i === typed.length) {
-        cls = "pending cursor";
+        cls = "fs-pending fs-cursor";
       }
       var ch = target[i] === " " ? "&nbsp;" : escapeHtml(target[i]);
       html += '<span class="fs-typing-char ' + cls + '">' + ch + "</span>";
@@ -301,7 +309,9 @@
     display.innerHTML = html;
   }
 
+  // ═══════════════════════════════════════════
   // Game 3: Trivia Swipe Cards
+  // ═══════════════════════════════════════════
 
   function renderTriviaGame() {
     showScreen("screen-trivia");
@@ -325,7 +335,7 @@
     dotsContainer.innerHTML = "";
     for (var d = 0; d < cards.length; d++) {
       var dot = document.createElement("div");
-      dot.className = "fs-trivia-dot" + (d === 0 ? " active" : "");
+      dot.className = "fs-trivia-dot" + (d === 0 ? " fs-active" : "");
       dotsContainer.appendChild(dot);
     }
 
@@ -355,7 +365,7 @@
       track.style.transform = "translateX(-" + (idx * 100) + "%)";
       var dots = dotsContainer.querySelectorAll(".fs-trivia-dot");
       for (var i = 0; i < dots.length; i++) {
-        dots[i].className = "fs-trivia-dot" + (i < idx ? " done" : "") + (i === idx ? " active" : "");
+        dots[i].className = "fs-trivia-dot" + (i < idx ? " fs-done" : "") + (i === idx ? " fs-active" : "");
       }
       updateTriviaNav();
     }
@@ -378,8 +388,8 @@
       return '<div class="fs-trivia-card-label">True or false</div>' +
         '<p class="fs-trivia-card-text">' + escapeHtml(card.data.statement) + '</p>' +
         '<div class="fs-trivia-btns">' +
-          '<button class="fs-trivia-btn true-btn" data-card="' + idx + '" data-answer="true">TRUE</button>' +
-          '<button class="fs-trivia-btn false-btn" data-card="' + idx + '" data-answer="false">FALSE</button>' +
+          '<button class="fs-trivia-btn fs-true-btn" data-card="' + idx + '" data-answer="true">TRUE</button>' +
+          '<button class="fs-trivia-btn fs-false-btn" data-card="' + idx + '" data-answer="false">FALSE</button>' +
         '</div>' +
         '<div class="fs-trivia-reveal-area" id="trivia-reveal-' + idx + '"></div>';
     }
@@ -413,8 +423,8 @@
           var userAnswer = btn.dataset.answer === "true";
           var correct = userAnswer === card.data.answer;
           var area = document.getElementById("trivia-reveal-" + idx);
-          area.innerHTML = '<div class="fs-trivia-reveal ' + (correct ? "correct" : "wrong") + '">' +
-            (correct ? "Correct! " : "Nope! ") + escapeHtml(card.data.reveal) + '</div>';
+          area.innerHTML = '<div class="fs-trivia-reveal ' + (correct ? "fs-correct" : "fs-wrong") + '">' +
+            (correct ? "\u2705 Correct! " : "\u274c Nope! ") + escapeHtml(card.data.reveal) + '</div>';
           btns.forEach(function (b) { b.disabled = true; });
         });
       });
@@ -424,18 +434,20 @@
       pickBtns.forEach(function (btn) {
         btn.addEventListener("click", function () {
           var area = document.getElementById("trivia-reveal-" + idx);
-          area.innerHTML = '<div class="fs-trivia-reveal neutral">' + escapeHtml(card.data.reveal) + '</div>';
+          area.innerHTML = '<div class="fs-trivia-reveal fs-neutral">' + escapeHtml(card.data.reveal) + '</div>';
           pickBtns.forEach(function (b) { b.disabled = true; });
         });
       });
     }
   }
 
+  // ═══════════════════════════════════════════
   // Breathwork
+  // ═══════════════════════════════════════════
 
   function startBreathwork() {
     var screen = document.getElementById("screen-breathwork");
-    screen.classList.remove("hidden");
+    screen.classList.remove("fs-hidden");
 
     var circle = document.getElementById("breathwork-circle");
     var text = document.getElementById("breathwork-text");
@@ -449,23 +461,23 @@
       if (breath >= totalBreaths) {
         text.textContent = "";
         circle.className = "fs-breathwork-circle";
-        countEl.classList.add("hidden");
-        doneEl.classList.remove("hidden");
+        countEl.classList.add("fs-hidden");
+        doneEl.classList.remove("fs-hidden");
         return;
       }
 
       countEl.textContent = "Breath " + (breath + 1) + " of " + totalBreaths;
 
-      circle.className = "fs-breathwork-circle inhale";
+      circle.className = "fs-breathwork-circle fs-inhale";
       text.textContent = "Breathe in\u2026";
       setTimeout(function () {
-        circle.className = "fs-breathwork-circle hold-in";
+        circle.className = "fs-breathwork-circle fs-hold-in";
         text.textContent = "Hold\u2026";
         setTimeout(function () {
-          circle.className = "fs-breathwork-circle exhale";
+          circle.className = "fs-breathwork-circle fs-exhale";
           text.textContent = "Breathe out\u2026";
           setTimeout(function () {
-            circle.className = "fs-breathwork-circle hold-out";
+            circle.className = "fs-breathwork-circle fs-hold-out";
             text.textContent = "Hold\u2026";
             setTimeout(function () {
               breath++;
@@ -479,7 +491,9 @@
     runCycle();
   }
 
+  // ═══════════════════════════════════════════
   // Override + Time + Farewell Flow
+  // ═══════════════════════════════════════════
 
   function showFarewell(durationMinutes) {
     showScreen("screen-farewell");
@@ -494,7 +508,8 @@
       durLabel = durationMinutes + " min";
     }
 
-    document.getElementById("farewell-text").textContent = msg.replace("{dur}", durLabel);
+    document.getElementById("farewell-emoji").textContent = msg.emoji;
+    document.getElementById("farewell-text").textContent = msg.text.replace("{dur}", durLabel);
 
     setTimeout(function () {
       window.location.href = "https://" + site;
@@ -528,7 +543,9 @@
     await chrome.storage.local.set({ futureself_overrides: ov });
   }
 
+  // ═══════════════════════════════════════════
   // Question Selection
+  // ═══════════════════════════════════════════
 
   async function pickQuestion(currentZone, currentStreak, shownIds) {
     var res = await fetch(chrome.runtime.getURL("questions.json"));
@@ -572,7 +589,9 @@
     return { future_self: 1, intention_check: 1, pattern_recognition: 1, humor: 1, science: 1, identity: 1, morning_pull: 1 };
   }
 
+  // ═══════════════════════════════════════════
   // Friction Timer
+  // ═══════════════════════════════════════════
 
   function startFrictionTimer(countdownId, actionsId, totalSeconds) {
     var countdownEl = document.getElementById(countdownId);
@@ -581,25 +600,20 @@
 
     var interval = setInterval(function () {
       elapsed++;
-      var remaining = totalSeconds - elapsed;
-
       if (elapsed >= 3 && elapsed < totalSeconds) {
-        countdownEl.textContent = "Take a moment\u2026 " + remaining;
-        // Amber warning in last 3 seconds
-        if (remaining <= 3) {
-          countdownEl.classList.add("fs-countdown-warn");
-        }
+        countdownEl.textContent = "Take a moment\u2026 " + (totalSeconds - elapsed);
       }
       if (elapsed >= totalSeconds) {
         clearInterval(interval);
         countdownEl.textContent = "";
-        countdownEl.classList.remove("fs-countdown-warn");
-        actionsEl.classList.add("visible");
+        actionsEl.classList.add("fs-visible");
       }
     }, 1000);
   }
 
+  // ═══════════════════════════════════════════
   // Utility Functions
+  // ═══════════════════════════════════════════
 
   function determineZone(nowDate, blockStart, wake) {
     var nowMinutes = nowDate.getHours() * 60 + nowDate.getMinutes();
@@ -678,15 +692,15 @@
                "screen-trivia", "screen-reason", "screen-time",
                "screen-farewell", "screen-breathwork"];
     for (var i = 0; i < ids.length; i++) {
-      document.getElementById(ids[i]).classList.add("hidden");
+      document.getElementById(ids[i]).classList.add("fs-hidden");
     }
   }
 
   function showScreen(id) {
     hideAllScreens();
     var el = document.getElementById(id);
-    el.classList.remove("hidden");
-    el.classList.add("screen-enter");
+    el.classList.remove("fs-hidden");
+    el.classList.add("fs-screen-enter");
     if (id !== "screen-slider") {
       document.body.style.backgroundColor = "";
     }

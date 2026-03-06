@@ -1,8 +1,11 @@
 // Future Self — Background Service Worker
 // Intercepts navigation and redirects blocked sites during the sleep window.
+// Includes 1-day free trial system.
+
+var TRIAL_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 // Default blocklist with categories
-const DEFAULT_BLOCKLIST = {
+var DEFAULT_BLOCKLIST = {
   "Social Media": [
     "facebook.com", "twitter.com", "x.com", "instagram.com",
     "reddit.com", "tiktok.com", "linkedin.com", "snapchat.com", "threads.net"
@@ -32,11 +35,11 @@ const DEFAULT_BLOCKLIST = {
   ]
 };
 
-const WORK_AI_CATEGORIES = ["Work & Productivity", "AI & Research Tools"];
+var WORK_AI_CATEGORIES = ["Work & Productivity", "AI & Research Tools"];
 
 function timeToMinutes(timeStr) {
-  const [h, m] = timeStr.split(":").map(Number);
-  return h * 60 + m;
+  var parts = timeStr.split(":").map(Number);
+  return parts[0] * 60 + parts[1];
 }
 
 function isInBlockWindow(nowMinutes, blockStartMinutes, wakeMinutes) {
@@ -48,18 +51,19 @@ function isInBlockWindow(nowMinutes, blockStartMinutes, wakeMinutes) {
 
 function extractDomain(urlStr) {
   try {
-    const url = new URL(urlStr);
+    var url = new URL(urlStr);
     return url.hostname.replace(/^www\./, "");
-  } catch {
+  } catch (e) {
     return null;
   }
 }
 
 function checkBlocklist(domain, blocklist) {
-  for (const [category, domains] of Object.entries(blocklist)) {
-    for (const blockedDomain of domains) {
-      if (domain === blockedDomain || domain.endsWith("." + blockedDomain)) {
-        return { blocked: true, domain: blockedDomain, category };
+  for (var category in blocklist) {
+    var domains = blocklist[category];
+    for (var i = 0; i < domains.length; i++) {
+      if (domain === domains[i] || domain.endsWith("." + domains[i])) {
+        return { blocked: true, domain: domains[i], category: category };
       }
     }
   }
@@ -67,49 +71,91 @@ function checkBlocklist(domain, blocklist) {
 }
 
 async function hasActiveOverride(domain) {
-  const { futureself_overrides: overrides = [] } = await chrome.storage.local.get("futureself_overrides");
-  const now = Date.now();
-  return overrides.some(
-    (o) => o.domain === domain && o.expiresAt > now
-  );
+  var data = await chrome.storage.local.get("futureself_overrides");
+  var overrides = data.futureself_overrides || [];
+  var now = Date.now();
+  return overrides.some(function (o) {
+    return o.domain === domain && o.expiresAt > now;
+  });
 }
 
 async function incrementBlockCount() {
-  const { futureself_blockedTonight: blockedTonight = 0 } = await chrome.storage.local.get("futureself_blockedTonight");
-  await chrome.storage.local.set({ futureself_blockedTonight: blockedTonight + 1 });
+  var data = await chrome.storage.local.get("futureself_blockedTonight");
+  var count = data.futureself_blockedTonight || 0;
+  await chrome.storage.local.set({ futureself_blockedTonight: count + 1 });
 }
 
-chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
+async function checkTrialStatus() {
+  var data = await chrome.storage.local.get([
+    "futureself_trialStart", "futureself_isPaid"
+  ]);
+
+  if (data.futureself_isPaid === true) {
+    return "paid";
+  }
+
+  var trialStart = data.futureself_trialStart;
+  if (!trialStart) {
+    return "no_trial";
+  }
+
+  if (Date.now() - trialStart < TRIAL_DURATION_MS) {
+    return "trial_active";
+  }
+
+  return "trial_expired";
+}
+
+// Main navigation handler
+chrome.webNavigation.onBeforeNavigate.addListener(async function (details) {
   if (details.frameId !== 0) return;
   if (details.url.startsWith("chrome-extension://")) return;
 
-  const config = await chrome.storage.local.get([
+  var config = await chrome.storage.local.get([
     "futureself_wakeTime", "futureself_blockStartTime",
     "futureself_blocklist", "futureself_setupComplete"
   ]);
 
   if (!config.futureself_setupComplete) return;
 
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const blockStartMinutes = timeToMinutes(config.futureself_blockStartTime);
-  const wakeMinutes = timeToMinutes(config.futureself_wakeTime);
+  var now = new Date();
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
+  var blockStartMinutes = timeToMinutes(config.futureself_blockStartTime);
+  var wakeMinutes = timeToMinutes(config.futureself_wakeTime);
 
   if (!isInBlockWindow(nowMinutes, blockStartMinutes, wakeMinutes)) return;
 
-  const domain = extractDomain(details.url);
+  var domain = extractDomain(details.url);
   if (!domain) return;
 
-  const result = checkBlocklist(domain, config.futureself_blocklist);
+  var result = checkBlocklist(domain, config.futureself_blocklist);
   if (!result.blocked) return;
 
-  const overridden = await hasActiveOverride(result.domain);
+  // Check trial/paid status
+  var trialStatus = await checkTrialStatus();
+
+  if (trialStatus === "trial_expired") {
+    // Show upgrade page instead of block page
+    var upgradeUrl = chrome.runtime.getURL(
+      "upgrade.html?site=" + encodeURIComponent(result.domain)
+    );
+    chrome.tabs.update(details.tabId, { url: upgradeUrl });
+    return;
+  }
+
+  if (trialStatus === "no_trial") {
+    // No trial started and not paid — don't block
+    return;
+  }
+
+  // Trial active or paid — normal blocking
+  var overridden = await hasActiveOverride(result.domain);
   if (overridden) return;
 
   await incrementBlockCount();
 
-  const redirectUrl = chrome.runtime.getURL(
-    `blocked.html?site=${encodeURIComponent(result.domain)}&category=${encodeURIComponent(result.category)}`
+  var redirectUrl = chrome.runtime.getURL(
+    "blocked.html?site=" + encodeURIComponent(result.domain) + "&category=" + encodeURIComponent(result.category)
   );
 
   chrome.tabs.update(details.tabId, { url: redirectUrl });
@@ -118,35 +164,37 @@ chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
 // Reset nightly counters at wake time
 chrome.alarms.create("nightlyReset", { periodInMinutes: 1 });
 
-chrome.alarms.onAlarm.addListener(async (alarm) => {
+chrome.alarms.onAlarm.addListener(async function (alarm) {
   if (alarm.name !== "nightlyReset") return;
 
-  const config = await chrome.storage.local.get([
+  var config = await chrome.storage.local.get([
     "futureself_wakeTime", "futureself_setupComplete", "futureself_lastResetDate"
   ]);
   if (!config.futureself_setupComplete) return;
 
-  const now = new Date();
-  const todayStr = now.toDateString();
+  var now = new Date();
+  var todayStr = now.toDateString();
 
   if (config.futureself_lastResetDate === todayStr) return;
 
-  const wakeMinutes = timeToMinutes(config.futureself_wakeTime);
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  var wakeMinutes = timeToMinutes(config.futureself_wakeTime);
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
 
   if (nowMinutes >= wakeMinutes && nowMinutes < wakeMinutes + 5) {
-    const { futureself_overrides: overrides = [], futureself_streak: streak = 0 } =
-      await chrome.storage.local.get(["futureself_overrides", "futureself_streak"]);
+    var streakData = await chrome.storage.local.get([
+      "futureself_overrides", "futureself_streak"
+    ]);
+    var overrides = streakData.futureself_overrides || [];
+    var streak = streakData.futureself_streak || 0;
 
-    const blockStart = new Date();
+    var blockStart = new Date();
     blockStart.setDate(blockStart.getDate() - 1);
-    const lastNightOverrides = overrides.filter((o) => {
-      const overrideTime = new Date(o.createdAt);
-      return overrideTime >= blockStart;
+    var lastNightOverrides = overrides.filter(function (o) {
+      return new Date(o.createdAt) >= blockStart;
     });
 
-    const streakBroken = lastNightOverrides.length > 0;
-    const newStreak = streakBroken ? 0 : streak + 1;
+    var streakBroken = lastNightOverrides.length > 0;
+    var newStreak = streakBroken ? 0 : streak + 1;
 
     await chrome.storage.local.set({
       futureself_streak: newStreak,
@@ -159,9 +207,16 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
-// Open options page on install
-chrome.runtime.onInstalled.addListener((details) => {
+// On install: open options page and initialize trial
+chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === "install") {
+    // Initialize trial
+    chrome.storage.local.set({
+      futureself_trialStart: Date.now(),
+      futureself_trialStatus: "active",
+      futureself_isPaid: false
+    });
+
     chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
   }
 });

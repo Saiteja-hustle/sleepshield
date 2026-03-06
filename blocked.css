@@ -1,41 +1,21 @@
-/* Future Self — Intercept Page Styles
-   The most important screen in the product. */
+/* ═══════════════════════════════════════════
+   Future Self — Block Page Styles
+   ═══════════════════════════════════════════ */
 
 :root {
   --night-black: #0B0E14;
   --night-charcoal: #151923;
   --night-graphite: #1E2433;
   --night-slate: #2A3040;
-
   --text-primary: #E8ECF4;
   --text-secondary: #8B95A8;
   --text-muted: #525E73;
-
   --accent-green: #4ADE80;
   --accent-green-glow: rgba(74, 222, 128, 0.15);
   --accent-amber: #FBBF24;
   --accent-amber-glow: rgba(251, 191, 36, 0.12);
   --accent-red-soft: #F87171;
   --accent-blue: #60A5FA;
-
-  --gradient-hero: linear-gradient(135deg, #0B0E14 0%, #1a1040 50%, #0B0E14 100%);
-  --gradient-card: linear-gradient(180deg, #1E2433 0%, #151923 100%);
-
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
-
-  --font-display: "Clash Display", "Satoshi", sans-serif;
-  --font-body: "General Sans", "DM Sans", sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
-
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --duration-slow: 400ms;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -43,17 +23,16 @@
 body {
   background: var(--night-black);
   color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: "General Sans", "DM Sans", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  transition: background-color 0.5s var(--ease-default);
-  line-height: 1.5;
+  transition: background-color 0.5s ease;
 }
 
-/* Layout */
+/* ── Layout ─────────────────────────────── */
 
 .fs-container {
   max-width: 560px;
@@ -61,79 +40,72 @@ body {
   text-align: center;
 }
 
-.hidden { display: none !important; }
+.fs-hidden { display: none !important; }
 
-/* Header Info */
+/* ── Header Info ────────────────────────── */
 
-.fs-site-name {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  font-weight: 400;
-  margin-bottom: 0.25rem;
+.fs-site-label {
+  font-size: 13px;
+  color: var(--accent-amber);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .fs-time-notice {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 13px;
   margin-bottom: 2rem;
 }
 
-/* Question Card */
+/* ── Question Card ──────────────────────── */
 
 .fs-question-card {
-  background: var(--gradient-card);
-  border: 1px solid var(--night-slate);
-  border-radius: var(--radius-lg);
+  background: var(--night-charcoal);
+  border-radius: 16px;
   padding: 2.5rem 2rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid var(--accent-amber);
   opacity: 0;
-  animation: questionFadeIn 3s var(--ease-out) forwards;
+  animation: fsFadeSlideIn 3s ease forwards;
 }
 
 .fs-question-card p {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 20px;
   line-height: 1.5;
   color: var(--text-primary);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-/* Countdown */
+/* ── Countdown Text ─────────────────────── */
 
 .fs-countdown {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--text-muted);
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 13px;
+  color: var(--accent-amber);
   margin-bottom: 1.5rem;
   min-height: 1.2em;
   opacity: 0;
-  animation: fadeIn 0.5s ease 3s forwards;
+  animation: fsFadeIn 0.5s ease 3s forwards;
 }
 
-.fs-countdown.fs-countdown-warn {
-  color: var(--accent-amber);
-}
-
-/* Buttons (shared) */
+/* ── Buttons (shared) ───────────────────── */
 
 .fs-btn {
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   cursor: pointer;
-  font-family: var(--font-body);
-  transition: all var(--duration-base) var(--ease-default);
+  font-family: "General Sans", "DM Sans", sans-serif;
+  transition: opacity 0.2s, transform 0.15s;
 }
 .fs-btn:hover { opacity: 0.9; }
 .fs-btn:active { transform: scale(0.97); }
-.fs-btn:focus-visible {
-  outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
-}
 
-/* Action Group */
+/* ── Action Group ───────────────────────── */
 
 .fs-actions {
   display: flex;
@@ -143,7 +115,7 @@ body {
   opacity: 0;
   pointer-events: none;
 }
-.fs-actions.visible {
+.fs-actions.fs-visible {
   opacity: 1;
   pointer-events: auto;
 }
@@ -151,41 +123,40 @@ body {
 .fs-btn-sleep {
   background: var(--accent-green);
   color: var(--night-black);
-  font-size: 1.1rem;
-  padding: 14px 28px;
+  font-size: 17px;
+  padding: 1rem 2.5rem;
   width: 100%;
   max-width: 400px;
   font-weight: 600;
-  border-radius: var(--radius-md);
-  box-shadow: 0 0 20px var(--accent-green-glow);
+  border-radius: 12px;
 }
 
 .fs-btn-override {
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   border: 1px solid var(--night-slate);
-  font-size: 0.875rem;
-  padding: 10px 20px;
-  border-radius: var(--radius-md);
+  font-size: 13px;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   opacity: 0;
-  animation: overrideFadeIn 3s ease 7s forwards;
+  animation: fsFadeIn 3s ease 7s forwards;
 }
 
 .fs-btn-breathe {
   background: transparent;
   color: var(--text-muted);
-  font-size: 0.8125rem;
+  font-size: 13px;
   padding: 0.4rem 1rem;
   margin-top: 0.25rem;
   opacity: 0;
-  animation: fadeIn 0.5s ease 10s forwards;
+  animation: fsFadeIn 0.5s ease 10s forwards;
 }
 
-/* Reason Picker */
+/* ── Reason Picker ──────────────────────── */
 
 .fs-checkin-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
@@ -194,8 +165,9 @@ body {
 
 .fs-checkin-subtitle {
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  font-size: 15px;
   margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
 .fs-reason-options, .fs-time-options {
@@ -204,7 +176,7 @@ body {
   gap: 0.65rem;
   align-items: center;
   margin-bottom: 1.5rem;
-  animation: fadeIn 0.4s ease;
+  animation: fsFadeIn 0.4s ease;
 }
 
 .fs-btn-reason, .fs-btn-time {
@@ -213,56 +185,54 @@ body {
   padding: 0.9rem 1.2rem;
   background: var(--night-charcoal);
   border: 1px solid var(--night-slate);
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   color: var(--text-primary);
-  font-size: 0.9375rem;
+  font-size: 15px;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 .fs-btn-reason:hover, .fs-btn-time:hover {
   background: var(--night-graphite);
   border-color: var(--accent-amber);
 }
 
+.fs-reason-emoji { font-size: 1.3rem; flex-shrink: 0; }
 .fs-reason-label { text-align: left; }
 
-/* Time Selector Sizes — escalating de-emphasis */
+/* ── Time Selector Sizes ────────────────── */
 
 .fs-time-xl {
   padding: 1.1rem 1.4rem;
-  font-size: 1rem;
+  font-size: 15px;
   border-color: var(--accent-green);
-  background: rgba(74, 222, 128, 0.08);
+  background: var(--accent-green-glow);
 }
 .fs-time-lg {
   padding: 1rem 1.3rem;
-  font-size: 0.9375rem;
+  font-size: 15px;
 }
 .fs-time-md {
   padding: 0.9rem 1.2rem;
-  font-size: 0.9375rem;
+  font-size: 15px;
   color: var(--text-secondary);
 }
 .fs-time-sm {
   padding: 0.8rem 1.1rem;
-  font-size: 0.875rem;
+  font-size: 13px;
   color: var(--text-secondary);
-  opacity: 0.85;
 }
 .fs-time-xs {
   padding: 0.7rem 1rem;
-  font-size: 0.8125rem;
+  font-size: 13px;
   color: var(--text-muted);
-  opacity: 0.75;
 }
 .fs-time-xxs {
   padding: 0.65rem 1rem;
-  font-size: 0.8125rem;
+  font-size: 13px;
   color: var(--text-muted);
   border-color: rgba(248, 113, 113, 0.3);
-  opacity: 0.65;
 }
 
 .fs-time-label-wrap {
@@ -272,7 +242,7 @@ body {
   gap: 0.15rem;
 }
 .fs-time-warning {
-  font-size: 0.6875rem;
+  font-size: 11px;
   color: var(--accent-red-soft);
   opacity: 0.8;
 }
@@ -280,27 +250,35 @@ body {
 .fs-btn-back {
   background: transparent;
   color: var(--accent-green);
-  font-size: 0.9375rem;
+  font-size: 15px;
   padding: 0.75rem 1.5rem;
   margin-top: 0.25rem;
 }
 
-/* Farewell Screen */
+/* ── Farewell Screen ────────────────────── */
 
-.fs-farewell-text {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  line-height: 1.6;
-  color: var(--text-primary);
-  font-weight: 600;
-  animation: questionFadeIn 0.5s ease;
+.fs-farewell-emoji {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  animation: fsFadeIn 0.4s ease;
 }
 
-/* Game 1: Sleep Cost Slider */
+.fs-farewell-text {
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  animation: fsFadeSlideIn 0.5s ease;
+  letter-spacing: -0.02em;
+}
+
+/* ══════════════════════════════════════════
+   GAME 1: Sleep Cost Slider
+   ══════════════════════════════════════════ */
 
 .fs-game-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.4rem;
@@ -309,8 +287,9 @@ body {
 
 .fs-game-subtitle {
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  font-size: 15px;
   margin-bottom: 1.5rem;
+  line-height: 1.5;
 }
 
 .fs-slider-stage {
@@ -336,7 +315,7 @@ body {
 }
 
 .fs-slider-hours {
-  font-family: var(--font-mono);
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   font-size: 1.8rem;
   font-weight: 500;
   color: var(--text-primary);
@@ -345,15 +324,14 @@ body {
 }
 
 .fs-slider-label {
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 15px;
   font-weight: 600;
   color: var(--accent-amber);
   margin-bottom: 1rem;
   transition: color 0.3s ease;
 }
 
-/* Custom range slider */
 .fs-sleep-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -379,7 +357,7 @@ body {
 }
 
 .fs-slider-desc {
-  font-size: 0.9375rem;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--text-secondary);
   max-width: 420px;
@@ -387,32 +365,34 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Game 2: Commitment Challenge */
+/* ══════════════════════════════════════════
+   GAME 2: Commitment Challenge
+   ══════════════════════════════════════════ */
 
 .fs-typing-display {
   background: var(--night-charcoal);
-  border: 1px solid var(--night-slate);
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   padding: 1.5rem;
   margin: 1.5rem auto;
   max-width: 480px;
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 15px;
   line-height: 1.8;
   text-align: left;
   min-height: 3.5em;
+  border: 1px solid var(--night-slate);
   user-select: none;
 }
 
 .fs-typing-char {
   transition: color 0.1s;
 }
-.fs-typing-char.correct { color: var(--accent-green); }
-.fs-typing-char.wrong { color: var(--accent-red-soft); }
-.fs-typing-char.pending { color: var(--text-muted); }
-.fs-typing-char.cursor {
+.fs-typing-char.fs-correct { color: var(--accent-green); }
+.fs-typing-char.fs-wrong { color: var(--accent-red-soft); }
+.fs-typing-char.fs-pending { color: var(--text-muted); }
+.fs-typing-char.fs-cursor {
   border-left: 2px solid var(--accent-amber);
-  animation: cursorBlink 1s step-end infinite;
+  animation: fsCursorBlink 1s step-end infinite;
 }
 
 .fs-typing-input {
@@ -422,25 +402,27 @@ body {
 }
 
 .fs-typing-hint {
-  font-size: 0.8125rem;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
 .fs-typing-complete {
   margin: 1.5rem auto;
-  animation: fadeIn 0.5s ease;
+  animation: fsFadeIn 0.5s ease;
 }
-.fs-typing-complete p {
+.fs-typing-done-text {
   color: var(--accent-green);
-  font-size: 1rem;
+  font-size: 15px;
 }
 
-@keyframes cursorBlink {
+@keyframes fsCursorBlink {
   50% { border-color: transparent; }
 }
 
-/* Game 3: Trivia Swipe Cards */
+/* ══════════════════════════════════════════
+   GAME 3: Trivia Swipe Cards
+   ══════════════════════════════════════════ */
 
 .fs-trivia-dots {
   display: flex;
@@ -456,30 +438,30 @@ body {
   background: var(--night-slate);
   transition: background 0.3s ease;
 }
-.fs-trivia-dot.active { background: var(--accent-amber); }
-.fs-trivia-dot.done { background: var(--accent-green); }
+.fs-trivia-dot.fs-active { background: var(--accent-amber); }
+.fs-trivia-dot.fs-done { background: var(--accent-green); }
 
 .fs-trivia-viewport {
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: 16px;
   margin-bottom: 1rem;
 }
 
 .fs-trivia-track {
   display: flex;
-  transition: transform 0.4s var(--ease-default);
+  transition: transform 0.4s ease;
 }
 
 .fs-trivia-card {
   min-width: 100%;
-  background: var(--gradient-card);
-  border-radius: var(--radius-lg);
+  background: var(--night-charcoal);
+  border-radius: 16px;
   padding: 2rem 1.5rem;
   border: 1px solid var(--night-slate);
 }
 
 .fs-trivia-card-label {
-  font-size: 0.6875rem;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
@@ -487,7 +469,7 @@ body {
 }
 
 .fs-trivia-card-text {
-  font-size: 1.1rem;
+  font-size: 15px;
   line-height: 1.6;
   color: var(--text-primary);
   margin-bottom: 1.25rem;
@@ -502,40 +484,39 @@ body {
 
 .fs-trivia-btn {
   padding: 0.6rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-size: 0.9375rem;
+  border-radius: 10px;
+  font-size: 15px;
   font-weight: 600;
   border: 1px solid var(--night-slate);
   background: var(--night-black);
   color: var(--text-primary);
   cursor: pointer;
-  font-family: var(--font-body);
-  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+  font-family: "General Sans", "DM Sans", sans-serif;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 .fs-trivia-btn:hover { border-color: var(--accent-amber); }
 .fs-trivia-btn:active { transform: scale(0.95); }
-.fs-trivia-btn.true-btn:hover { border-color: var(--accent-green); }
-.fs-trivia-btn.false-btn:hover { border-color: var(--accent-red-soft); }
+.fs-trivia-btn.fs-true-btn:hover { border-color: var(--accent-green); }
+.fs-trivia-btn.fs-false-btn:hover { border-color: var(--accent-red-soft); }
 
 .fs-trivia-reveal {
   margin-top: 0.75rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
-  font-size: 0.9375rem;
+  border-radius: 10px;
+  font-size: 13px;
   line-height: 1.5;
   color: var(--text-primary);
-  animation: fadeIn 0.3s ease;
+  animation: fsFadeIn 0.3s ease;
 }
-.fs-trivia-reveal.correct { background: var(--accent-green-glow); }
-.fs-trivia-reveal.wrong { background: rgba(248, 113, 113, 0.12); }
-.fs-trivia-reveal.neutral { background: var(--accent-amber-glow); }
+.fs-trivia-reveal.fs-correct { background: var(--accent-green-glow); }
+.fs-trivia-reveal.fs-wrong { background: rgba(248, 113, 113, 0.12); }
+.fs-trivia-reveal.fs-neutral { background: var(--accent-amber-glow); }
 
 .fs-trivia-card-goodnight {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  line-height: 1.7;
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--text-primary);
-  font-weight: 600;
 }
 
 .fs-trivia-nav {
@@ -554,18 +535,19 @@ body {
   border: 1px solid var(--night-slate);
   font-size: 1.2rem;
   cursor: pointer;
-  font-family: var(--font-body);
-  transition: background var(--duration-fast), opacity var(--duration-fast);
+  transition: background 0.2s, opacity 0.2s;
 }
 .fs-trivia-arrow:hover { background: var(--night-graphite); }
 .fs-trivia-arrow:disabled { opacity: 0.3; cursor: default; }
 
-/* Breathwork */
+/* ══════════════════════════════════════════
+   Breathwork
+   ══════════════════════════════════════════ */
 
 .fs-breathwork-overlay {
   position: fixed;
   inset: 0;
-  background: var(--gradient-hero);
+  background: linear-gradient(135deg, #0B0E14, #111827, #0F172A);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -583,87 +565,78 @@ body {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.2), rgba(96, 165, 250, 0.05));
-  border: 2px solid rgba(96, 165, 250, 0.4);
+  background: radial-gradient(circle, var(--accent-green-glow), rgba(74, 222, 128, 0.03));
+  border: 2px solid rgba(74, 222, 128, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
   transition: transform 4s ease-in-out, border-color 0.5s ease, background 0.5s ease;
-  box-shadow: 0 0 40px rgba(96, 165, 250, 0.15);
+  box-shadow: 0 0 40px rgba(74, 222, 128, 0.1);
 }
 
-.fs-breathwork-circle.inhale {
+.fs-breathwork-circle.fs-inhale {
   transform: scale(1.5);
   border-color: rgba(74, 222, 128, 0.5);
   background: radial-gradient(circle, rgba(74, 222, 128, 0.2), rgba(74, 222, 128, 0.03));
   box-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
 }
 
-.fs-breathwork-circle.hold-in {
+.fs-breathwork-circle.fs-hold-in {
   transform: scale(1.5);
   transition-duration: 0.3s;
 }
 
-.fs-breathwork-circle.exhale {
+.fs-breathwork-circle.fs-exhale {
   transform: scale(1);
   transition-duration: 6s;
-  border-color: rgba(96, 165, 250, 0.4);
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.2), rgba(96, 165, 250, 0.03));
+  border-color: rgba(96, 165, 250, 0.3);
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.15), rgba(96, 165, 250, 0.03));
 }
 
-.fs-breathwork-circle.hold-out {
+.fs-breathwork-circle.fs-hold-out {
   transform: scale(1);
   transition-duration: 0.3s;
 }
 
 .fs-breathwork-text {
-  font-size: 1.1rem;
+  font-size: 15px;
   color: var(--text-primary);
   font-weight: 500;
   transition: opacity 0.3s;
 }
 
 .fs-breathwork-count {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 13px;
   color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 
 .fs-breathwork-done-text {
-  font-size: 1.2rem;
+  font-size: 17px;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-/* Animations */
+/* ══════════════════════════════════════════
+   Animations
+   ══════════════════════════════════════════ */
 
-@keyframes questionFadeIn {
+@keyframes fsFadeSlideIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeIn {
+@keyframes fsFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes overrideFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes screenSlideIn {
+@keyframes fsScreenSlideIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes countdownPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.screen-enter { animation: screenSlideIn var(--duration-slow) var(--ease-out) forwards; }
+.fs-screen-enter { animation: fsScreenSlideIn 0.4s ease forwards; }

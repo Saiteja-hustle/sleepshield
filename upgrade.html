@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Self — Upgrade</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night-black: #0B0E14;
+      --night-charcoal: #151923;
+      --night-graphite: #1E2433;
+      --night-slate: #2A3040;
+      --text-primary: #E8ECF4;
+      --text-secondary: #8B95A8;
+      --text-muted: #525E73;
+      --accent-green: #4ADE80;
+      --accent-green-glow: rgba(74, 222, 128, 0.15);
+      --accent-amber: #FBBF24;
+      --accent-blue: #60A5FA;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--night-black);
+      color: var(--text-primary);
+      font-family: "General Sans", "DM Sans", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .fs-upgrade {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .fs-upgrade-title {
+      font-family: "Clash Display", "Satoshi", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .fs-upgrade-site {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 13px;
+      color: var(--accent-amber);
+      margin-bottom: 2rem;
+    }
+
+    .fs-upgrade-body {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .fs-upgrade-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 2.5rem;
+    }
+
+    .fs-upgrade-cta {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto 1rem;
+      background: var(--accent-green);
+      color: var(--night-black);
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      font-size: 17px;
+      font-weight: 600;
+      font-family: "General Sans", "DM Sans", sans-serif;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .fs-upgrade-cta:hover { opacity: 0.9; }
+    .fs-upgrade-cta:active { transform: scale(0.98); }
+
+    .fs-upgrade-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="fs-upgrade">
+    <h1 class="fs-upgrade-title">Your trial has ended</h1>
+    <p class="fs-upgrade-site" id="site-label"></p>
+    <p class="fs-upgrade-body">You protected your sleep for a night. Want to keep going?</p>
+    <p class="fs-upgrade-sub">Future Self blocks distracting sites during your sleep window so tomorrow-you shows up fully. One payment, lifetime access.</p>
+    <a class="fs-upgrade-cta" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Get lifetime access — $19</a>
+    <p class="fs-upgrade-tagline">Tomorrow will thank you.</p>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var site = params.get("site") || "";
+    if (site) {
+      document.getElementById("site-label").textContent = "You tried to open " + site;
+    }
+  </script>
+</body>
+</html>

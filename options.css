@@ -3,28 +3,15 @@
   --night-charcoal: #151923;
   --night-graphite: #1E2433;
   --night-slate: #2A3040;
-
   --text-primary: #E8ECF4;
   --text-secondary: #8B95A8;
   --text-muted: #525E73;
-
   --accent-green: #4ADE80;
   --accent-green-glow: rgba(74, 222, 128, 0.15);
   --accent-amber: #FBBF24;
   --accent-amber-glow: rgba(251, 191, 36, 0.12);
   --accent-red-soft: #F87171;
   --accent-blue: #60A5FA;
-
-  --gradient-card: linear-gradient(180deg, #1E2433 0%, #151923 100%);
-
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
-
-  --font-display: "Clash Display", "Satoshi", sans-serif;
-  --font-body: "General Sans", "DM Sans", sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
 * {
@@ -36,92 +23,93 @@
 body {
   background: var(--night-black);
   color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: "General Sans", "DM Sans", sans-serif;
   padding: 2rem;
   display: flex;
   justify-content: center;
-  line-height: 1.5;
 }
 
 .fs-container {
-  max-width: 650px;
+  max-width: 600px;
   width: 100%;
 }
 
 .fs-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-.fs-header h1 {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
+.fs-title {
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .fs-tagline {
+  font-size: 15px;
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
 }
 
 /* Cards */
 .fs-card {
-  background: var(--gradient-card);
-  border: 1px solid var(--night-slate);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  background: var(--night-charcoal);
+  border-radius: 14px;
+  padding: 1.75rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
-.fs-card h2 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.fs-card-title {
+  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-size: 17px;
   font-weight: 600;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .fs-card-desc {
   color: var(--text-secondary);
-  font-size: 0.8125rem;
-  margin-bottom: 1rem;
+  font-size: 13px;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
 }
 
 /* Fields */
 .fs-field {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
-.fs-field label {
+.fs-label {
   display: block;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
+  font-size: 15px;
+  margin-bottom: 0.5rem;
   color: var(--text-primary);
+  line-height: 1.5;
 }
 
-input[type="time"],
-select {
+.fs-input,
+.fs-select {
   background: var(--night-graphite);
   color: var(--text-primary);
   border: 1px solid var(--night-slate);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  font-size: 0.9375rem;
-  font-family: var(--font-body);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-size: 15px;
+  font-family: "General Sans", "DM Sans", sans-serif;
   width: 100%;
-  max-width: 250px;
+  max-width: 260px;
+  transition: border-color 0.2s;
 }
 
-input[type="time"]:focus,
-select:focus {
+.fs-input:focus,
+.fs-select:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+  border-color: var(--accent-green);
 }
 
 /* Slider */
@@ -131,26 +119,25 @@ select:focus {
   gap: 1rem;
 }
 
-input[type="range"] {
+.fs-range {
   flex: 1;
-  max-width: 300px;
+  max-width: 320px;
   accent-color: var(--accent-green);
 }
 
 .fs-slider-value {
-  font-family: var(--font-mono);
-  font-size: 0.9375rem;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 15px;
   color: var(--accent-green);
   font-weight: 500;
-  min-width: 55px;
+  min-width: 60px;
 }
 
 /* Calculation display */
 .fs-calculation {
-  background: var(--night-black);
-  border: 1px solid var(--night-slate);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.5rem;
+  background: var(--night-graphite);
+  border-radius: 12px;
+  padding: 1.1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,19 +146,19 @@ input[type="range"] {
 
 .fs-calc-label {
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  font-size: 15px;
 }
 
 .fs-calc-time {
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 22px;
   font-weight: 500;
   color: var(--accent-green);
 }
 
 /* Blocklist categories */
 .fs-category {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .fs-category-header {
@@ -183,28 +170,28 @@ input[type="range"] {
 }
 
 .fs-category-header h3 {
-  font-size: 0.9375rem;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .fs-category-toggle {
-  font-size: 0.8125rem;
+  font-size: 13px;
   color: var(--accent-blue);
   cursor: pointer;
   background: none;
   border: none;
-  font-family: var(--font-body);
+  font-family: inherit;
 }
 
 .fs-category-callout {
-  background: rgba(74, 222, 128, 0.08);
-  border-left: 3px solid var(--accent-green);
-  border-radius: var(--radius-sm);
-  padding: 0.6rem 0.8rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.8125rem;
-  color: var(--accent-green);
-  line-height: 1.4;
+  background: var(--accent-amber-glow);
+  border-left: 3px solid var(--accent-amber);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 13px;
+  color: var(--accent-amber);
+  line-height: 1.5;
 }
 
 .fs-domain-list {
@@ -220,21 +207,21 @@ input[type="range"] {
   gap: 0.4rem;
   background: var(--night-graphite);
   border: 1px solid var(--night-slate);
-  border-radius: var(--radius-sm);
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8125rem;
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  font-size: 13px;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
   user-select: none;
 }
 
-.fs-domain-chip.checked {
-  border-color: var(--accent-blue);
-  background: rgba(96, 165, 250, 0.1);
+.fs-domain-chip.fs-checked {
+  border-color: var(--accent-green);
+  background: var(--accent-green-glow);
 }
 
 .fs-domain-chip input[type="checkbox"] {
-  accent-color: var(--accent-blue);
+  accent-color: var(--accent-green);
   margin: 0;
   width: 14px;
   height: 14px;
@@ -242,13 +229,13 @@ input[type="range"] {
 
 /* Custom domains */
 .fs-custom-domains {
-  margin-top: 1.25rem;
-  padding-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--night-slate);
 }
 
-.fs-custom-domains h3 {
-  font-size: 0.9375rem;
+.fs-custom-title {
+  font-size: 15px;
   font-weight: 500;
   margin-bottom: 0.6rem;
 }
@@ -258,24 +245,12 @@ input[type="range"] {
   gap: 0.5rem;
 }
 
-.fs-custom-input-row input {
+.fs-custom-input {
   flex: 1;
-  background: var(--night-graphite);
-  color: var(--text-primary);
-  border: 1px solid var(--night-slate);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  font-size: 0.8125rem;
-  font-family: var(--font-body);
+  max-width: none;
 }
 
-.fs-custom-input-row input:focus {
-  outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
-}
-
-#custom-domain-list {
+.fs-custom-list {
   list-style: none;
   margin-top: 0.5rem;
   display: flex;
@@ -288,10 +263,10 @@ input[type="range"] {
   align-items: center;
   gap: 0.3rem;
   background: var(--night-graphite);
-  border: 1px solid var(--accent-blue);
-  border-radius: var(--radius-sm);
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8125rem;
+  border: 1px solid var(--accent-green);
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  font-size: 13px;
 }
 
 .fs-custom-chip button {
@@ -299,62 +274,96 @@ input[type="range"] {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 14px;
   padding: 0;
   line-height: 1;
 }
 
 /* Buttons */
-.fs-btn {
+.fs-button-primary {
+  display: block;
+  width: 100%;
+  background: var(--accent-green);
+  color: var(--night-black);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "General Sans", "DM Sans", sans-serif;
   cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.2s ease;
+  text-align: center;
+  transition: opacity 0.2s, transform 0.1s;
 }
 
-.fs-btn:hover { opacity: 0.9; }
-.fs-btn:active { transform: scale(0.98); }
+.fs-button-primary:hover { opacity: 0.9; }
+.fs-button-primary:active { transform: scale(0.98); }
 
-.fs-btn:focus-visible {
-  outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
-}
-
-.fs-btn-small {
-  background: var(--night-graphite);
-  color: var(--text-primary);
+.fs-button-secondary {
+  background: transparent;
+  color: var(--text-secondary);
   border: 1px solid var(--night-slate);
-  padding: 12px 24px;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.fs-button-secondary:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
 }
 
 .fs-btn-save {
-  background: var(--accent-green);
-  color: var(--night-black);
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 14px 28px;
-  width: 100%;
   margin-top: 0.5rem;
-  box-shadow: 0 0 20px var(--accent-green-glow);
 }
 
 .fs-save-msg {
   text-align: center;
   margin-top: 0.75rem;
-  font-size: 0.9375rem;
+  font-size: 13px;
 }
 
-.fs-save-msg.success {
+.fs-save-msg.fs-success {
   color: var(--accent-green);
 }
 
-.fs-save-msg.info {
+.fs-save-msg.fs-info {
   color: var(--accent-amber);
 }
 
-.hidden {
+.fs-hidden {
   display: none !important;
+}
+
+/* Hidden activation */
+.fs-activation {
+  margin-top: 3rem;
+  text-align: center;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+.fs-activation:hover {
+  opacity: 0.6;
+}
+
+.fs-activation-input {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 11px;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  text-align: center;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+
+.fs-activation-input:focus {
+  outline: none;
+  border-color: var(--night-slate);
 }

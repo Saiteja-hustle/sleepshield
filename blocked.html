@@ -5,31 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Self</title>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="blocked.css">
 </head>
 <body>
 
   <!-- Screen: Text Question -->
   <div class="fs-container" id="screen-question">
-    <p class="fs-site-name" id="site-name"></p>
+    <p class="fs-site-label" id="site-name"></p>
     <p class="fs-time-notice" id="time-notice"></p>
 
     <div class="fs-question-card" id="question-card">
       <p id="question-text"></p>
     </div>
 
-    <div class="fs-countdown" id="q-countdown" aria-live="polite"></div>
+    <div class="fs-countdown" id="q-countdown"></div>
 
     <div class="fs-actions" id="q-actions">
       <button class="fs-btn fs-btn-sleep" id="q-sleep">You're right. Goodnight.</button>
-      <button class="fs-btn fs-btn-override" id="q-override">Nah, let me through.</button>
+      <button class="fs-btn fs-btn-override" id="q-override">Override anyway</button>
       <button class="fs-btn fs-btn-breathe" id="q-breathe">Try breathing instead</button>
     </div>
   </div>
 
-  <!-- Screen: Game 1 — Sleep Cost Slider -->
-  <div class="fs-container hidden" id="screen-slider">
+  <!-- Screen: Game 1 - Sleep Cost Slider -->
+  <div class="fs-container fs-hidden" id="screen-slider">
     <h2 class="fs-game-title">How much sleep are you trading?</h2>
 
     <div class="fs-slider-stage" id="slider-stage">
@@ -42,17 +42,17 @@
       <p class="fs-slider-desc" id="slider-desc"></p>
     </div>
 
-    <div class="fs-countdown" id="s-countdown" aria-live="polite"></div>
+    <div class="fs-countdown" id="s-countdown"></div>
 
     <div class="fs-actions" id="s-actions">
       <button class="fs-btn fs-btn-sleep" id="s-sleep">You're right. Goodnight.</button>
-      <button class="fs-btn fs-btn-override" id="s-override">Nah, let me through.</button>
+      <button class="fs-btn fs-btn-override" id="s-override">Override anyway</button>
       <button class="fs-btn fs-btn-breathe" id="s-breathe">Try breathing instead</button>
     </div>
   </div>
 
-  <!-- Screen: Game 2 — Commitment Challenge -->
-  <div class="fs-container hidden" id="screen-typing">
+  <!-- Screen: Game 2 - Commitment Challenge -->
+  <div class="fs-container fs-hidden" id="screen-typing">
     <h2 class="fs-game-title">Commitment challenge</h2>
     <p class="fs-game-subtitle">Type this sentence to unlock override:</p>
 
@@ -60,11 +60,11 @@
     <input type="text" class="fs-typing-input" id="typing-input" autocomplete="off" spellcheck="false">
     <p class="fs-typing-hint" id="typing-hint">Start typing...</p>
 
-    <div class="fs-typing-complete hidden" id="typing-complete">
-      <p>Challenge complete. You've earned your override.</p>
+    <div class="fs-typing-complete fs-hidden" id="typing-complete">
+      <p class="fs-typing-done-text">Challenge complete. You've earned your override.</p>
     </div>
 
-    <div class="fs-countdown" id="t-countdown" aria-live="polite"></div>
+    <div class="fs-countdown" id="t-countdown"></div>
 
     <div class="fs-actions" id="t-actions">
       <button class="fs-btn fs-btn-sleep" id="t-sleep">You're right. Goodnight.</button>
@@ -73,8 +73,8 @@
     </div>
   </div>
 
-  <!-- Screen: Game 3 — Trivia Swipe Cards -->
-  <div class="fs-container hidden" id="screen-trivia">
+  <!-- Screen: Game 3 - Trivia Swipe Cards -->
+  <div class="fs-container fs-hidden" id="screen-trivia">
     <h2 class="fs-game-title">Sleep trivia</h2>
 
     <div class="fs-trivia-dots" id="trivia-dots"></div>
@@ -88,7 +88,7 @@
       <button class="fs-trivia-arrow" id="trivia-next">&#x2192;</button>
     </div>
 
-    <div class="fs-countdown" id="tr-countdown" aria-live="polite"></div>
+    <div class="fs-countdown" id="tr-countdown"></div>
 
     <div class="fs-actions" id="tr-actions">
       <button class="fs-btn fs-btn-sleep" id="tr-sleep">You're right. Goodnight.</button>
@@ -98,25 +98,30 @@
   </div>
 
   <!-- Screen: Override Reason Picker -->
-  <div class="fs-container hidden" id="screen-reason">
+  <div class="fs-container fs-hidden" id="screen-reason">
     <h2 class="fs-checkin-title">Quick check-in</h2>
     <p class="fs-checkin-subtitle">Alright, you can go through. Just tell us why:</p>
 
     <div class="fs-reason-options">
       <button class="fs-btn fs-btn-reason" data-reason="work">
+        <span class="fs-reason-emoji">&#x1F6E0;&#xFE0F;</span>
         <span class="fs-reason-label">I need this for work</span>
       </button>
       <button class="fs-btn fs-btn-reason" data-reason="cant_sleep">
+        <span class="fs-reason-emoji">&#x1F634;</span>
         <span class="fs-reason-label">Can't sleep anyway</span>
       </button>
       <button class="fs-btn fs-btn-reason" data-reason="just_bored">
+        <span class="fs-reason-emoji">&#x1FAE0;</span>
         <span class="fs-reason-label">Just bored</span>
       </button>
       <button class="fs-btn fs-btn-reason" data-reason="force_of_habit">
+        <span class="fs-reason-emoji">&#x1F937;</span>
         <span class="fs-reason-label">Force of habit</span>
       </button>
       <button class="fs-btn fs-btn-reason" data-reason="quick_check">
-        <span class="fs-reason-label">I'll be quick — 5 min max</span>
+        <span class="fs-reason-emoji">&#x1F3AF;</span>
+        <span class="fs-reason-label">I'll be quick - 5 min max</span>
       </button>
     </div>
 
@@ -124,26 +129,32 @@
   </div>
 
   <!-- Screen: Time Selector -->
-  <div class="fs-container hidden" id="screen-time">
+  <div class="fs-container fs-hidden" id="screen-time">
     <h2 class="fs-checkin-title">How long do you need?</h2>
 
     <div class="fs-time-options">
       <button class="fs-btn fs-btn-time fs-time-xl" data-minutes="5">
+        <span class="fs-reason-emoji">&#x26A1;</span>
         <span class="fs-reason-label">5 minutes</span>
       </button>
       <button class="fs-btn fs-btn-time fs-time-lg" data-minutes="15">
+        <span class="fs-reason-emoji">&#x1F550;</span>
         <span class="fs-reason-label">15 minutes</span>
       </button>
       <button class="fs-btn fs-btn-time fs-time-md" data-minutes="30">
+        <span class="fs-reason-emoji">&#x1F551;</span>
         <span class="fs-reason-label">30 minutes</span>
       </button>
       <button class="fs-btn fs-btn-time fs-time-sm" data-minutes="60">
+        <span class="fs-reason-emoji">&#x23F0;</span>
         <span class="fs-reason-label">1 hour</span>
       </button>
       <button class="fs-btn fs-btn-time fs-time-xs" data-minutes="120">
+        <span class="fs-reason-emoji">&#x1F319;</span>
         <span class="fs-reason-label">2 hours</span>
       </button>
       <button class="fs-btn fs-btn-time fs-time-xxs" data-minutes="-1">
+        <span class="fs-reason-emoji">&#x1F513;</span>
         <span class="fs-time-label-wrap">
           <span class="fs-reason-label">Until wake-up</span>
           <span class="fs-time-warning">resets your streak</span>
@@ -155,19 +166,20 @@
   </div>
 
   <!-- Screen: Farewell -->
-  <div class="fs-container hidden" id="screen-farewell">
+  <div class="fs-container fs-hidden" id="screen-farewell">
+    <div class="fs-farewell-emoji" id="farewell-emoji"></div>
     <p class="fs-farewell-text" id="farewell-text"></p>
   </div>
 
   <!-- Screen: Breathwork -->
-  <div class="fs-breathwork-overlay hidden" id="screen-breathwork">
+  <div class="fs-breathwork-overlay fs-hidden" id="screen-breathwork">
     <div class="fs-breathwork-content">
       <div class="fs-breathwork-circle" id="breathwork-circle">
         <span class="fs-breathwork-text" id="breathwork-text">Breathe in...</span>
       </div>
       <p class="fs-breathwork-count" id="breathwork-count">Breath 1 of 10</p>
 
-      <div class="fs-breathwork-done hidden" id="breathwork-done">
+      <div class="fs-breathwork-done fs-hidden" id="breathwork-done">
         <p class="fs-breathwork-done-text">Feeling calmer? Your bed is ready.</p>
         <button class="fs-btn fs-btn-sleep" id="breathwork-back">Back to Future Self</button>
       </div>

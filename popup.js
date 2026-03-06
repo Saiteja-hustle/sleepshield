@@ -1,48 +1,68 @@
 // Future Self — Popup Dashboard
 
 (async function () {
+  const TRIAL_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+
   const config = await chrome.storage.local.get([
     "futureself_setupComplete", "futureself_wakeTime", "futureself_blockStartTime",
-    "futureself_streak", "futureself_blockedTonight"
+    "futureself_streak", "futureself_blockedTonight",
+    "futureself_trialStart", "futureself_trialStatus", "futureself_isPaid"
   ]);
 
+  // Check trial/paid status first
+  const isPaid = config.futureself_isPaid === true;
+  const trialStart = config.futureself_trialStart;
+  const trialActive = trialStart && (Date.now() - trialStart < TRIAL_DURATION_MS);
+  const trialExpired = trialStart && !trialActive && !isPaid;
+
   if (!config.futureself_setupComplete) {
-    document.getElementById("setup-prompt").classList.remove("hidden");
-    document.getElementById("btn-setup").addEventListener("click", () => {
+    document.getElementById("setup-prompt").classList.remove("fs-hidden");
+    document.getElementById("btn-setup").addEventListener("click", function () {
       chrome.runtime.openOptionsPage();
     });
     return;
   }
 
-  // Show dashboard
-  document.getElementById("dashboard").classList.remove("hidden");
+  // Trial expired — show upgrade screen
+  if (trialExpired) {
+    document.getElementById("trial-expired").classList.remove("fs-hidden");
+    document.getElementById("trial-nights").textContent = config.futureself_streak || 0;
+    document.getElementById("trial-blocks").textContent = config.futureself_blockedTonight || 0;
+    return;
+  }
 
-  const wakeTime = config.futureself_wakeTime || "06:00";
-  const blockStart = config.futureself_blockStartTime || "22:00";
-  const streak = config.futureself_streak || 0;
-  const blockedTonight = config.futureself_blockedTonight || 0;
+  // Show dashboard
+  document.getElementById("dashboard").classList.remove("fs-hidden");
+
+  var wakeTime = config.futureself_wakeTime || "06:00";
+  var blockStart = config.futureself_blockStartTime || "22:00";
+  var streak = config.futureself_streak || 0;
+  var blockedTonight = config.futureself_blockedTonight || 0;
 
   // Determine if blocking is currently active
-  const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
-  const blockMinutes = timeToMinutes(blockStart);
-  const wakeMinutes = timeToMinutes(wakeTime);
-  const isActive = isInBlockWindow(nowMinutes, blockMinutes, wakeMinutes);
+  var now = new Date();
+  var nowMinutes = now.getHours() * 60 + now.getMinutes();
+  var blockMinutes = timeToMinutes(blockStart);
+  var wakeMinutes = timeToMinutes(wakeTime);
+  var isActive = isInBlockWindow(nowMinutes, blockMinutes, wakeMinutes);
 
   // Status badge
-  const badge = document.getElementById("status-badge");
-  const text = document.getElementById("status-text");
+  var badge = document.getElementById("status-badge");
+  var text = document.getElementById("status-text");
+  var microcopy = document.getElementById("microcopy");
 
   if (isActive) {
-    badge.className = "fs-status-badge active";
-    text.textContent = "Your future self is protected";
+    badge.className = "fs-status-badge fs-active";
+    text.textContent = "Protected";
+    microcopy.textContent = "Your future self is protected.";
   } else {
-    badge.className = "fs-status-badge inactive";
-    text.textContent = "Daytime. Browse freely.";
+    badge.className = "fs-status-badge fs-inactive";
+    text.textContent = "Daytime";
+    microcopy.textContent = "Daytime. Browse freely.";
   }
 
   // Schedule info
-  const info = document.getElementById("schedule-info");
+  var info = document.getElementById("schedule-info");
   if (isActive) {
     info.textContent = "Blocking until " + formatTime12h(wakeTime);
   } else {
@@ -50,19 +70,30 @@
   }
 
   // Stats
-  document.getElementById("streak-count").textContent = streak;
+  var streakEl = document.getElementById("streak-count");
+  streakEl.textContent = streak;
+  if (streak > 0) {
+    streakEl.closest(".fs-stat").classList.add("fs-streak-active");
+  }
   document.getElementById("streak-label").textContent =
-    streak === 1 ? "night protected" : "nights protected";
+    streak === 1 ? "night. Tomorrow-you approves." : "nights. Tomorrow-you approves.";
   document.getElementById("blocked-count").textContent = blockedTonight;
 
+  // Trial banner (only show for non-paid trial users)
+  if (!isPaid && trialActive) {
+    var hoursLeft = Math.max(0, Math.ceil((trialStart + TRIAL_DURATION_MS - Date.now()) / 3600000));
+    document.getElementById("trial-banner").classList.remove("fs-hidden");
+    document.getElementById("trial-text").textContent = "Free trial: " + hoursLeft + " hours remaining";
+  }
+
   // Settings link
-  document.getElementById("settings-link").addEventListener("click", () => {
+  document.getElementById("settings-link").addEventListener("click", function () {
     chrome.runtime.openOptionsPage();
   });
 
   function timeToMinutes(t) {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + m;
+    var parts = t.split(":").map(Number);
+    return parts[0] * 60 + parts[1];
   }
 
   function isInBlockWindow(now, start, wake) {
@@ -73,9 +104,9 @@
   }
 
   function formatTime12h(time24) {
-    const [h, m] = time24.split(":").map(Number);
-    const suffix = h >= 12 ? "PM" : "AM";
-    const h12 = h % 12 || 12;
-    return h12 + ":" + String(m).padStart(2, "0") + " " + suffix;
+    var parts = time24.split(":").map(Number);
+    var suffix = parts[0] >= 12 ? "PM" : "AM";
+    var h12 = parts[0] % 12 || 12;
+    return h12 + ":" + String(parts[1]).padStart(2, "0") + " " + suffix;
   }
 })();
