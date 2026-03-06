@@ -23,7 +23,7 @@
 body {
   background: var(--night-black);
   color: var(--text-primary);
-  font-family: "General Sans", "DM Sans", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,7 @@ body {
 }
 
 .fs-time-notice {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   color: var(--text-muted);
   font-size: 13px;
   margin-bottom: 2rem;
@@ -73,7 +73,7 @@ body {
 }
 
 .fs-question-card p {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 20px;
   line-height: 1.5;
   color: var(--text-primary);
@@ -84,7 +84,7 @@ body {
 /* ── Countdown Text ─────────────────────── */
 
 .fs-countdown {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 13px;
   color: var(--accent-amber);
   margin-bottom: 1.5rem;
@@ -99,7 +99,7 @@ body {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-family: "General Sans", "DM Sans", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   transition: opacity 0.2s, transform 0.15s;
 }
 .fs-btn:hover { opacity: 0.9; }
@@ -155,7 +155,7 @@ body {
 /* ── Reason Picker ──────────────────────── */
 
 .fs-checkin-title {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
@@ -264,7 +264,7 @@ body {
 }
 
 .fs-farewell-text {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 20px;
   line-height: 1.5;
   color: var(--text-primary);
@@ -277,7 +277,7 @@ body {
    ══════════════════════════════════════════ */
 
 .fs-game-title {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
@@ -315,7 +315,7 @@ body {
 }
 
 .fs-slider-hours {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.8rem;
   font-weight: 500;
   color: var(--text-primary);
@@ -324,7 +324,7 @@ body {
 }
 
 .fs-slider-label {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: var(--accent-amber);
@@ -375,7 +375,7 @@ body {
   padding: 1.5rem;
   margin: 1.5rem auto;
   max-width: 480px;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 15px;
   line-height: 1.8;
   text-align: left;
@@ -491,7 +491,7 @@ body {
   background: var(--night-black);
   color: var(--text-primary);
   cursor: pointer;
-  font-family: "General Sans", "DM Sans", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 .fs-trivia-btn:hover { border-color: var(--accent-amber); }
@@ -513,7 +513,7 @@ body {
 .fs-trivia-reveal.fs-neutral { background: var(--accent-amber-glow); }
 
 .fs-trivia-card-goodnight {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.6;
   color: var(--text-primary);
@@ -607,7 +607,7 @@ body {
 }
 
 .fs-breathwork-count {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 13px;
   color: var(--text-secondary);
   margin-bottom: 2rem;

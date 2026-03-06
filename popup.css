@@ -23,7 +23,7 @@
 body {
   background: var(--night-black);
   color: var(--text-primary);
-  font-family: "General Sans", "DM Sans", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   width: 360px;
   min-height: 200px;
 }
@@ -33,23 +33,23 @@ body {
 }
 
 .fs-header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .fs-title {
-  font-family: "Clash Display", "Satoshi", sans-serif;
-  font-size: 20px;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1.1;
 }
 
 .fs-tagline {
   font-size: 11px;
-  color: var(--text-secondary);
-  margin-top: 0.2rem;
-  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -76,7 +76,7 @@ body {
   padding: 0.75rem 1.5rem;
   font-size: 15px;
   font-weight: 600;
-  font-family: "General Sans", "DM Sans", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -96,10 +96,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1.15rem;
   border-radius: 20px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.75rem;
 }
 
@@ -133,16 +133,46 @@ body {
 .fs-microcopy {
   font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   line-height: 1.5;
 }
 
 /* Schedule info */
 .fs-schedule {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  font-size: 13px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
   color: var(--text-muted);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Trial banner */
+.fs-trial-banner {
+  background: var(--accent-amber-glow);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.fs-trial-text {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--accent-amber);
+  font-weight: 500;
+}
+
+.fs-trial-upgrade {
+  display: block;
+  font-size: 11px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  margin-top: 0.3rem;
+}
+
+.fs-trial-upgrade:hover {
+  text-decoration: underline;
 }
 
 /* Stats */
@@ -156,16 +186,17 @@ body {
   flex: 1;
   background: var(--night-charcoal);
   border-radius: 10px;
-  padding: 1rem;
+  padding: 0.85rem 0.75rem;
   text-align: center;
 }
 
 .fs-stat-value {
   display: block;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--accent-green);
+  line-height: 1.2;
 }
 
 .fs-stat.fs-streak-active .fs-stat-value {
@@ -176,37 +207,8 @@ body {
   display: block;
   font-size: 11px;
   color: var(--text-muted);
-  margin-top: 0.25rem;
-}
-
-/* Trial banner */
-.fs-trial-banner {
-  background: var(--accent-amber-glow);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.fs-trial-text {
-  display: block;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  font-size: 13px;
-  color: var(--accent-amber);
-  font-weight: 500;
-}
-
-.fs-trial-upgrade {
-  display: block;
-  font-size: 11px;
-  color: var(--accent-blue);
-  text-decoration: none;
-  margin-top: 0.35rem;
-}
-
-.fs-trial-upgrade:hover {
-  text-decoration: underline;
+  margin-top: 0.2rem;
+  line-height: 1.3;
 }
 
 /* Trial expired */
@@ -218,9 +220,9 @@ body {
 }
 
 .fs-trial-expired-headline {
-  font-family: "Clash Display", "Satoshi", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
@@ -235,7 +237,7 @@ body {
 
 .fs-trial-stats {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   margin-bottom: 1.25rem;
 }
@@ -246,7 +248,7 @@ body {
 
 .fs-trial-stat-value {
   display: block;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.3rem;
   font-weight: 500;
   color: var(--accent-green);

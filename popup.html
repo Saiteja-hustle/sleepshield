@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Self</title>
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -51,6 +50,12 @@
 
       <div class="fs-schedule" id="schedule-info"></div>
 
+      <!-- Trial banner -->
+      <div class="fs-trial-banner fs-hidden" id="trial-banner">
+        <span class="fs-trial-text" id="trial-text"></span>
+        <a class="fs-trial-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade to lifetime access</a>
+      </div>
+
       <div class="fs-stats">
         <div class="fs-stat">
           <span class="fs-stat-value" id="streak-count">0</span>
@@ -60,12 +65,6 @@
           <span class="fs-stat-value" id="blocked-count">0</span>
           <span class="fs-stat-label">blocked tonight</span>
         </div>
-      </div>
-
-      <!-- Trial banner -->
-      <div class="fs-trial-banner fs-hidden" id="trial-banner">
-        <span class="fs-trial-text" id="trial-text"></span>
-        <a class="fs-trial-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade to lifetime access</a>
       </div>
 
       <a class="fs-settings-link" id="settings-link">Settings</a>
