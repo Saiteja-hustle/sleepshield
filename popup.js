@@ -9,6 +9,12 @@
     "futureself_trialStart", "futureself_trialStatus", "futureself_isPaid"
   ]);
 
+  // Initialize trial start if it doesn't exist
+  if (!config.futureself_trialStart) {
+    config.futureself_trialStart = Date.now();
+    await chrome.storage.local.set({ futureself_trialStart: config.futureself_trialStart });
+  }
+
   // Check trial/paid status first
   const isPaid = config.futureself_isPaid === true;
   const trialStart = config.futureself_trialStart;
