@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Self</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="fs-popup">
     <div class="fs-header">
-      <h1 class="fs-title">Future Self</h1>
+      <div class="fs-header-row">
+        <h1 class="fs-title">Future Self</h1>
+        <div class="fs-status-badge" id="status-badge">
+          <span class="fs-status-dot" id="status-dot"></span>
+          <span class="fs-status-text" id="status-text"></span>
+        </div>
+      </div>
       <p class="fs-tagline">Tomorrow will thank you.</p>
     </div>
 
@@ -41,7 +46,7 @@
             <span class="fs-trial-stat-label">sites blocked</span>
           </div>
         </div>
-        <a class="fs-button-primary" id="btn-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade — $19</a>
+        <a class="fs-button-primary" id="btn-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade &mdash; $19</a>
       </div>
     </div>
 
@@ -50,11 +55,6 @@
       <!-- Paid badge -->
       <div class="fs-paid-badge fs-hidden" id="paid-badge">Lifetime Access</div>
 
-      <div class="fs-status-badge" id="status-badge">
-        <span class="fs-status-dot" id="status-dot"></span>
-        <span class="fs-status-text" id="status-text"></span>
-      </div>
-
       <div class="fs-microcopy" id="microcopy"></div>
 
       <div class="fs-schedule" id="schedule-info"></div>
@@ -62,7 +62,7 @@
       <!-- Trial banner -->
       <div class="fs-trial-banner fs-hidden" id="trial-banner">
         <span class="fs-trial-text" id="trial-text"></span>
-        <a class="fs-trial-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Upgrade to lifetime access</a>
+        <a class="fs-trial-upgrade" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">$19 lifetime &rarr;</a>
       </div>
 
       <div class="fs-stats">

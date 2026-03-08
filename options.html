@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Future Self — Settings</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Future Self &mdash; Settings</title>
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
   <div class="fs-container">
     <div class="fs-header">
       <h1 class="fs-title">Future Self</h1>
-      <p class="fs-tagline">Let's set up your future self.</p>
+      <p class="fs-tagline">Configure your sleep protection.</p>
     </div>
 
     <!-- Sleep Schedule -->
     <section class="fs-card">
-      <h2 class="fs-card-title">Your sleep schedule</h2>
+      <h2 class="fs-card-title">Sleep Schedule</h2>
 
       <div class="fs-field">
-        <label class="fs-label" for="wake-time">What time do you want to wake up?</label>
+        <label class="fs-label" for="wake-time">Wake-up time</label>
         <input type="time" class="fs-input" id="wake-time" value="06:00">
       </div>
 
       <div class="fs-field">
-        <label class="fs-label" for="sleep-hours">How many hours of sleep do you want?</label>
+        <label class="fs-label" for="sleep-hours">Hours of sleep</label>
         <div class="fs-slider-row">
           <input type="range" id="sleep-hours" min="6" max="9" step="0.5" value="7.5" class="fs-range">
           <span class="fs-slider-value" id="sleep-hours-value">7.5 hrs</span>
@@ -32,13 +31,13 @@
       </div>
 
       <div class="fs-field">
-        <label class="fs-label" for="buffer">Wind-down buffer before sleep?</label>
+        <label class="fs-label" for="buffer">Wind-down buffer</label>
         <select class="fs-select" id="buffer">
-          <option value="0">0 minutes</option>
-          <option value="15">15 minutes</option>
-          <option value="30" selected>30 minutes</option>
-          <option value="45">45 minutes</option>
-          <option value="60">60 minutes</option>
+          <option value="0">0 min</option>
+          <option value="15">15 min</option>
+          <option value="30" selected>30 min</option>
+          <option value="45">45 min</option>
+          <option value="60">60 min</option>
         </select>
       </div>
 
@@ -50,7 +49,7 @@
 
     <!-- Blocklist -->
     <section class="fs-card">
-      <h2 class="fs-card-title">Blocked sites</h2>
+      <h2 class="fs-card-title">Blocked Sites</h2>
       <p class="fs-card-desc">Choose which sites to block during your sleep window.</p>
 
       <div id="blocklist-categories"></div>
@@ -59,7 +58,7 @@
       <div class="fs-custom-domains">
         <h3 class="fs-custom-title">Custom domains</h3>
         <div class="fs-custom-input-row">
-          <input type="text" class="fs-input fs-custom-input" id="custom-domain" placeholder="e.g. example.com">
+          <input type="text" class="fs-custom-input" id="custom-domain" placeholder="e.g. example.com">
           <button class="fs-button-secondary fs-btn-small" id="btn-add-domain">Add</button>
         </div>
         <ul id="custom-domain-list" class="fs-custom-list"></ul>

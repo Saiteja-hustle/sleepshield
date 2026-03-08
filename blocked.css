@@ -1,119 +1,203 @@
-/* ═══════════════════════════════════════════
-   Future Self — Block Page Styles
-   ═══════════════════════════════════════════ */
+/* ===================================================
+   Future Self — Block Page Styles (V2 Redesign)
+   =================================================== */
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --night-black: #0B0E14;
-  --night-charcoal: #151923;
-  --night-graphite: #1E2433;
-  --night-slate: #2A3040;
-  --text-primary: #E8ECF4;
-  --text-secondary: #8B95A8;
-  --text-muted: #525E73;
-  --accent-green: #4ADE80;
-  --accent-green-glow: rgba(74, 222, 128, 0.15);
-  --accent-amber: #FBBF24;
-  --accent-amber-glow: rgba(251, 191, 36, 0.12);
-  --accent-red-soft: #F87171;
-  --accent-blue: #60A5FA;
+  /* Backgrounds */
+  --bg:             #080b11;
+  --surface:        #0f1219;
+  --card:           #141924;
+  --card-hover:     #1a2030;
+
+  /* Borders */
+  --border:         #1e2636;
+  --border-light:   #283040;
+
+  /* Text */
+  --text:           #e0e5ef;
+  --text-sec:       #7b879e;
+  --text-muted:     #414d63;
+
+  /* Accents */
+  --green:          #34d399;
+  --green-dim:      rgba(52,211,153,0.06);
+  --green-border:   rgba(52,211,153,0.12);
+  --green-glow:     rgba(52,211,153,0.15);
+
+  --amber:          #d4a24e;
+  --amber-dim:      rgba(212,162,78,0.06);
+  --amber-border:   rgba(212,162,78,0.1);
+
+  --teal:           #2dd4bf;
+  --teal-dim:       rgba(45,212,191,0.06);
+
+  --red-soft:       #e87272;
+
+  /* Fonts */
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'General Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Radius */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  11px;
+  --radius-xl:  14px;
+  --radius-pill: 20px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--night-black);
-  color: var(--text-primary);
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
   transition: background-color 0.5s ease;
+  position: relative;
 }
 
-/* ── Layout ─────────────────────────────── */
+/* Ambient glow behind intercept content */
+body::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(212,162,78,0.035) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Layout ---- */
 
 .fs-container {
   max-width: 560px;
   width: 100%;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .fs-hidden { display: none !important; }
 
-/* ── Header Info ────────────────────────── */
+/* ---- Header Info ---- */
 
 .fs-site-label {
-  font-size: 13px;
-  color: var(--accent-amber);
-  font-weight: 500;
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  text-transform: lowercase;
 }
 
 .fs-time-notice {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-body);
+  font-size: 12px;
   color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 2rem;
+  margin-bottom: 52px;
 }
 
-/* ── Question Card ──────────────────────── */
+/* ---- Question Card ---- */
 
 .fs-question-card {
-  background: var(--night-charcoal);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  margin-bottom: 1.5rem;
-  border-left: 4px solid var(--accent-amber);
+  margin-bottom: 14px;
   opacity: 0;
-  animation: fsFadeSlideIn 3s ease forwards;
+  animation: fsFadeSlideIn 2s ease forwards;
 }
 
 .fs-question-card p {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 20px;
-  line-height: 1.5;
-  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.38;
+  color: var(--text);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-/* ── Countdown Text ─────────────────────── */
+.fs-question-supporting {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-sec);
+  margin-top: 14px;
+  margin-bottom: 56px;
+}
+
+/* ---- Countdown Text ---- */
 
 .fs-countdown {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  color: var(--accent-amber);
   margin-bottom: 1.5rem;
-  min-height: 1.2em;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  animation: fsFadeIn 0.5s ease 3s forwards;
+  animation: fsFadeIn 0.5s ease 2s forwards;
 }
 
-/* ── Buttons (shared) ───────────────────── */
+.fs-countdown-number {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.fs-countdown-number.fs-urgent {
+  color: var(--amber);
+}
+
+.fs-countdown-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+}
+
+/* Legacy countdown text fallback */
+.fs-countdown:not(:has(.fs-countdown-number)) {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--amber);
+  min-height: 1.2em;
+  display: block;
+}
+
+/* ---- Buttons (shared) ---- */
 
 .fs-btn {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  transition: opacity 0.2s, transform 0.15s;
+  font-family: var(--font-body);
+  transition: opacity 0.15s ease, transform 0.12s ease;
 }
 .fs-btn:hover { opacity: 0.9; }
 .fs-btn:active { transform: scale(0.97); }
 
-/* ── Action Group ───────────────────────── */
+/* ---- Action Group ---- */
 
 .fs-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
   align-items: center;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 .fs-actions.fs-visible {
   opacity: 1;
@@ -121,51 +205,49 @@ body {
 }
 
 .fs-btn-sleep {
-  background: var(--accent-green);
-  color: var(--night-black);
-  font-size: 17px;
-  padding: 1rem 2.5rem;
+  background: var(--green);
+  color: var(--bg);
+  font-size: 15px;
+  padding: 14px 44px;
   width: 100%;
   max-width: 400px;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 24px var(--green-glow), 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .fs-btn-override {
   background: transparent;
   color: var(--text-muted);
-  border: 1px solid var(--night-slate);
-  font-size: 13px;
-  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+  padding: 9px 22px;
   border-radius: 8px;
-  opacity: 0;
-  animation: fsFadeIn 3s ease 7s forwards;
+  opacity: 0.55;
 }
 
 .fs-btn-breathe {
   background: transparent;
   color: var(--text-muted);
-  font-size: 13px;
-  padding: 0.4rem 1rem;
-  margin-top: 0.25rem;
-  opacity: 0;
-  animation: fsFadeIn 0.5s ease 10s forwards;
+  font-size: 12px;
+  padding: 6px 16px;
+  opacity: 0.4;
 }
 
-/* ── Reason Picker ──────────────────────── */
+/* ---- Reason Picker ---- */
 
 .fs-checkin-title {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 22px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
 }
 
 .fs-checkin-subtitle {
-  color: var(--text-secondary);
-  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--text-sec);
+  font-size: 14px;
   margin-bottom: 2rem;
   line-height: 1.5;
 }
@@ -173,7 +255,7 @@ body {
 .fs-reason-options, .fs-time-options {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.5rem;
   align-items: center;
   margin-bottom: 1.5rem;
   animation: fsFadeIn 0.4s ease;
@@ -182,57 +264,61 @@ body {
 .fs-btn-reason, .fs-btn-time {
   width: 100%;
   max-width: 380px;
-  padding: 0.9rem 1.2rem;
-  background: var(--night-charcoal);
-  border: 1px solid var(--night-slate);
-  border-radius: 12px;
-  color: var(--text-primary);
-  font-size: 15px;
+  padding: 0.8rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--font-body);
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+  cursor: pointer;
 }
 .fs-btn-reason:hover, .fs-btn-time:hover {
-  background: var(--night-graphite);
-  border-color: var(--accent-amber);
+  background: var(--card);
+  border-color: var(--border-light);
 }
 
-.fs-reason-emoji { font-size: 1.3rem; flex-shrink: 0; }
-.fs-reason-label { text-align: left; }
+.fs-reason-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.fs-reason-label { text-align: left; font-family: var(--font-body); }
 
-/* ── Time Selector Sizes ────────────────── */
+/* ---- Time Selector Sizes (progressive de-emphasis) ---- */
 
 .fs-time-xl {
-  padding: 1.1rem 1.4rem;
-  font-size: 15px;
-  border-color: var(--accent-green);
-  background: var(--accent-green-glow);
+  padding: 1rem 1.3rem;
+  font-size: 14px;
+  border-color: var(--border-light);
 }
 .fs-time-lg {
-  padding: 1rem 1.3rem;
-  font-size: 15px;
+  padding: 0.9rem 1.2rem;
+  font-size: 14px;
 }
 .fs-time-md {
-  padding: 0.9rem 1.2rem;
-  font-size: 15px;
-  color: var(--text-secondary);
+  padding: 0.85rem 1.1rem;
+  font-size: 13px;
+  color: var(--text-sec);
 }
 .fs-time-sm {
-  padding: 0.8rem 1.1rem;
+  padding: 0.75rem 1rem;
   font-size: 13px;
-  color: var(--text-secondary);
+  color: var(--text-sec);
+  opacity: 0.85;
 }
 .fs-time-xs {
   padding: 0.7rem 1rem;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--text-muted);
+  opacity: 0.75;
 }
 .fs-time-xxs {
   padding: 0.65rem 1rem;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--text-muted);
-  border-color: rgba(248, 113, 113, 0.3);
+  opacity: 0.65;
+  border-color: rgba(232, 114, 114, 0.2);
 }
 
 .fs-time-label-wrap {
@@ -243,19 +329,20 @@ body {
 }
 .fs-time-warning {
   font-size: 11px;
-  color: var(--accent-red-soft);
+  color: var(--red-soft);
   opacity: 0.8;
 }
 
 .fs-btn-back {
   background: transparent;
-  color: var(--accent-green);
-  font-size: 15px;
+  color: var(--green);
+  font-size: 14px;
   padding: 0.75rem 1.5rem;
   margin-top: 0.25rem;
+  font-family: var(--font-body);
 }
 
-/* ── Farewell Screen ────────────────────── */
+/* ---- Farewell Screen ---- */
 
 .fs-farewell-emoji {
   font-size: 3rem;
@@ -264,30 +351,30 @@ body {
 }
 
 .fs-farewell-text {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   line-height: 1.5;
-  color: var(--text-primary);
+  color: var(--text);
+  font-weight: 600;
   animation: fsFadeSlideIn 0.5s ease;
-  letter-spacing: -0.02em;
 }
 
-/* ══════════════════════════════════════════
+/* ==================================================
    GAME 1: Sleep Cost Slider
-   ══════════════════════════════════════════ */
+   ================================================== */
 
 .fs-game-title {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 22px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.4rem;
-  letter-spacing: -0.02em;
 }
 
 .fs-game-subtitle {
-  color: var(--text-secondary);
-  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--text-sec);
+  font-size: 14px;
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
@@ -301,7 +388,7 @@ body {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 4px solid var(--accent-green);
+  border: 3px solid var(--green);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,19 +402,19 @@ body {
 }
 
 .fs-slider-hours {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 1.8rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.25rem;
   transition: color 0.3s ease;
 }
 
 .fs-slider-label {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: 14px;
   font-weight: 600;
-  color: var(--accent-amber);
+  color: var(--amber);
   margin-bottom: 1rem;
   transition: color 0.3s ease;
 }
@@ -337,9 +424,9 @@ body {
   appearance: none;
   width: 100%;
   max-width: 400px;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--night-slate);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
   outline: none;
   margin-bottom: 1.25rem;
   cursor: pointer;
@@ -347,51 +434,52 @@ body {
 .fs-sleep-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--text-primary);
-  border: 3px solid var(--accent-green);
+  background: var(--text);
+  border: 3px solid var(--green);
   cursor: pointer;
   transition: border-color 0.3s ease;
 }
 
 .fs-slider-desc {
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: 14px;
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: var(--text-sec);
   max-width: 420px;
   margin: 0 auto;
   transition: color 0.3s ease;
 }
 
-/* ══════════════════════════════════════════
+/* ==================================================
    GAME 2: Commitment Challenge
-   ══════════════════════════════════════════ */
+   ================================================== */
 
 .fs-typing-display {
-  background: var(--night-charcoal);
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin: 1.5rem auto;
   max-width: 480px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 15px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   line-height: 1.8;
   text-align: left;
   min-height: 3.5em;
-  border: 1px solid var(--night-slate);
+  border: 1px solid var(--border);
   user-select: none;
 }
 
 .fs-typing-char {
   transition: color 0.1s;
 }
-.fs-typing-char.fs-correct { color: var(--accent-green); }
-.fs-typing-char.fs-wrong { color: var(--accent-red-soft); }
+.fs-typing-char.fs-correct { color: var(--green); }
+.fs-typing-char.fs-wrong { color: var(--red-soft); }
 .fs-typing-char.fs-pending { color: var(--text-muted); }
 .fs-typing-char.fs-cursor {
-  border-left: 2px solid var(--accent-amber);
+  border-left: 2px solid var(--amber);
   animation: fsCursorBlink 1s step-end infinite;
 }
 
@@ -402,7 +490,8 @@ body {
 }
 
 .fs-typing-hint {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
@@ -412,17 +501,18 @@ body {
   animation: fsFadeIn 0.5s ease;
 }
 .fs-typing-done-text {
-  color: var(--accent-green);
-  font-size: 15px;
+  color: var(--green);
+  font-size: 14px;
+  font-family: var(--font-body);
 }
 
 @keyframes fsCursorBlink {
   50% { border-color: transparent; }
 }
 
-/* ══════════════════════════════════════════
+/* ==================================================
    GAME 3: Trivia Swipe Cards
-   ══════════════════════════════════════════ */
+   ================================================== */
 
 .fs-trivia-dots {
   display: flex;
@@ -432,18 +522,18 @@ body {
 }
 
 .fs-trivia-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--night-slate);
+  background: var(--border);
   transition: background 0.3s ease;
 }
-.fs-trivia-dot.fs-active { background: var(--accent-amber); }
-.fs-trivia-dot.fs-done { background: var(--accent-green); }
+.fs-trivia-dot.fs-active { background: var(--amber); }
+.fs-trivia-dot.fs-done { background: var(--green); }
 
 .fs-trivia-viewport {
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   margin-bottom: 1rem;
 }
 
@@ -454,24 +544,27 @@ body {
 
 .fs-trivia-card {
   min-width: 100%;
-  background: var(--night-charcoal);
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: var(--radius-xl);
   padding: 2rem 1.5rem;
-  border: 1px solid var(--night-slate);
+  border: 1px solid var(--border);
 }
 
 .fs-trivia-card-label {
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 0.75rem;
 }
 
 .fs-trivia-card-text {
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 1.25rem;
 }
 
@@ -485,19 +578,19 @@ body {
 .fs-trivia-btn {
   padding: 0.6rem 1.5rem;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  border: 1px solid var(--night-slate);
-  background: var(--night-black);
-  color: var(--text-primary);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
   cursor: pointer;
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  font-family: var(--font-body);
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
 }
-.fs-trivia-btn:hover { border-color: var(--accent-amber); }
+.fs-trivia-btn:hover { border-color: var(--border-light); background: var(--surface); }
 .fs-trivia-btn:active { transform: scale(0.95); }
-.fs-trivia-btn.fs-true-btn:hover { border-color: var(--accent-green); }
-.fs-trivia-btn.fs-false-btn:hover { border-color: var(--accent-red-soft); }
+.fs-trivia-btn.fs-true-btn:hover { border-color: var(--green); }
+.fs-trivia-btn.fs-false-btn:hover { border-color: var(--red-soft); }
 
 .fs-trivia-reveal {
   margin-top: 0.75rem;
@@ -505,18 +598,20 @@ body {
   border-radius: 10px;
   font-size: 13px;
   line-height: 1.5;
-  color: var(--text-primary);
+  color: var(--text);
+  font-family: var(--font-body);
   animation: fsFadeIn 0.3s ease;
 }
-.fs-trivia-reveal.fs-correct { background: var(--accent-green-glow); }
-.fs-trivia-reveal.fs-wrong { background: rgba(248, 113, 113, 0.12); }
-.fs-trivia-reveal.fs-neutral { background: var(--accent-amber-glow); }
+.fs-trivia-reveal.fs-correct { background: var(--green-dim); }
+.fs-trivia-reveal.fs-wrong { background: rgba(232, 114, 114, 0.08); }
+.fs-trivia-reveal.fs-neutral { background: var(--amber-dim); }
 
 .fs-trivia-card-goodnight {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-display);
   font-size: 17px;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .fs-trivia-nav {
@@ -527,27 +622,27 @@ body {
 }
 
 .fs-trivia-arrow {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--night-charcoal);
-  color: var(--text-primary);
-  border: 1px solid var(--night-slate);
-  font-size: 1.2rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background 0.12s ease, opacity 0.12s ease;
 }
-.fs-trivia-arrow:hover { background: var(--night-graphite); }
+.fs-trivia-arrow:hover { background: var(--card); }
 .fs-trivia-arrow:disabled { opacity: 0.3; cursor: default; }
 
-/* ══════════════════════════════════════════
-   Breathwork
-   ══════════════════════════════════════════ */
+/* ==================================================
+   Breathwork (Concentric Ring Design)
+   ================================================== */
 
 .fs-breathwork-overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #0B0E14, #111827, #0F172A);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -561,68 +656,213 @@ body {
   padding: 2rem;
 }
 
-.fs-breathwork-circle {
-  width: 180px;
-  height: 180px;
+.fs-breathwork-top-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 2.5rem;
+}
+
+/* Breathing visual container */
+.fs-breathwork-visual {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 2rem;
+}
+
+/* Layer 1: Progress ring (SVG) */
+.fs-breathwork-progress-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 240px;
+  transform: rotate(-90deg);
+}
+
+.fs-breathwork-progress-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2.5;
+}
+
+.fs-breathwork-progress-arc {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Dot at top of progress ring */
+.fs-breathwork-dot {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-green-glow), rgba(74, 222, 128, 0.03));
-  border: 2px solid rgba(74, 222, 128, 0.3);
+  background: var(--teal);
+  box-shadow: 0 0 6px var(--teal);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.fs-breathwork-dot.fs-paused {
+  opacity: 0.4;
+}
+
+/* Layer 2: Breathing ring */
+.fs-breathwork-ring {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(45,212,191,0.35);
+  background: radial-gradient(circle, rgba(45,212,191,0.04) 0%, transparent 70%);
+  transition: all 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fs-breathwork-ring.fs-inhale {
+  transform: scale(1.15);
+  border-color: rgba(45,212,191,0.35);
+  background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%);
+}
+
+.fs-breathwork-ring.fs-hold {
+  transform: scale(1.15);
+  border-color: rgba(45,212,191,0.5);
+  background: radial-gradient(circle, rgba(45,212,191,0.1) 0%, transparent 70%);
+}
+
+.fs-breathwork-ring.fs-exhale {
+  transform: scale(0.85);
+  border-color: rgba(45,212,191,0.2);
+  background: radial-gradient(circle, rgba(45,212,191,0.03) 0%, transparent 70%);
+}
+
+/* Layer 3: Inner core */
+.fs-breathwork-core {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, rgba(8,11,17,0.9) 70%);
+  border: 1px solid rgba(45,212,191,0.15);
+  box-shadow: inset 0 -20px 40px rgba(0,0,0,0.3), 0 0 60px rgba(45,212,191,0.05);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 2rem;
-  transition: transform 4s ease-in-out, border-color 0.5s ease, background 0.5s ease;
-  box-shadow: 0 0 40px rgba(74, 222, 128, 0.1);
+  transition: all 1.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fs-breathwork-circle.fs-inhale {
-  transform: scale(1.5);
-  border-color: rgba(74, 222, 128, 0.5);
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.2), rgba(74, 222, 128, 0.03));
-  box-shadow: 0 0 60px rgba(74, 222, 128, 0.15);
+.fs-breathwork-core.fs-inhale {
+  transform: scale(1.15);
+  border-color: rgba(45,212,191,0.25);
 }
 
-.fs-breathwork-circle.fs-hold-in {
-  transform: scale(1.5);
-  transition-duration: 0.3s;
+.fs-breathwork-core.fs-hold {
+  transform: scale(1.15);
+  border-color: rgba(45,212,191,0.35);
+  background: radial-gradient(circle, rgba(45,212,191,0.1) 0%, rgba(8,11,17,0.9) 70%);
 }
 
-.fs-breathwork-circle.fs-exhale {
-  transform: scale(1);
-  transition-duration: 6s;
-  border-color: rgba(96, 165, 250, 0.3);
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.15), rgba(96, 165, 250, 0.03));
+.fs-breathwork-core.fs-exhale {
+  transform: scale(0.85);
+  border-color: rgba(45,212,191,0.1);
 }
 
-.fs-breathwork-circle.fs-hold-out {
-  transform: scale(1);
-  transition-duration: 0.3s;
+.fs-breathwork-phase {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+
+.fs-breathwork-timer {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Legacy breathwork circle (kept for JS compat) */
+.fs-breathwork-circle {
+  display: none;
 }
 
 .fs-breathwork-text {
-  font-size: 15px;
-  color: var(--text-primary);
-  font-weight: 500;
-  transition: opacity 0.3s;
+  display: none;
 }
 
+/* Breath counter */
 .fs-breathwork-count {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
+.fs-breathwork-count .fs-count-current {
+  color: var(--teal);
+}
+
+/* Begin / Pause buttons */
+.fs-breathwork-begin {
+  background: var(--teal);
+  color: var(--bg);
+  border: none;
+  border-radius: 10px;
+  padding: 13px 40px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.fs-breathwork-begin:hover { opacity: 0.9; }
+
+.fs-breathwork-pause {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 28px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+.fs-breathwork-pause:hover { border-color: var(--border-light); }
+
+/* Done state */
 .fs-breathwork-done-text {
-  font-size: 17px;
-  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-/* ══════════════════════════════════════════
+.fs-breathwork-done .fs-btn-sleep {
+  width: auto;
+  padding: 14px 44px;
+}
+
+/* ==================================================
    Animations
-   ══════════════════════════════════════════ */
+   ================================================== */
 
 @keyframes fsFadeSlideIn {
   from { opacity: 0; transform: translateY(8px); }

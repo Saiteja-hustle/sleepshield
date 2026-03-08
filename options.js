@@ -31,7 +31,7 @@ const DEFAULT_CATEGORIES = {
 };
 
 const CATEGORY_CALLOUTS = {
-  "Work & Productivity": "Yes, we block work tools too. Because at midnight, work is a distraction from sleep."
+  "Work & Productivity": "At midnight, work is a distraction from sleep."
 };
 
 // State
@@ -147,6 +147,12 @@ function renderCategories() {
 
     var title = document.createElement("h3");
     title.textContent = category;
+    var checkedCount = domains.filter(function (d) { return checkedDomains[d]; }).length;
+    var countBadge = document.createElement("span");
+    countBadge.className = "fs-category-count";
+    countBadge.textContent = checkedCount + "/" + domains.length;
+    title.appendChild(document.createTextNode(" "));
+    title.appendChild(countBadge);
     header.appendChild(title);
 
     var toggleBtn = document.createElement("button");
@@ -187,6 +193,8 @@ function renderCategories() {
           var parentToggle = catDiv.querySelector(".fs-category-toggle");
           parentToggle.textContent = domains.every(function (d) { return checkedDomains[d]; })
             ? "Uncheck all" : "Check all";
+          var badge = catDiv.querySelector(".fs-category-count");
+          if (badge) badge.textContent = domains.filter(function (d) { return checkedDomains[d]; }).length + "/" + domains.length;
         });
 
         chip.appendChild(cb);

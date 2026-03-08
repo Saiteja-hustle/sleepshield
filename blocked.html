@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Self</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="blocked.css">
 </head>
 <body>
@@ -22,7 +21,7 @@
 
     <div class="fs-actions" id="q-actions">
       <button class="fs-btn fs-btn-sleep" id="q-sleep">You're right. Goodnight.</button>
-      <button class="fs-btn fs-btn-override" id="q-override">Override anyway</button>
+      <button class="fs-btn fs-btn-override" id="q-override">I need more time</button>
       <button class="fs-btn fs-btn-breathe" id="q-breathe">Try breathing instead</button>
     </div>
   </div>
@@ -45,7 +44,7 @@
 
     <div class="fs-actions" id="s-actions">
       <button class="fs-btn fs-btn-sleep" id="s-sleep">You're right. Goodnight.</button>
-      <button class="fs-btn fs-btn-override" id="s-override">Override anyway</button>
+      <button class="fs-btn fs-btn-override" id="s-override">I need more time</button>
       <button class="fs-btn fs-btn-breathe" id="s-breathe">Try breathing instead</button>
     </div>
   </div>
@@ -173,14 +172,42 @@
   <!-- Screen: Breathwork -->
   <div class="fs-breathwork-overlay fs-hidden" id="screen-breathwork">
     <div class="fs-breathwork-content">
-      <div class="fs-breathwork-circle" id="breathwork-circle">
-        <span class="fs-breathwork-text" id="breathwork-text">Breathe in...</span>
+      <div class="fs-breathwork-top-label">Wind Down</div>
+
+      <div class="fs-breathwork-visual" id="breathwork-visual">
+        <!-- Layer 1: Progress ring SVG -->
+        <svg class="fs-breathwork-progress-svg" viewBox="0 0 240 240">
+          <circle class="fs-breathwork-progress-track" cx="120" cy="120" r="108" />
+          <circle class="fs-breathwork-progress-arc" id="breathwork-progress-arc" cx="120" cy="120" r="108"
+            stroke-dasharray="678.58" stroke-dashoffset="678.58" />
+        </svg>
+
+        <!-- Dot indicator -->
+        <div class="fs-breathwork-dot" id="breathwork-dot"></div>
+
+        <!-- Layer 2: Breathing ring -->
+        <div class="fs-breathwork-ring" id="breathwork-ring"></div>
+
+        <!-- Layer 3: Inner core -->
+        <div class="fs-breathwork-core" id="breathwork-core">
+          <span class="fs-breathwork-phase" id="breathwork-phase">Ready</span>
+          <span class="fs-breathwork-timer" id="breathwork-timer"></span>
+        </div>
       </div>
-      <p class="fs-breathwork-count" id="breathwork-count">Breath 1 of 10</p>
+
+      <p class="fs-breathwork-count" id="breathwork-count"></p>
+
+      <!-- Begin button (before starting) -->
+      <button class="fs-breathwork-begin" id="breathwork-begin">Begin</button>
+
+      <!-- Legacy elements for JS compat -->
+      <div class="fs-breathwork-circle fs-hidden" id="breathwork-circle">
+        <span class="fs-breathwork-text" id="breathwork-text"></span>
+      </div>
 
       <div class="fs-breathwork-done fs-hidden" id="breathwork-done">
         <p class="fs-breathwork-done-text">Feeling calmer? Your bed is ready.</p>
-        <button class="fs-btn fs-btn-sleep" id="breathwork-back">Back to Future Self</button>
+        <button class="fs-btn fs-btn-sleep" id="breathwork-back">Goodnight</button>
       </div>
     </div>
   </div>

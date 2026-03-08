@@ -180,9 +180,9 @@
   async function renderQuestion() {
     showScreen("screen-question");
 
-    document.getElementById("site-name").textContent = "You\u2019re trying to open " + site;
+    document.getElementById("site-name").textContent = site.toLowerCase();
     document.getElementById("time-notice").textContent =
-      timeStr + " \u2022 alarm at " + wakeTimeDisplay;
+      timeStr + " \u00b7 alarm at " + wakeTimeDisplay;
 
     var question = await pickQuestion(zone, streak, shownQuestions);
     var text = fillVariables(question.text);
@@ -449,46 +449,104 @@
     var screen = document.getElementById("screen-breathwork");
     screen.classList.remove("fs-hidden");
 
-    var circle = document.getElementById("breathwork-circle");
-    var text = document.getElementById("breathwork-text");
+    var ring = document.getElementById("breathwork-ring");
+    var core = document.getElementById("breathwork-core");
+    var phaseEl = document.getElementById("breathwork-phase");
+    var timerEl = document.getElementById("breathwork-timer");
     var countEl = document.getElementById("breathwork-count");
     var doneEl = document.getElementById("breathwork-done");
+    var beginBtn = document.getElementById("breathwork-begin");
+    var progressArc = document.getElementById("breathwork-progress-arc");
+    var dotEl = document.getElementById("breathwork-dot");
+
+    // Also update legacy elements if they exist
+    var legacyCircle = document.getElementById("breathwork-circle");
+    var legacyText = document.getElementById("breathwork-text");
 
     var breath = 0;
     var totalBreaths = 10;
+    var circumference = 2 * Math.PI * 108; // ~678.58
+
+    function updateProgress() {
+      var offset = circumference - (breath / totalBreaths) * circumference;
+      if (progressArc) progressArc.setAttribute("stroke-dashoffset", offset);
+    }
+
+    function setPhase(phaseName, seconds) {
+      var cls = "";
+      if (phaseName === "Breathe in") cls = "fs-inhale";
+      else if (phaseName === "Hold") cls = "fs-hold";
+      else if (phaseName === "Breathe out") cls = "fs-exhale";
+
+      if (ring) ring.className = "fs-breathwork-ring" + (cls ? " " + cls : "");
+      if (core) core.className = "fs-breathwork-core" + (cls ? " " + cls : "");
+      if (phaseEl) phaseEl.textContent = phaseName;
+      if (timerEl) timerEl.textContent = seconds;
+
+      // Legacy compat
+      if (legacyCircle) legacyCircle.className = "fs-breathwork-circle fs-hidden" + (cls ? " " + cls : "");
+      if (legacyText) legacyText.textContent = phaseName + "\u2026";
+    }
+
+    function updateCount() {
+      if (countEl) {
+        countEl.innerHTML = '<span class="fs-count-current">' + (breath + 1) + '</span> of ' + totalBreaths;
+      }
+    }
+
+    function countdown(seconds, phaseName, cb) {
+      var remaining = seconds;
+      setPhase(phaseName, remaining);
+      var interval = setInterval(function () {
+        remaining--;
+        if (timerEl) timerEl.textContent = remaining;
+        if (remaining <= 0) {
+          clearInterval(interval);
+          cb();
+        }
+      }, 1000);
+    }
 
     function runCycle() {
       if (breath >= totalBreaths) {
-        text.textContent = "";
-        circle.className = "fs-breathwork-circle";
-        countEl.classList.add("fs-hidden");
+        if (phaseEl) phaseEl.textContent = "";
+        if (timerEl) timerEl.textContent = "";
+        if (ring) ring.className = "fs-breathwork-ring";
+        if (core) core.className = "fs-breathwork-core";
+        if (countEl) countEl.classList.add("fs-hidden");
         doneEl.classList.remove("fs-hidden");
+
+        // Legacy compat
+        if (legacyCircle) legacyCircle.className = "fs-breathwork-circle fs-hidden";
+        if (legacyText) legacyText.textContent = "";
         return;
       }
 
-      countEl.textContent = "Breath " + (breath + 1) + " of " + totalBreaths;
+      updateCount();
+      updateProgress();
 
-      circle.className = "fs-breathwork-circle fs-inhale";
-      text.textContent = "Breathe in\u2026";
-      setTimeout(function () {
-        circle.className = "fs-breathwork-circle fs-hold-in";
-        text.textContent = "Hold\u2026";
-        setTimeout(function () {
-          circle.className = "fs-breathwork-circle fs-exhale";
-          text.textContent = "Breathe out\u2026";
-          setTimeout(function () {
-            circle.className = "fs-breathwork-circle fs-hold-out";
-            text.textContent = "Hold\u2026";
-            setTimeout(function () {
-              breath++;
-              runCycle();
-            }, 2000);
-          }, 6000);
-        }, 4000);
-      }, 4000);
+      // 4-4-6 breathing pattern
+      countdown(4, "Breathe in", function () {
+        countdown(4, "Hold", function () {
+          countdown(6, "Breathe out", function () {
+            breath++;
+            updateProgress();
+            runCycle();
+          });
+        });
+      });
     }
 
-    runCycle();
+    // Begin button starts the cycle
+    if (beginBtn) {
+      beginBtn.addEventListener("click", function () {
+        beginBtn.classList.add("fs-hidden");
+        if (dotEl) dotEl.classList.remove("fs-paused");
+        runCycle();
+      });
+    } else {
+      runCycle();
+    }
   }
 
   // ═══════════════════════════════════════════
@@ -600,12 +658,15 @@
 
     var interval = setInterval(function () {
       elapsed++;
+      var remaining = totalSeconds - elapsed;
       if (elapsed >= 3 && elapsed < totalSeconds) {
-        countdownEl.textContent = "Take a moment\u2026 " + (totalSeconds - elapsed);
+        countdownEl.innerHTML =
+          '<span class="fs-countdown-number' + (remaining <= 3 ? ' fs-urgent' : '') + '">' + remaining + '</span>' +
+          '<span class="fs-countdown-label">take a moment</span>';
       }
       if (elapsed >= totalSeconds) {
         clearInterval(interval);
-        countdownEl.textContent = "";
+        countdownEl.innerHTML = "";
         actionsEl.classList.add("fs-visible");
       }
     }, 1000);
