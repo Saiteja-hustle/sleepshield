@@ -1,17 +1,49 @@
+/* ===================================================
+   Future Self — Settings / Onboarding (V2 Redesign)
+   =================================================== */
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
 :root {
-  --night-black: #0B0E14;
-  --night-charcoal: #151923;
-  --night-graphite: #1E2433;
-  --night-slate: #2A3040;
-  --text-primary: #E8ECF4;
-  --text-secondary: #8B95A8;
-  --text-muted: #525E73;
-  --accent-green: #4ADE80;
-  --accent-green-glow: rgba(74, 222, 128, 0.15);
-  --accent-amber: #FBBF24;
-  --accent-amber-glow: rgba(251, 191, 36, 0.12);
-  --accent-red-soft: #F87171;
-  --accent-blue: #60A5FA;
+  /* Backgrounds */
+  --bg:             #080b11;
+  --surface:        #0f1219;
+  --card:           #141924;
+  --card-hover:     #1a2030;
+
+  /* Borders */
+  --border:         #1e2636;
+  --border-light:   #283040;
+
+  /* Text */
+  --text:           #e0e5ef;
+  --text-sec:       #7b879e;
+  --text-muted:     #414d63;
+
+  /* Accents */
+  --green:          #34d399;
+  --green-dim:      rgba(52,211,153,0.06);
+  --green-border:   rgba(52,211,153,0.12);
+  --green-glow:     rgba(52,211,153,0.15);
+
+  --amber:          #d4a24e;
+  --amber-dim:      rgba(212,162,78,0.06);
+  --amber-border:   rgba(212,162,78,0.1);
+
+  --red-soft:       #e87272;
+
+  /* Fonts */
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'General Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Radius */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  11px;
+  --radius-xl:  14px;
+  --radius-pill: 20px;
 }
 
 * {
@@ -21,144 +53,174 @@
 }
 
 body {
-  background: var(--night-black);
-  color: var(--text-primary);
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  padding: 2rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  padding: 28px 20px 120px;
   display: flex;
   justify-content: center;
 }
 
 .fs-container {
-  max-width: 600px;
+  max-width: 520px;
   width: 100%;
 }
 
+/* ---- Header ---- */
+
 .fs-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .fs-title {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 28px;
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+  color: var(--text);
   line-height: 1.1;
 }
 
 .fs-tagline {
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-top: 0.5rem;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
 }
 
-/* Cards */
+.fs-hidden {
+  display: none !important;
+}
+
+/* ---- Cards ---- */
+
 .fs-card {
-  background: var(--night-charcoal);
-  border-radius: 14px;
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
+  background: var(--card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
 
 .fs-card-title {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: 17px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
 }
 
 .fs-card-desc {
-  color: var(--text-secondary);
-  font-size: 13px;
-  margin-bottom: 1.25rem;
+  font-family: var(--font-body);
+  color: var(--text-sec);
+  font-size: 12.5px;
+  margin-bottom: 1rem;
   line-height: 1.5;
+  margin-top: -6px;
 }
 
-/* Fields */
+/* ---- Fields ---- */
+
 .fs-field {
-  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.fs-field:last-of-type {
+  border-bottom: none;
 }
 
 .fs-label {
-  display: block;
-  font-size: 15px;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--text-sec);
+  line-height: 1.4;
+  flex: 1;
 }
 
 .fs-input,
 .fs-select {
-  background: var(--night-graphite);
-  color: var(--text-primary);
-  border: 1px solid var(--night-slate);
-  border-radius: 10px;
-  padding: 0.65rem 0.9rem;
-  font-size: 15px;
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  width: 100%;
-  max-width: 260px;
-  transition: border-color 0.2s;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 12px;
+  font-size: 13.5px;
+  font-family: var(--font-mono);
+  width: auto;
+  max-width: 140px;
+  text-align: center;
+  transition: border-color 0.12s ease;
 }
 
 .fs-input:focus,
 .fs-select:focus {
   outline: none;
-  border-color: var(--accent-green);
+  border-color: var(--border-light);
 }
 
-/* Slider */
+/* ---- Slider ---- */
+
 .fs-slider-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 10px;
 }
 
 .fs-range {
-  flex: 1;
-  max-width: 320px;
-  accent-color: var(--accent-green);
+  width: 100px;
+  accent-color: var(--green);
 }
 
 .fs-slider-value {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 15px;
-  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--text);
   font-weight: 500;
-  min-width: 60px;
+  min-width: 50px;
+  background: var(--surface);
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  text-align: center;
 }
 
-/* Calculation display */
+/* ---- Calculation display (Screens off at) ---- */
+
 .fs-calculation {
-  background: var(--night-graphite);
-  border-radius: 12px;
-  padding: 1.1rem 1.5rem;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.5rem;
 }
 
 .fs-calc-label {
-  color: var(--text-secondary);
-  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--text-sec);
+  font-size: 12.5px;
 }
 
 .fs-calc-time {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 22px;
+  font-family: var(--font-mono);
+  font-size: 17px;
   font-weight: 500;
-  color: var(--accent-green);
+  color: var(--green);
 }
 
-/* Blocklist categories */
+/* ---- Blocklist categories ---- */
+
 .fs-category {
-  margin-bottom: 1.5rem;
+  margin-bottom: 16px;
 }
 
 .fs-category-header {
@@ -166,107 +228,174 @@ body {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 6px 0;
 }
 
 .fs-category-header h3 {
-  font-size: 15px;
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.fs-category-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--surface);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
 }
 
 .fs-category-toggle {
-  font-size: 13px;
-  color: var(--accent-blue);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-muted);
   cursor: pointer;
   background: none;
   border: none;
-  font-family: inherit;
+  transition: color 0.12s ease;
 }
+.fs-category-toggle:hover { color: var(--text-sec); }
 
 .fs-category-callout {
-  background: var(--accent-amber-glow);
-  border-left: 3px solid var(--accent-amber);
-  border-radius: 8px;
-  padding: 0.7rem 1rem;
-  margin-bottom: 0.6rem;
-  font-size: 13px;
-  color: var(--accent-amber);
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--amber);
+  opacity: 0.65;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
+
+/* ---- Domain chips ---- */
 
 .fs-domain-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.4rem;
+  gap: 5px;
+  margin-top: 6px;
 }
 
 .fs-domain-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: var(--night-graphite);
-  border: 1px solid var(--night-slate);
-  border-radius: 8px;
-  padding: 0.35rem 0.7rem;
-  font-size: 13px;
+  gap: 5px;
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition: all 0.12s ease;
   user-select: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
 }
 
 .fs-domain-chip.fs-checked {
-  border-color: var(--accent-green);
-  background: var(--accent-green-glow);
+  background: var(--surface);
+  border-color: var(--border-light);
+  color: var(--text);
 }
 
+/* Custom checkbox styling */
 .fs-domain-chip input[type="checkbox"] {
-  accent-color: var(--accent-green);
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  border: 1.5px solid var(--text-muted);
+  background: transparent;
   margin: 0;
-  width: 14px;
-  height: 14px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.12s ease;
 }
 
-/* Custom domains */
+.fs-domain-chip input[type="checkbox"]:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.fs-domain-chip input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.5px;
+  width: 4px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+
+/* ---- Custom domains ---- */
+
 .fs-custom-domains {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--night-slate);
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
 }
 
 .fs-custom-title {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
 .fs-custom-input-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .fs-custom-input {
   flex: 1;
   max-width: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.fs-custom-input::placeholder {
+  color: var(--text-muted);
+}
+
+.fs-custom-input:focus {
+  outline: none;
+  border-color: var(--border-light);
 }
 
 .fs-custom-list {
   list-style: none;
-  margin-top: 0.5rem;
+  margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 5px;
 }
 
 .fs-custom-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  background: var(--night-graphite);
-  border: 1px solid var(--accent-green);
-  border-radius: 8px;
-  padding: 0.35rem 0.7rem;
-  font-size: 13px;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  color: var(--text);
 }
 
 .fs-custom-chip button {
@@ -277,78 +406,93 @@ body {
   font-size: 14px;
   padding: 0;
   line-height: 1;
+  transition: color 0.12s ease;
 }
+.fs-custom-chip button:hover { color: var(--red-soft); }
 
-/* Buttons */
+/* ---- Buttons ---- */
+
 .fs-button-primary {
   display: block;
   width: 100%;
-  background: var(--accent-green);
-  color: var(--night-black);
+  background: var(--green);
+  color: var(--bg);
   border: none;
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  font-size: 17px;
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  font-size: 14.5px;
   font-weight: 600;
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
   text-align: center;
-  transition: opacity 0.2s, transform 0.1s;
+  text-decoration: none;
+  box-shadow: 0 0 24px var(--green-glow), 0 4px 12px rgba(0,0,0,0.3);
+  transition: opacity 0.15s ease, transform 0.12s ease;
 }
 
 .fs-button-primary:hover { opacity: 0.9; }
 .fs-button-primary:active { transform: scale(0.98); }
 
-.fs-button-secondary {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--night-slate);
-  border-radius: 10px;
-  padding: 0.55rem 1rem;
-  font-size: 13px;
-  font-family: inherit;
+.fs-button-secondary,
+.fs-btn-small {
+  background: var(--surface);
+  color: var(--text-sec);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-body);
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: border-color 0.12s ease;
 }
 
-.fs-button-secondary:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
+.fs-button-secondary:hover,
+.fs-btn-small:hover {
+  border-color: var(--border-light);
 }
+
+/* ---- Sticky CTA ---- */
 
 .fs-btn-save {
-  margin-top: 0.5rem;
+  position: sticky;
+  bottom: 0;
+  margin-top: 14px;
+  z-index: 10;
+}
+
+/* Gradient fade behind sticky CTA */
+.fs-btn-save::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: -20px;
+  right: -20px;
+  height: 60px;
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+  pointer-events: none;
 }
 
 .fs-save-msg {
   text-align: center;
   margin-top: 0.75rem;
-  font-size: 13px;
+  font-family: var(--font-body);
+  font-size: 12px;
 }
 
-.fs-save-msg.fs-success {
-  color: var(--accent-green);
-}
+.fs-save-msg.fs-success { color: var(--green); }
+.fs-save-msg.fs-info { color: var(--amber); }
 
-.fs-save-msg.fs-info {
-  color: var(--accent-amber);
-}
+/* ---- Hidden activation ---- */
 
-.fs-hidden {
-  display: none !important;
-}
-
-/* Hidden activation */
 .fs-activation {
   margin-top: 3rem;
   text-align: center;
-  opacity: 0.3;
+  opacity: 0.2;
   transition: opacity 0.3s;
 }
 
-.fs-activation:hover {
-  opacity: 0.6;
-}
+.fs-activation:hover { opacity: 0.5; }
 
 .fs-activation-input {
   background: transparent;
@@ -357,7 +501,7 @@ body {
   border-radius: 8px;
   padding: 0.4rem 0.8rem;
   font-size: 11px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   text-align: center;
   width: 200px;
   transition: border-color 0.2s;
@@ -365,5 +509,5 @@ body {
 
 .fs-activation-input:focus {
   outline: none;
-  border-color: var(--night-slate);
+  border-color: var(--border);
 }

@@ -1,17 +1,49 @@
+/* ===================================================
+   Future Self — Popup Dashboard (V2 Redesign)
+   =================================================== */
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
 :root {
-  --night-black: #0B0E14;
-  --night-charcoal: #151923;
-  --night-graphite: #1E2433;
-  --night-slate: #2A3040;
-  --text-primary: #E8ECF4;
-  --text-secondary: #8B95A8;
-  --text-muted: #525E73;
-  --accent-green: #4ADE80;
-  --accent-green-glow: rgba(74, 222, 128, 0.15);
-  --accent-amber: #FBBF24;
-  --accent-amber-glow: rgba(251, 191, 36, 0.12);
-  --accent-red-soft: #F87171;
-  --accent-blue: #60A5FA;
+  /* Backgrounds */
+  --bg:             #080b11;
+  --surface:        #0f1219;
+  --card:           #141924;
+  --card-hover:     #1a2030;
+
+  /* Borders */
+  --border:         #1e2636;
+  --border-light:   #283040;
+
+  /* Text */
+  --text:           #e0e5ef;
+  --text-sec:       #7b879e;
+  --text-muted:     #414d63;
+
+  /* Accents */
+  --green:          #34d399;
+  --green-dim:      rgba(52,211,153,0.06);
+  --green-border:   rgba(52,211,153,0.12);
+  --green-glow:     rgba(52,211,153,0.15);
+
+  --amber:          #d4a24e;
+  --amber-dim:      rgba(212,162,78,0.06);
+  --amber-border:   rgba(212,162,78,0.1);
+
+  --red-soft:       #e87272;
+
+  /* Fonts */
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'General Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Radius */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  11px;
+  --radius-xl:  14px;
+  --radius-pill: 20px;
 }
 
 * {
@@ -21,216 +53,239 @@
 }
 
 body {
-  background: var(--night-black);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  width: 360px;
+  background: var(--card);
+  color: var(--text);
+  font-family: var(--font-body);
+  width: 310px;
   min-height: 200px;
 }
 
 .fs-popup {
-  padding: 1.5rem;
+  padding: 22px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 1px rgba(255,255,255,0.05);
 }
 
+/* ---- Header ---- */
+
 .fs-header {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.fs-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .fs-title {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 22px;
+  font-family: var(--font-display);
+  font-size: 17px;
   font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
+  color: var(--text);
   line-height: 1.1;
 }
 
 .fs-tagline {
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
   color: var(--text-muted);
-  margin-top: 0.35rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  margin-top: 3px;
 }
 
 .fs-hidden {
   display: none !important;
 }
 
-/* Setup prompt */
+/* ---- Setup prompt ---- */
+
 .fs-setup-msg {
-  color: var(--text-secondary);
-  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--text-sec);
+  font-size: 13px;
   margin-bottom: 1rem;
   line-height: 1.5;
 }
 
-/* Buttons */
+/* ---- Buttons ---- */
+
 .fs-button-primary {
   display: block;
   width: 100%;
-  background: var(--accent-green);
-  color: var(--night-black);
+  background: var(--green);
+  color: var(--bg);
   border: none;
-  border-radius: 10px;
-  padding: 0.75rem 1.5rem;
-  font-size: 15px;
+  border-radius: var(--radius-lg);
+  padding: 12px 20px;
+  font-size: 14px;
   font-weight: 600;
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 0 24px var(--green-glow), 0 4px 12px rgba(0,0,0,0.3);
+  transition: opacity 0.15s ease, transform 0.12s ease;
 }
 
-.fs-button-primary:hover {
-  opacity: 0.9;
-}
+.fs-button-primary:hover { opacity: 0.9; }
+.fs-button-primary:active { transform: scale(0.98); }
 
-.fs-button-primary:active {
-  transform: scale(0.98);
-}
+/* ---- Status badge ---- */
 
-/* Status badge */
 .fs-status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.15rem;
-  border-radius: 20px;
-  font-size: 13px;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 10.5px;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-family: var(--font-body);
 }
 
 .fs-status-badge.fs-active {
-  background: var(--accent-green-glow);
-  color: var(--accent-green);
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid var(--green-border);
 }
 
 .fs-status-badge.fs-inactive {
-  background: rgba(82, 94, 115, 0.15);
+  background: rgba(65, 77, 99, 0.1);
   color: var(--text-muted);
+  border: 1px solid var(--border);
 }
 
 .fs-status-dot {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   display: inline-block;
 }
 
 .fs-active .fs-status-dot {
-  background: var(--accent-green);
-  box-shadow: 0 0 6px var(--accent-green);
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
 }
 
 .fs-inactive .fs-status-dot {
   background: var(--text-muted);
 }
 
-/* Microcopy */
+/* ---- Microcopy ---- */
+
 .fs-microcopy {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 0.4rem;
-  line-height: 1.5;
+  display: none;
 }
 
-/* Schedule info */
+/* ---- Schedule info (Info Block) ---- */
+
 .fs-schedule {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text);
 }
 
-/* Trial banner */
+/* ---- Trial banner ---- */
+
 .fs-trial-banner {
-  background: var(--accent-amber-glow);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  border-radius: 10px;
-  padding: 0.6rem 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
+  background: var(--amber-dim);
+  border: 1px solid var(--amber-border);
+  border-radius: 9px;
+  padding: 9px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .fs-trial-text {
-  display: block;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  color: var(--accent-amber);
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--amber);
+  opacity: 0.7;
 }
 
 .fs-trial-upgrade {
-  display: block;
+  font-family: var(--font-body);
   font-size: 11px;
-  color: var(--accent-blue);
+  font-weight: 600;
+  color: var(--amber);
   text-decoration: none;
-  margin-top: 0.3rem;
 }
 
 .fs-trial-upgrade:hover {
   text-decoration: underline;
 }
 
-/* Stats */
+/* ---- Stats grid ---- */
+
 .fs-stats {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .fs-stat {
-  flex: 1;
-  background: var(--night-charcoal);
-  border-radius: 10px;
-  padding: 0.85rem 0.75rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 14px 10px;
   text-align: center;
 }
 
 .fs-stat-value {
   display: block;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 26px;
   font-weight: 500;
-  color: var(--accent-green);
+  color: var(--text);
   line-height: 1.2;
 }
 
-.fs-stat.fs-streak-active .fs-stat-value {
-  text-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+.fs-stat:first-child .fs-stat-value {
+  color: var(--green);
 }
 
 .fs-stat-label {
   display: block;
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
   color: var(--text-muted);
-  margin-top: 0.2rem;
+  margin-top: 5px;
   line-height: 1.3;
 }
 
-/* Trial expired */
+/* ---- Trial expired ---- */
+
 .fs-trial-expired-card {
-  background: var(--night-charcoal);
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
   padding: 1.5rem;
   text-align: center;
 }
 
 .fs-trial-expired-headline {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-display);
   font-size: 17px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
 }
 
 .fs-trial-expired-body {
+  font-family: var(--font-body);
   font-size: 13px;
-  color: var(--text-secondary);
+  color: var(--text-sec);
   margin-bottom: 1rem;
   line-height: 1.5;
 }
@@ -242,66 +297,74 @@ body {
   margin-bottom: 1.25rem;
 }
 
-.fs-trial-stat {
-  text-align: center;
-}
-
 .fs-trial-stat-value {
   display: block;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--accent-green);
+  color: var(--green);
 }
 
 .fs-trial-stat-label {
   display: block;
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  font-weight: 600;
 }
 
-/* Settings link */
+/* ---- Settings link ---- */
+
 .fs-settings-link {
   display: block;
   text-align: center;
-  color: var(--accent-blue);
-  font-size: 13px;
-  text-decoration: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
   cursor: pointer;
 }
 
 .fs-settings-link:hover {
-  text-decoration: underline;
+  color: var(--text-sec);
 }
 
-/* Logout link */
+/* ---- Logout link ---- */
+
 .fs-logout-link {
   display: block;
   text-align: center;
   color: var(--text-muted);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10px;
   text-decoration: none;
   cursor: pointer;
-  margin-top: 0.6rem;
+  margin-top: 8px;
+  opacity: 0.6;
 }
 
 .fs-logout-link:hover {
-  color: var(--accent-red-soft);
+  color: var(--red-soft);
   text-decoration: underline;
 }
 
-/* Paid badge */
+/* ---- Paid badge ---- */
+
 .fs-paid-badge {
   display: inline-block;
-  background: var(--accent-green-glow);
-  color: var(--accent-green);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 10px;
   font-weight: 600;
-  padding: 0.3rem 0.8rem;
-  border-radius: 6px;
-  letter-spacing: 0.05em;
+  color: var(--green);
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  margin-bottom: 10px;
 }
