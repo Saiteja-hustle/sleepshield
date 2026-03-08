@@ -75,19 +75,6 @@ var SupabaseAuth = {
     return data;
   },
 
-  async resetPassword(email) {
-    var res = await fetch(SUPABASE_URL + "/auth/v1/recover", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY
-      },
-      body: JSON.stringify({ email: email })
-    });
-    if (!res.ok) {
-      var data = await res.json();
-      throw new Error(data.error_description || data.msg || data.message || "Password reset failed");
-    }
   },
 
   async signOut() {
