@@ -54,14 +54,36 @@
 
       <div id="blocklist-categories"></div>
 
-      <!-- Custom domains -->
+      <!-- Custom Categories -->
+      <div class="fs-custom-categories">
+        <div class="fs-custom-categories-header">
+          <h3 class="fs-custom-title">Custom Categories</h3>
+          <button class="fs-button-secondary fs-btn-small" id="btn-new-category">+ New Category</button>
+        </div>
+
+        <!-- Inline form for creating/renaming a category (hidden by default) -->
+        <div class="fs-category-form fs-hidden" id="category-form">
+          <input type="text" class="fs-custom-input" id="category-name-input" placeholder="e.g. Gaming, News, Design Tools" maxlength="40">
+          <div class="fs-category-form-actions">
+            <button class="fs-button-secondary fs-btn-small" id="btn-save-category">Save</button>
+            <button class="fs-category-toggle" id="btn-cancel-category">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Custom categories rendered here (same style as defaults) -->
+        <div id="custom-categories-container"></div>
+      </div>
+
+      <!-- Add domain to any category -->
       <div class="fs-custom-domains">
-        <h3 class="fs-custom-title">Custom domains</h3>
+        <h3 class="fs-custom-title">Add Custom Domain</h3>
         <div class="fs-custom-input-row">
           <input type="text" class="fs-custom-input" id="custom-domain" placeholder="e.g. example.com">
+          <select class="fs-select fs-category-select" id="custom-domain-category">
+            <option value="">Category...</option>
+          </select>
           <button class="fs-button-secondary fs-btn-small" id="btn-add-domain">Add</button>
         </div>
-        <ul id="custom-domain-list" class="fs-custom-list"></ul>
       </div>
     </section>
 
