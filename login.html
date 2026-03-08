@@ -207,6 +207,63 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
+
+    .fs-forgot-link {
+      display: block;
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+
+    .fs-forgot-link:hover {
+      color: var(--accent-blue);
+    }
+
+    .fs-forgot-section {
+      display: none;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--night-slate);
+    }
+
+    .fs-forgot-section.fs-visible {
+      display: block;
+    }
+
+    .fs-forgot-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .fs-forgot-row .fs-input {
+      flex: 1;
+    }
+
+    .fs-btn-reset {
+      background: var(--accent-blue);
+      color: var(--night-black);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .fs-btn-reset:hover { opacity: 0.9; }
+    .fs-btn-reset:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -249,6 +306,15 @@
         <input type="password" class="fs-input" id="login-password" placeholder="Your password" autocomplete="current-password">
       </div>
       <button class="fs-btn-primary fs-btn-login" id="btn-login">Log In</button>
+      <button type="button" class="fs-forgot-link" id="forgot-toggle">Forgot Password?</button>
+      <div class="fs-forgot-section" id="forgot-section">
+        <div class="fs-error" id="forgot-error"></div>
+        <div class="fs-success" id="forgot-success"></div>
+        <div class="fs-forgot-row">
+          <input type="email" class="fs-input" id="forgot-email" placeholder="you@example.com" autocomplete="email">
+          <button type="button" class="fs-btn-reset" id="btn-forgot">Send Reset Link</button>
+        </div>
+      </div>
     </div>
 
     <p class="fs-footer">Tomorrow will thank you.</p>

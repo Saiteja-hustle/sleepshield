@@ -106,6 +106,48 @@
     if (e.key === "Enter") document.getElementById("btn-login").click();
   });
 
+  // Forgot Password
+  document.getElementById("forgot-toggle").addEventListener("click", function () {
+    var section = document.getElementById("forgot-section");
+    section.classList.toggle("fs-visible");
+    if (section.classList.contains("fs-visible")) {
+      document.getElementById("forgot-email").focus();
+    }
+  });
+
+  document.getElementById("btn-forgot").addEventListener("click", async function () {
+    var btn = this;
+    var email = document.getElementById("forgot-email").value.trim();
+    var errorEl = document.getElementById("forgot-error");
+    var successEl = document.getElementById("forgot-success");
+
+    errorEl.classList.remove("fs-visible");
+    successEl.classList.remove("fs-visible");
+
+    if (!email) {
+      showError(errorEl, "Please enter your email address.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    try {
+      await SupabaseAuth.resetPassword(email);
+      successEl.textContent = "Check your email for a reset link.";
+      successEl.classList.add("fs-visible");
+    } catch (e) {
+      showError(errorEl, e.message);
+    }
+
+    btn.textContent = "Send Reset Link";
+    btn.disabled = false;
+  });
+
+  document.getElementById("forgot-email").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") document.getElementById("btn-forgot").click();
+  });
+
   function showError(el, msg) {
     el.textContent = msg;
     el.classList.add("fs-visible");
