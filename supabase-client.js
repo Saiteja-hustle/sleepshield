@@ -75,67 +75,6 @@ var SupabaseAuth = {
     return data;
   },
 
-  async signInWithGoogle() {
-    var redirectUrl = chrome.identity.getRedirectURL();
-    var authUrl = SUPABASE_URL + "/auth/v1/authorize"
-      + "?provider=google"
-      + "&redirect_to=" + encodeURIComponent(redirectUrl);
-
-    return new Promise(function (resolve, reject) {
-      chrome.identity.launchWebAuthFlow(
-        { url: authUrl, interactive: true },
-        function (responseUrl) {
-          if (chrome.runtime.lastError) {
-            reject(new Error(chrome.runtime.lastError.message));
-            return;
-          }
-          if (!responseUrl) {
-            reject(new Error("Google sign-in was cancelled."));
-            return;
-          }
-
-          // Supabase returns tokens in the URL fragment (#access_token=...&refresh_token=...)
-          var hashPart = responseUrl.split("#")[1];
-          if (!hashPart) {
-            reject(new Error("No authentication data received."));
-            return;
-          }
-
-          var params = new URLSearchParams(hashPart);
-          var accessToken = params.get("access_token");
-          var refreshToken = params.get("refresh_token");
-          var expiresIn = params.get("expires_in");
-
-          if (!accessToken) {
-            reject(new Error("No access token received from Google sign-in."));
-            return;
-          }
-
-          // Fetch the user info from Supabase using the access token
-          fetch(SUPABASE_URL + "/auth/v1/user", {
-            headers: {
-              "apikey": SUPABASE_ANON_KEY,
-              "Authorization": "Bearer " + accessToken
-            }
-          })
-            .then(function (res) { return res.json(); })
-            .then(function (user) {
-              var data = {
-                access_token: accessToken,
-                refresh_token: refreshToken,
-                expires_in: expiresIn ? parseInt(expiresIn, 10) : 3600,
-                user: user
-              };
-              return SupabaseAuth._storeTokens(data).then(function () {
-                resolve(data);
-              });
-            })
-            .catch(function (err) {
-              reject(new Error("Failed to get user info: " + err.message));
-            });
-        }
-      );
-    });
   },
 
   async signOut() {
