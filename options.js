@@ -34,6 +34,16 @@ const CATEGORY_CALLOUTS = {
   "Work & Productivity": "At midnight, work is a distraction from sleep."
 };
 
+const BUILTIN_CATEGORY_ORDER = [
+  "Social Media",
+  "Entertainment",
+  "Work & Productivity",
+  "AI & Research Tools",
+  "News & Rabbit Holes",
+  "Shopping",
+  "Email"
+];
+
 // State
 var customDomains = [];
 var checkedDomains = {};
@@ -78,6 +88,20 @@ async function init() {
   if (saved.futureself_buffer !== undefined) bufferSelect.value = saved.futureself_buffer;
   if (saved.futureself_customDomains) customDomains = saved.futureself_customDomains;
   if (saved.futureself_customCategories) customCategories = saved.futureself_customCategories;
+
+  // Restore any user-added domains saved under built-in categories
+  if (saved.futureself_blocklist) {
+    for (var i = 0; i < BUILTIN_CATEGORY_ORDER.length; i++) {
+      var builtInCategory = BUILTIN_CATEGORY_ORDER[i];
+      var savedCategoryDomains = saved.futureself_blocklist[builtInCategory] || [];
+      for (var j = 0; j < savedCategoryDomains.length; j++) {
+        var savedDomain = savedCategoryDomains[j];
+        if (!DEFAULT_CATEGORIES[builtInCategory].includes(savedDomain)) {
+          DEFAULT_CATEGORIES[builtInCategory].push(savedDomain);
+        }
+      }
+    }
+  }
 
   if (saved.futureself_blocklist) {
     // Restore default category checks
@@ -328,7 +352,22 @@ function populateCategoryDropdown() {
   defaultOpt.textContent = "Category...";
   customDomainCategorySelect.appendChild(defaultOpt);
 
-  // Custom categories first
+  // Built-in categories first
+  for (var b = 0; b < BUILTIN_CATEGORY_ORDER.length; b++) {
+    var builtInOpt = document.createElement("option");
+    builtInOpt.value = "builtin:" + BUILTIN_CATEGORY_ORDER[b];
+    builtInOpt.textContent = BUILTIN_CATEGORY_ORDER[b];
+    customDomainCategorySelect.appendChild(builtInOpt);
+  }
+
+  // Custom categories below divider
+  if (customCategories.length > 0) {
+    var divider = document.createElement("option");
+    divider.disabled = true;
+    divider.textContent = "──────────";
+    customDomainCategorySelect.appendChild(divider);
+  }
+
   for (var i = 0; i < customCategories.length; i++) {
     var opt = document.createElement("option");
     opt.value = "custom:" + i;
@@ -357,7 +396,14 @@ function addCustomDomain() {
 
   var catValue = customDomainCategorySelect.value;
 
-  if (catValue.startsWith("custom:")) {
+  if (catValue.startsWith("builtin:")) {
+    var builtInCategory = catValue.slice("builtin:".length);
+    if (DEFAULT_CATEGORIES[builtInCategory] && !DEFAULT_CATEGORIES[builtInCategory].includes(domain)) {
+      DEFAULT_CATEGORIES[builtInCategory].push(domain);
+    }
+    checkedDomains[domain] = true;
+    renderCategories();
+  } else if (catValue.startsWith("custom:")) {
     // Add to a custom category
     var catIdx = parseInt(catValue.split(":")[1], 10);
     if (catIdx >= 0 && catIdx < customCategories.length) {
