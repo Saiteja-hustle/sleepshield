@@ -3,7 +3,7 @@
   "name": "Future Self",
   "short_name": "FutureSelf",
   "version": "2.0.1",
-  "description": "Your PC doesn't have a bedtime. Now it does. Block distracting sites during your sleep window — including work tools and AI tools — and let your future self thank you.",
+  "description": "Block distracting sites during your sleep window—including work and AI tools—so your future self can rest and stay focused.",
   "permissions": [
     "storage",
     "webNavigation",
