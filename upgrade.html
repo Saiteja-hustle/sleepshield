@@ -100,6 +100,52 @@
       margin-top: 2rem;
     }
 
+    .fs-upgrade-activation {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--night-slate);
+    }
+
+    .fs-upgrade-activation-copy {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .fs-upgrade-activation-row {
+      display: flex;
+      gap: 8px;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .fs-upgrade-activation-input {
+      flex: 1;
+      background: var(--night-charcoal);
+      color: var(--text-primary);
+      border: 1px solid var(--night-slate);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-size: 13px;
+    }
+
+    .fs-upgrade-activation-btn {
+      background: var(--night-charcoal);
+      color: var(--text-primary);
+      border: 1px solid var(--night-slate);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .fs-upgrade-activation-status {
+      min-height: 1.1rem;
+      margin-top: 0.6rem;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
     .fs-upgrade-stats {
       display: flex;
       gap: 2rem;
@@ -165,6 +211,16 @@
 
     <p class="fs-upgrade-sub">Future Self blocks distracting sites during your sleep window so tomorrow-you shows up fully. One payment, lifetime access.</p>
     <a class="fs-upgrade-cta" href="https://futureself.joinhustleclub.com/#pricing" target="_blank">Get Lifetime Access — $19</a>
+
+    <div class="fs-upgrade-activation">
+      <p class="fs-upgrade-activation-copy">Have an activation code?</p>
+      <div class="fs-upgrade-activation-row">
+        <input id="activation-code" class="fs-upgrade-activation-input" type="text" placeholder="Enter code" autocomplete="off">
+        <button id="btn-activate" class="fs-upgrade-activation-btn">Apply</button>
+      </div>
+      <p id="activation-status" class="fs-upgrade-activation-status" aria-live="polite"></p>
+    </div>
+
     <p class="fs-upgrade-tagline">Tomorrow will thank you.</p>
     <button class="fs-upgrade-logout" id="btn-logout">Log out</button>
   </div>
@@ -187,6 +243,47 @@
     document.getElementById("btn-logout").addEventListener("click", async function () {
       await SupabaseAuth.signOut();
       window.location.href = chrome.runtime.getURL("login.html");
+    });
+
+    var activationInput = document.getElementById("activation-code");
+    var activationStatus = document.getElementById("activation-status");
+    var activationButton = document.getElementById("btn-activate");
+
+    async function activateForeverCode() {
+      var enteredCode = activationInput.value.trim().toLowerCase();
+      if (enteredCode !== "futureself2026") {
+        activationStatus.textContent = "Invalid code.";
+        return;
+      }
+
+      await chrome.storage.local.set({
+        futureself_freeForever: true,
+        futureself_isPaid: true
+      });
+
+      activationStatus.textContent = "Activated. Lifetime access unlocked.";
+      activationInput.value = "";
+      activationInput.disabled = true;
+      activationButton.disabled = true;
+      setTimeout(function () {
+        window.location.href = chrome.runtime.getURL("options.html");
+      }, 600);
+    }
+
+    activationButton.addEventListener("click", activateForeverCode);
+    activationInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        activateForeverCode();
+      }
+    });
+
+    chrome.storage.local.get(["futureself_freeForever", "futureself_isPaid"], function (data) {
+      if (data.futureself_freeForever || data.futureself_isPaid) {
+        activationStatus.textContent = "Already activated on this browser.";
+        activationInput.disabled = true;
+        activationButton.disabled = true;
+      }
     });
   </script>
 </body>

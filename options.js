@@ -61,7 +61,9 @@ var customDomainInput = document.getElementById("custom-domain");
 var btnAddDomain = document.getElementById("btn-add-domain");
 var btnSave = document.getElementById("btn-save");
 var saveMsg = document.getElementById("save-msg");
-var activationInput = document.getElementById("activation-code"); // may be null if removed from HTML
+var activationInput = document.getElementById("activation-code");
+var btnActivateCode = document.getElementById("btn-activate-code");
+var activationStatus = document.getElementById("activation-status");
 var btnNewCategory = document.getElementById("btn-new-category");
 var categoryForm = document.getElementById("category-form");
 var categoryNameInput = document.getElementById("category-name-input");
@@ -77,8 +79,14 @@ async function init() {
   var saved = await chrome.storage.local.get([
     "futureself_wakeTime", "futureself_sleepHours", "futureself_buffer",
     "futureself_blocklist", "futureself_customDomains", "futureself_setupComplete",
-    "futureself_customCategories"
+    "futureself_customCategories", "futureself_freeForever", "futureself_isPaid"
   ]);
+
+  if ((saved.futureself_freeForever || saved.futureself_isPaid) && activationInput) {
+    activationInput.disabled = true;
+    if (btnActivateCode) btnActivateCode.disabled = true;
+    if (activationStatus) activationStatus.textContent = "Already activated on this browser.";
+  }
 
   if (saved.futureself_wakeTime) wakeTimeInput.value = saved.futureself_wakeTime;
   if (saved.futureself_sleepHours) {
@@ -161,17 +169,38 @@ async function init() {
     if (e.key === "Escape") hideCategoryForm();
   });
 
-  // Hidden activation code (legacy — kept for backward compat)
+  // Activation code
   if (activationInput) {
-    activationInput.addEventListener("input", function () {
-      if (activationInput.value === "FUTURESELF2026") {
-        chrome.storage.local.set({ futureself_isPaid: true });
-        activationInput.value = "";
-        activationInput.placeholder = "Activated!";
-        activationInput.disabled = true;
+    activationInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        activateForeverCode();
       }
     });
   }
+  if (btnActivateCode) {
+    btnActivateCode.addEventListener("click", activateForeverCode);
+  }
+}
+
+async function activateForeverCode() {
+  if (!activationInput || !activationStatus) return;
+
+  var enteredCode = activationInput.value.trim().toLowerCase();
+  if (enteredCode !== "futureself2026") {
+    activationStatus.textContent = "Invalid code.";
+    return;
+  }
+
+  await chrome.storage.local.set({
+    futureself_freeForever: true,
+    futureself_isPaid: true
+  });
+
+  activationInput.value = "";
+  activationInput.disabled = true;
+  if (btnActivateCode) btnActivateCode.disabled = true;
+  activationStatus.textContent = "Activated. Lifetime access unlocked.";
 }
 
 function updateCalculation() {

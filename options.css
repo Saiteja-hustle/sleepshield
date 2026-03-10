@@ -570,31 +570,46 @@ body {
 .fs-save-msg.fs-success { color: var(--green); }
 .fs-save-msg.fs-info { color: var(--amber); }
 
-/* ---- Hidden activation ---- */
+/* ---- Activation ---- */
 
 .fs-activation {
-  margin-top: 3rem;
-  text-align: center;
-  opacity: 0.2;
-  transition: opacity 0.3s;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
 }
 
-.fs-activation:hover { opacity: 0.5; }
+.fs-activation-copy {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.fs-activation-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
 .fs-activation-input {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid transparent;
+  flex: 1;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.4rem 0.8rem;
-  font-size: 11px;
-  font-family: var(--font-mono);
-  text-align: center;
-  width: 200px;
+  padding: 0.55rem 0.75rem;
+  font-size: 12px;
+  font-family: var(--font-body);
   transition: border-color 0.2s;
 }
 
 .fs-activation-input:focus {
   outline: none;
-  border-color: var(--border);
+  border-color: var(--border-light);
+}
+
+.fs-activation-status {
+  margin-top: 0.5rem;
+  font-size: 11px;
+  min-height: 1.1rem;
+  color: var(--text-muted);
 }

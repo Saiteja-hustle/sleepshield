@@ -91,9 +91,15 @@
     <button class="fs-button-primary fs-btn-save" id="btn-save">Protect my sleep</button>
     <p class="fs-save-msg fs-hidden" id="save-msg"></p>
 
-    <!-- Hidden activation -->
+    <!-- Forever free activation -->
     <div class="fs-activation">
-      <input type="text" class="fs-activation-input" id="activation-code" placeholder="Activation code" autocomplete="off">
+      <h3 class="fs-custom-title">Activation code</h3>
+      <p class="fs-activation-copy">Have a promo code? Enter it here.</p>
+      <div class="fs-activation-row">
+        <input type="text" class="fs-activation-input" id="activation-code" placeholder="Enter code" autocomplete="off">
+        <button class="fs-button-secondary fs-btn-small" id="btn-activate-code">Apply</button>
+      </div>
+      <p class="fs-activation-status" id="activation-status" aria-live="polite"></p>
     </div>
   </div>
 

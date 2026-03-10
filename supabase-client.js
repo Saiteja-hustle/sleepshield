@@ -148,6 +148,8 @@ var SupabaseAuth = {
   async checkAuthStatus() {
     var TRIAL_DURATION_MS = 24 * 60 * 60 * 1000;
     var tokens = await SupabaseAuth.getStoredTokens();
+    var accessFlags = await chrome.storage.local.get(["futureself_freeForever", "futureself_isPaid"]);
+    var hasForeverAccess = accessFlags.futureself_freeForever === true || accessFlags.futureself_isPaid === true;
 
     if (!tokens.futureself_access_token) {
       return {
@@ -192,7 +194,7 @@ var SupabaseAuth = {
       var status = {
         isLoggedIn: true,
         isTrialActive: isTrialActive,
-        isPaid: isPaid,
+        isPaid: isPaid || hasForeverAccess,
         trialHoursLeft: trialHoursLeft,
         email: tokens.futureself_user_email || null
       };
@@ -205,12 +207,13 @@ var SupabaseAuth = {
       // Offline or error — use cached status
       var cached = await chrome.storage.local.get("futureself_auth_status");
       if (cached.futureself_auth_status) {
+        cached.futureself_auth_status.isPaid = cached.futureself_auth_status.isPaid || hasForeverAccess;
         return cached.futureself_auth_status;
       }
       return {
         isLoggedIn: true,
         isTrialActive: false,
-        isPaid: false,
+        isPaid: hasForeverAccess,
         trialHoursLeft: 0,
         email: tokens.futureself_user_email || null
       };
